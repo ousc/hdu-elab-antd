@@ -24,6 +24,7 @@ npm start
 ## 更多文档
 - angular5.0.0(https://angular.cn/guide/quickstart)
 - NG-ZORRO(http://ng.ant.design)
+- TypeScript(https://www.tslang.cn/docs/home.html)
 
 ## 文件架构
 
