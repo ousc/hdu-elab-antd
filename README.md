@@ -19,7 +19,11 @@ npm start
 
 ## 环境介绍
 
-- ng-zorro-antd@0.6 基于Ant Design 的 Angular^5.0.0 实现，开发和服务于企业级后台产品；
+- ng-zorro-antd@0.6 基于Ant Design 的 Angular^5.0.0 实现，开发和服务于企业级后台产品
+
+## 更多文档
+angular5.0.0(https://angular.cn/guide/quickstart)
+NG-ZORRO(http://ng.ant.design)
 
 ## 文件架构
 
