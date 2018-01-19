@@ -7,9 +7,9 @@
 确保您的Node版本>= 8，NPM版本 >= 3。
 
 ```
-git clone --depth 1 https://github.com/ousc/HDU-elab-antd
+git clone --depth 1 https://github.com/ousc/hdu-elab-antd
 
-cd HDU-elab-antd
+cd hdu-elab-antd
 
 npm install
 # cnpm install
