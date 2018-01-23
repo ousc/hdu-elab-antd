@@ -1,6 +1,6 @@
 # HDU-elab-antd
 
-[HDU-elab-antd](https://github.com/ousc/HDU-elab-antd)是杭州电子科技大学MOOC社团基于JAVA+[ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)研发的机房预约系统。
+[HDU-elab-antd](https://github.com/ousc/HDU-elab-antd)是杭州电子科技大学基于JAVA+[ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)研发的机房预约系统。
 
 
 ## 快速开始
