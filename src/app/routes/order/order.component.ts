@@ -24,7 +24,9 @@ export class OrderComponent implements OnInit {
   //使用时将本数组置空
   submitBtn = '下一步';
   submitBackBtn = '上一步';
-  public current = 0;
+  current = 0;
+  zhiyuan2  = false;
+  zhiyuan3  = false;
   course = [
     { value: '101123123', label: '数据结构课程设计{周一345节 1-17周}' },
     { value: '101123124', label: '数据结构课程设计{周一456节 1-17周}' },

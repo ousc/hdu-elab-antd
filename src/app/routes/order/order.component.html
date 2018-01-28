@@ -132,14 +132,15 @@
   </nz-card>
   <nz-card [nzBordered]="false" style="margin-top: 20px;" nzLoading>
     <ng-template #title>
-      第二志愿
+      <span>第二志愿</span><nz-switch [(ngModel)]="zhiyuan2" [ngModelOptions]="{standalone: true}"></nz-switch>
     </ng-template>
-    <ng-template #body>
+    <ng-template *ngIf="zhiyuan2" #body>
       <div class="formItem" nz-form-item>
         <div nz-form-control [nzValidateStatus]="validateForm.controls.course"  [nzValidateStatus]="getFormControl('course')"  nzHasFeedback >
           <label for="course" nz-col nzSpan="9">课程：</label>
           <div nz-col nzSpan="13">
-            {{validateForm.controls['course'].value.value}}
+            {{validateForm.controls['course'].value.label}}(
+            {{validateForm.controls['course'].value.value}})
           </div>
           <div class="help">
             <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.course.dirty&&validateForm.controls.course.hasError('required')">课程为必选项！</div>
@@ -242,9 +243,9 @@
   </nz-card>
   <nz-card [nzBordered]="false" style="margin-top: 20px;" nzLoading>
     <ng-template #title>
-      第三志愿
+      <span>第三志愿</span><nz-switch [(ngModel)]="zhiyuan3" [ngModelOptions]="{standalone: true}"></nz-switch>
     </ng-template>
-    <ng-template #body>
+    <ng-template *ngIf="zhiyuan3" #body>
       <div class="formItem" nz-form-item>
         <div nz-form-control [nzValidateStatus]="validateForm.controls.course"  [nzValidateStatus]="getFormControl('course')"  nzHasFeedback >
           <label for="course" nz-col nzSpan="9">课程：</label>
