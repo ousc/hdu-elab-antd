@@ -143,8 +143,30 @@ export class OrderComponent implements OnInit {
   }
 
   _submitForm() {
-    if(this.zhiyuan2==false)
-
+    if(this.zhiyuan2==false){
+      this.validateForm.controls['week2'].reset();
+      this.validateForm.controls['weekday2'].reset();
+      this.validateForm.controls['classNum2'].reset();
+      this.validateForm.controls['type3'].reset();
+      let c = this.validateForm.value;
+      c['week2']=[{value:-1,"label":" "}];
+      c['weekday2']={value:-1,"label":" "};
+      c['classNum2']=[{value:-1,"label":" "}];
+      c['type2']=-1;
+      this.validateForm.setValue(c);
+    }
+    if(this.zhiyuan3==false){
+        this.validateForm.controls['week3'].reset();
+        this.validateForm.controls['weekday3'].reset();
+        this.validateForm.controls['classNum3'].reset();
+        this.validateForm.controls['type3'].reset();
+        let c = this.validateForm.value;
+        c['week3']=[{value:-1,"label":" "}];
+        c['weekday3']={value:-1,"label":" "};
+        c['classNum3']=[{value:-1,"label":" "}];
+        c['type3']=-1;
+        this.validateForm.setValue(c);
+    }
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
     }
@@ -197,18 +219,18 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
     this.validateForm = this.fb.group({
       course: ['', [Validators.required]],
-      week1: [[], [Validators.required]],
-      week2: [[{value:-1,"label":" "}], [Validators.required]],
-      week3: [[{value:-1,"label":" "}], [Validators.required]],
-      weekday1:[{}, [Validators.required]],
-      weekday2:[{value:-1,"label":" "}, [Validators.required]],
-      weekday3:[{value:-1,"label":" "}, [Validators.required]],
-      classNum1:[, [Validators.required]],
-      classNum2:[[{ value:-1, label: ' '}], [Validators.required]],
-      classNum3:[[{ value:-1, label: ' '}], [Validators.required]],
+      week1: [null, [Validators.required]],
+      week2: [null, [Validators.required]],
+      week3: [null, [Validators.required]],
+      weekday1:[null, [Validators.required]],
+      weekday2:[null, [Validators.required]],
+      weekday3:[null, [Validators.required]],
+      classNum1:[null, [Validators.required]],
+      classNum2:[null, [Validators.required]],
+      classNum3:[null, [Validators.required]],
       type1:[null, [Validators.required]],
-      type2:[-1, [Validators.required]],
-      type3:[-1, [Validators.required]],
+      type2:[null, [Validators.required]],
+      type3:[null, [Validators.required]],
     });
   }
 }
