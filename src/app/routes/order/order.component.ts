@@ -85,6 +85,8 @@ export class OrderComponent implements OnInit {
     switch(n){
       case 0:{
         for(let i=1;i<4;i++){
+          if(i==2&&this.zhiyuan2==false) continue;
+          if(i==3&&this.zhiyuan3==false) continue;
           let weektemp =[],weekdaytemp = [],classNumtemp = [], coursetemp = [];
           for(let j=0;j<this.validateForm.controls['week'+i].value.length;j++){
             weektemp.push(this.validateForm.controls['week'+i].value[j].value);
