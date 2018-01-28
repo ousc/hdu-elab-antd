@@ -91,7 +91,7 @@ export class OrderComponent implements OnInit {
             classNumtemp.push(this.validateForm.controls['classNum'+i].value[j].value);
           }
           weekdaytemp[0] = this.validateForm.controls['weekday'+i].value.value;
-          coursetemp[0] = this.validateForm.controls['course'+i].value.value;
+          coursetemp[0] = this.validateForm.controls['course'].value.value;
           let data = {
             course: coursetemp,//课程
             week: weektemp,//周数
@@ -189,9 +189,7 @@ export class OrderComponent implements OnInit {
   }
   ngOnInit() {
     this.validateForm = this.fb.group({
-      course1: [null, [Validators.required]],
-      course2: [null, [Validators.required]],
-      course3: [null, [Validators.required]],
+      course: ['', [Validators.required]],
       week1: [null, [Validators.required]],
       week2: [null, [Validators.required]],
       week3: [null, [Validators.required]],

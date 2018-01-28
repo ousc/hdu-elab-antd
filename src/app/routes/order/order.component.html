@@ -15,12 +15,12 @@
     </ng-template>
     <ng-template #body>
   <div class="formItem" nz-form-item>
-    <div nz-form-control [nzValidateStatus]="validateForm.controls.course1"  [nzValidateStatus]="getFormControl('course1')"  nzHasFeedback >
-      <label for="course1" nz-col nzSpan="9">课程：</label>
+    <div nz-form-control [nzValidateStatus]="validateForm.controls.course"  [nzValidateStatus]="getFormControl('course')"  nzHasFeedback >
+      <label for="course" nz-col nzSpan="9">课程：</label>
       <div nz-col nzSpan="13">
         <nz-select
-        id="course1"
-        formControlName="course1"
+        id="course"
+        formControlName="course"
         [nzPlaceHolder]="'请选择课程'"
         [nzNotFoundContent]="'无该课程记录'"
         nzShowSearch="true">
@@ -32,7 +32,7 @@
       </nz-select>
       </div>
       <div class="help">
-        <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.course1.dirty&&validateForm.controls.course1.hasError('required')">课程为必选项！</div>
+        <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.course.dirty&&validateForm.controls.course.hasError('required')">课程为必选项！</div>
       </div>
       </div>
   </div>
@@ -136,24 +136,13 @@
     </ng-template>
     <ng-template #body>
       <div class="formItem" nz-form-item>
-        <div nz-form-control [nzValidateStatus]="validateForm.controls.course2"  [nzValidateStatus]="getFormControl('course2')"  nzHasFeedback >
-          <label for="course1" nz-col nzSpan="9">课程：</label>
+        <div nz-form-control [nzValidateStatus]="validateForm.controls.course"  [nzValidateStatus]="getFormControl('course')"  nzHasFeedback >
+          <label for="course" nz-col nzSpan="9">课程：</label>
           <div nz-col nzSpan="13">
-            <nz-select
-              id="course2"
-              formControlName="course2"
-              [nzPlaceHolder]="'请选择课程'"
-              [nzNotFoundContent]="'无该课程记录'"
-              nzShowSearch="true">
-              <nz-option
-                *ngFor="let option of course"
-                [nzLabel]="option.label"
-                [nzValue]="option">
-              </nz-option>
-            </nz-select>
+            {{validateForm.controls['course'].value.value}}
           </div>
           <div class="help">
-            <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.course2.dirty&&validateForm.controls.course2.hasError('required')">课程为必选项！</div>
+            <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.course.dirty&&validateForm.controls.course.hasError('required')">课程为必选项！</div>
           </div>
         </div>
       </div>
@@ -257,24 +246,13 @@
     </ng-template>
     <ng-template #body>
       <div class="formItem" nz-form-item>
-        <div nz-form-control [nzValidateStatus]="validateForm.controls.course3"  [nzValidateStatus]="getFormControl('course3')"  nzHasFeedback >
-          <label for="course3" nz-col nzSpan="9">课程：</label>
+        <div nz-form-control [nzValidateStatus]="validateForm.controls.course"  [nzValidateStatus]="getFormControl('course')"  nzHasFeedback >
+          <label for="course" nz-col nzSpan="9">课程：</label>
           <div nz-col nzSpan="13">
-            <nz-select
-              id="course3"
-              formControlName="course3"
-              [nzPlaceHolder]="'请选择课程'"
-              [nzNotFoundContent]="'无该课程记录'"
-              nzShowSearch="true">
-              <nz-option
-                *ngFor="let option of course"
-                [nzLabel]="option.label"
-                [nzValue]="option">
-              </nz-option>
-            </nz-select>
+            {{validateForm.controls['course'].value.value}}
           </div>
           <div class="help">
-            <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.course3.dirty&&validateForm.controls.course3.hasError('required')">课程为必选项！</div>
+            <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.course.dirty&&validateForm.controls.course.hasError('required')">课程为必选项！</div>
           </div>
         </div>
       </div>
