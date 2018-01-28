@@ -65,10 +65,10 @@
   "main": "karma.conf.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ousc/HDU-elab-antd.git"
+    "url": "git+https://github.com/ousc/hdu-elab-antd.git"
   },
   "bugs": {
-    "url": "https://github.com/ousc/HDU-elab-antd/issues"
+    "url": "https://github.com/ousc/hdu-elab-antd/issues"
   },
-  "homepage": "https://github.com/ousc/HDU-elab-antd#readme"
+  "homepage": "https://github.com/ousc/hdu-elab-antd#readme"
 }

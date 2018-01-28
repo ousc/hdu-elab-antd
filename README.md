@@ -1,15 +1,15 @@
 # HDU-elab-antd
 
-[HDU-elab-antd](https://github.com/ousc/HDU-elab-antd)是基于[ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)的机房预约系统。
+[HDU-elab-antd](https://github.com/ousc/HDU-elab-antd)是杭州电子科技大学基于JAVA+[ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)研发的机房预约系统。
 
 
 ## 快速开始
 确保您的Node版本>= 8，NPM版本 >= 3。
 
 ```
-git clone --depth 1 https://github.com/ousc/HDU-elab-antd
+git clone --depth 1 https://github.com/ousc/hdu-elab-antd
 
-cd HDU-elab-antd
+cd hdu-elab-antd
 
 npm install
 # cnpm install
