@@ -6,14 +6,15 @@ import {RouterModule} from '@angular/router';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {CookieModule} from 'ngx-cookie';
 import {ChartsModule} from 'ng2-charts/ng2-charts';
-import {StorageModule} from './core/storage/storage.module';
+import {StorageModule} from '@core/storage/storage.module';
+import {DividerModule} from "@components/Divider/Divider.module";
 
 @NgModule({
   imports: [
     HttpClientModule,
     NgZorroAntdModule.forRoot(),
     CookieModule.forRoot(),
-    StorageModule,
+    StorageModule
   ],
   exports: [
     CommonModule,
