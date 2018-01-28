@@ -123,6 +123,7 @@ export class OrderComponent implements OnInit {
       this.submit(this.current);
     }
   }
+
   //控制全选单双重置
   setWeek = (target, operation) => {
     this.validateForm.controls[target].reset();
