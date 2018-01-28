@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {OrderService} from './order.service';
 import {Router} from '@angular/router';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from "@core/storage/storage.service";
 
 @Component({
@@ -14,13 +14,16 @@ import {SessionStorageService} from "@core/storage/storage.service";
 })
 
 export class OrderComponent implements OnInit {
+  constructor(private confirmServ: NzModalService,private fb: FormBuilder, private orderService: OrderService, private router: Router, private _message: NzMessageService,public _storage: SessionStorageService) {
+  }
   validateForm: FormGroup;
   loadStatus: boolean;
-  labdata = [];
+  labdata = [{"checked":false,"id":2,"adminId":2,"adminName":"张三","labName":"软件开发综合实验室","labType":"软件实验室","labPeoCount":100,"labBuild":1,"labNumber":105,"labIntroduce":"a"},
+    {"checked":false,"id":3,"adminId":3,"adminName":"李四","labName":"安卓开发实验室","labType":"软件实验室","labPeoCount":100,"labBuild":3,"labNumber":317,"labIntroduce":"a"},
+    {"checked":false,"id":4,"adminId":4,"adminName":"王五","labName":"苹果开发实验室","labType":"软件实验室","labPeoCount":100,"labBuild":3,"labNumber":318,"labIntroduce":null}];
+  //使用时将本数组置空
   submitBtn = '下一步';
-  private _storage: SessionStorageService;
-  constructor(private fb: FormBuilder, private orderService: OrderService, private router: Router, private _message: NzMessageService) {
-  }
+  submitBackBtn = '上一步';
   public current = 0;
   course = [
     { value: '101123123', label: '数据结构课程设计{周一345节 1-17周}' },
@@ -69,12 +72,16 @@ export class OrderComponent implements OnInit {
     { value:1, label: '计算机房1' },
     { value:2, label: '计算机房2' },
   ];
-
+  info(contentTpl) {
+    this.confirmServ.info({
+      title: '警告',
+      content: contentTpl
+    });
+  }
   submit(n): void {
     let url = ['接口地址1','接口地址2','接口地址3','接口地址4'];//改为接口地址
-    let success = false;
     switch(n){
-      case 0:
+      case 0:{
         for(let i=1;i<4;i++){
           let weektemp =[],weekdaytemp = [],classNumtemp = [], coursetemp = [];
           for(let j=0;j<this.validateForm.controls['week'+i].value.length;j++){
@@ -92,27 +99,45 @@ export class OrderComponent implements OnInit {
             classNum:classNumtemp,//第几节
             type:this.validateForm.controls['type'+i].value.value//种类
           };
-          // let res = this.orderService.executeHttp(url[n],{username:this._storage.get('username'),data:data,no:n+1});
-          // if(!res['result']){
+          // let res = this.orderService.executeHttp(url[n],{username:this._storage.get('username'),data:data,no:i});
+          // if(res['result']=='success'){
           //   alert('志愿'+i+'提交失败');
           //   return;
           // }
           // else{
-          // for(let i=0;i<res['data'].length;i++)
-          //    this.labdata.push(res['data'][i]);
+          // for(let i=0;i<res['lab'].length;i++)
+          //    this.labdata.push(res['lab'][i]);
           // }
           console.log('已将');
           console.log(this._storage.get('username'));
           console.log(data);
           console.log(i);
-          console.log('提交到'+url[n]);
-          success = true;//使用时注释这里，将上面注释的代码回复即可
+          console.log('提交到'+url[0]);
         }
-    }
-    if(success){
-      this.current+=1;
+        this.current+=1;
+        this.submitBtn = '下一步';
+        break;
+      }
+      case 1:{
+        let data = [];
+        for(let i=0;i<this.labdata.length;i++)
+          if(this.labdata[i].checked){
+            data.push(this.labdata[i].id);
+        }
+        if(data.length==0){
+          this.info('请至少选择一个实验室！');
+          this.submitBtn = '下一步';
+          break;
+        }
+        console.log(data);
+        // let res = this.orderService.executeHttp(url[1],data);
+        }
+        this.current+=1;
+        this.submitBtn = '下一步';
+        break;
     }
   }
+
   _submitForm() {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -121,9 +146,14 @@ export class OrderComponent implements OnInit {
       this.loadStatus = true;
       this.submitBtn = '提交中...';
       this.submit(this.current);
+      this.loadStatus = false;
     }
   }
-
+  back(){
+    this.loadStatus = true;
+    this.current-=1;
+    this.loadStatus = false;
+  }
   //控制全选单双重置
   setWeek = (target, operation) => {
     this.validateForm.controls[target].reset();
