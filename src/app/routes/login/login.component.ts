@@ -14,7 +14,7 @@ import {NzMessageService} from 'ng-zorro-antd';
 export class LoginComponent implements OnInit {
   validateForm: FormGroup;
   loadStatus: boolean;
-  loginBtn = 'Login';
+  loginBtn = '登录';
 
   _submitForm() {
     for (const i in this.validateForm.controls) {

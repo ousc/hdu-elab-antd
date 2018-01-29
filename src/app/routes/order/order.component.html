@@ -379,6 +379,8 @@
   </div>
 </div>
 <div nz-row *ngIf="current==1">
+  <nz-alert [nzType]="'info'" [nzMessage]="'共有'+labdata.length+'个实验室符合要求'" nzShowIcon="true" style="margin-top: 30px;">
+  </nz-alert>
   <nz-table #nzTable [nzDataSource]="labdata" nzShowFooter="false">
     <thead nz-thead>
     <tr>
@@ -407,7 +409,7 @@
       <td nz-td>{{data.labPeoCount}}人</td>
       <td nz-td>{{data.labType}}</td>
       <td nz-td>{{data.adminName}}</td>
-      <td nz-td>
+      <td nz-td *ngIf="!data.status">
             <span>
               <a href="#">查看</a>
               <span nz-table-divider></span>
@@ -416,10 +418,62 @@
               <a href="#">删除</a>
             </span>
       </td>
+      <td nz-td *ngIf="data.status">
+        <a href="#">查看预约状态</a>
+      </td>
     </tr>
     </tbody>
   </nz-table>
 <div class="submitBtn" nz-form-item nz-col [nzOffset]="13" nzSpan="9">
+  <div nz-form-control>
+    <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="back()">{{submitBackBtn}}</button>
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">{{submitBtn}}</button>
+  </div>
+</div>
+</div>
+<div nz-row *ngIf="current==2">
+  <nz-alert [nzType]="'info'" [nzMessage]="'您共选择了个实验室'" nzShowIcon="true" style="margin-top: 30px;">
+  </nz-alert>
+  <nz-table #nzTable [nzDataSource]="labdata" nzShowFooter="false">
+    <thead nz-thead>
+    <tr>
+      <th nz-th><span>编号</span></th>
+      <th nz-th><span>实验室名称</span></th>
+      <th nz-th><span>楼栋</span></th>
+      <th nz-th><span>门牌号</span></th>
+      <th nz-th><span>可容纳人员</span></th>
+      <th nz-th><span>分类</span></th>
+      <th nz-th><span>管理员</span></th>
+      <th nz-th><span>分配人数</span></th>
+    </tr>
+    </thead>
+    <tbody nz-tbody>
+      <tr nz-tbody-tr *ngFor="let data of labdata">
+        <td *ngIf="data.checked" nz-td>{{data.id}}</td>
+        <td *ngIf="data.checked" nz-td>{{data.labName}}</td>
+        <td *ngIf="data.checked" nz-td>{{data.labBuild}}</td>
+        <td *ngIf="data.checked" nz-td>{{data.labNumber}}</td>
+        <td *ngIf="data.checked" nz-td>{{data.labPeoCount}}人</td>
+        <td *ngIf="data.checked" nz-td>{{data.labType}}</td>
+        <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
+        <td *ngIf="data.checked" nz-td>
+              <span>
+               <nz-input [nzSize]="'large'" [(ngModel)]="data.aqCount" style="width: 200px;"></nz-input>
+                人
+              </span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="submitBtn" nz-form-item nz-col [nzOffset]="13" nzSpan="9">
+    <div nz-form-control>
+      <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="back()">{{submitBackBtn}}</button>
+      <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">{{submitBtn}}</button>
+    </div>
+  </div>
+</div>
+<div nz-row *ngIf="current==3">
+  <nz-alert [nzType]="'info'" [nzMessage]="'请确认以下预约信息，确认无误后点击提交按钮。'" nzShowIcon="true" style="margin-top: 30px;">
   <div nz-form-control>
     <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="back()">{{submitBackBtn}}</button>
     <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">{{submitBtn}}</button>

@@ -18,9 +18,9 @@ export class OrderComponent implements OnInit {
   }
   validateForm: FormGroup;
   loadStatus: boolean;
-  labdata = [{"checked":false,"id":2,"adminId":2,"adminName":"张三","labName":"软件开发综合实验室","labType":"软件实验室","labPeoCount":100,"labBuild":1,"labNumber":105,"labIntroduce":"a"},
-    {"checked":false,"id":3,"adminId":3,"adminName":"李四","labName":"安卓开发实验室","labType":"软件实验室","labPeoCount":100,"labBuild":3,"labNumber":317,"labIntroduce":"a"},
-    {"checked":false,"id":4,"adminId":4,"adminName":"王五","labName":"苹果开发实验室","labType":"软件实验室","labPeoCount":100,"labBuild":3,"labNumber":318,"labIntroduce":null}];
+  labdata = [{"checked":false,aqCount:'0',status:'false',"id":2,"adminId":2,"adminName":"张三","labName":"软件开发综合实验室","labType":"软件实验室","labPeoCount":100,"labBuild":1,"labNumber":105,"labIntroduce":"a"},
+    {"checked":false,aqCount:'0',status:'false',"id":3,"adminId":3,"adminName":"李四","labName":"安卓开发实验室","labType":"软件实验室","labPeoCount":100,"labBuild":3,"labNumber":317,"labIntroduce":"a"},
+    {"checked":false,aqCount:'0',status:'true',"id":4,"adminId":4,"adminName":"王五","labName":"苹果开发实验室","labType":"软件实验室","labPeoCount":100,"labBuild":3,"labNumber":318,"labIntroduce":null}];
   //使用时将本数组置空
   submitBtn = '下一步';
   submitBackBtn = '上一步';
@@ -81,27 +81,27 @@ export class OrderComponent implements OnInit {
     });
   }
   submit(n): void {
-    let url = ['接口地址1','接口地址2','接口地址3','接口地址4'];//改为接口地址
-    switch(n){
-      case 0:{
-        for(let i=1;i<4;i++){
-          if(i==2&&this.zhiyuan2==false) continue;
-          if(i==3&&this.zhiyuan3==false) continue;
-          let weektemp =[],weekdaytemp = [],classNumtemp = [], coursetemp = [];
-          for(let j=0;j<this.validateForm.controls['week'+i].value.length;j++){
-            weektemp.push(this.validateForm.controls['week'+i].value[j].value);
+    let url = ['接口地址1', '接口地址2', '接口地址3', '接口地址4'];//改为接口地址
+    switch (n) {
+      case 0: {
+        for (let i = 1; i < 4; i++) {
+          if (i == 2 && this.zhiyuan2 == false) continue;
+          if (i == 3 && this.zhiyuan3 == false) continue;
+          let weektemp = [], weekdaytemp = [], classNumtemp = [], coursetemp = [];
+          for (let j = 0; j < this.validateForm.controls['week' + i].value.length; j++) {
+            weektemp.push(this.validateForm.controls['week' + i].value[j].value);
           }
-          for(let j=0;j<this.validateForm.controls['classNum'+i].value.length;j++){
-            classNumtemp.push(this.validateForm.controls['classNum'+i].value[j].value);
+          for (let j = 0; j < this.validateForm.controls['classNum' + i].value.length; j++) {
+            classNumtemp.push(this.validateForm.controls['classNum' + i].value[j].value);
           }
-          weekdaytemp[0] = this.validateForm.controls['weekday'+i].value.value;
+          weekdaytemp[0] = this.validateForm.controls['weekday' + i].value.value;
           coursetemp[0] = this.validateForm.controls['course'].value.value;
           let data = {
             course: coursetemp,//课程
             week: weektemp,//周数
-            weekday:weekdaytemp,//星期几
-            classNum:classNumtemp,//第几节
-            type:this.validateForm.controls['type'+i].value.value//种类
+            weekday: weekdaytemp,//星期几
+            classNum: classNumtemp,//第几节
+            type: this.validateForm.controls['type' + i].value.value//种类
           };
           // let res = this.orderService.executeHttp(url[n],{username:this._storage.get('username'),data:data,no:i});
           // if(res['result']=='success'){
@@ -109,36 +109,53 @@ export class OrderComponent implements OnInit {
           //   return;
           // }
           // else{
-          // for(let i=0;i<res['lab'].length;i++)
+          //   for(let i=0;i<res['lab'].length;i++){
+          //    res['lab']['checked']=false;
+          //    res['lab']['aqCount']=0;
           //    this.labdata.push(res['lab'][i]);
+          //   }
           // }
           console.log('已将');
           console.log(this._storage.get('username'));
           console.log(data);
           console.log(i);
-          console.log('提交到'+url[0]);
+          console.log('提交到' + url[0]);
         }
-        this.current+=1;
+        this.current += 1;
         this.submitBtn = '下一步';
         break;
       }
-      case 1:{
+      case 1: {
         let data = [];
-        for(let i=0;i<this.labdata.length;i++)
-          if(this.labdata[i].checked){
+        for (let i = 0; i < this.labdata.length; i++)
+          if (this.labdata[i].checked) {
             data.push(this.labdata[i].id);
-        }
-        if(data.length==0){
+          }
+        if (data.length == 0) {
           this.info('请至少选择一个实验室！');
           this.submitBtn = '下一步';
           break;
         }
         console.log(data);
-        // let res = this.orderService.executeHttp(url[1],data);
-        }
-        this.current+=1;
+        // let res = this.orderService.executeHttp(url[1],{username:this._storage.get('username'),data:data});
+        this.current += 1;
         this.submitBtn = '下一步';
         break;
+      }
+      case 2:{
+        let data = [];
+        for (let i = 0; i < this.labdata.length; i++)
+          if (this.labdata[i].checked) {
+            data.push(this.labdata[i].id);
+            data.push(this.labdata[i].aqCount);
+          }
+          console.log(data);
+        // let res = this.orderService.executeHttp(url[1],{username:this._storage.get('username'),data:data});
+        // if(res.result==''success) this.current += 1;
+        this.current += 1;
+        this.submitBtn = '下一步';
+        break;
+      }
     }
   }
 

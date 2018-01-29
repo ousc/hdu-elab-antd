@@ -11,7 +11,7 @@
             <i class="anticon anticon-user"></i>
           </ng-template>
         </nz-input>
-        <div nz-form-explain *ngIf="validateForm.controls.userName.dirty&&validateForm.controls.userName.hasError('required')">Please input your username!</div>
+        <div nz-form-explain *ngIf="validateForm.controls.userName.dirty&&validateForm.controls.userName.hasError('required')">请输入用户名</div>
       </div>
     </div>
     <div nz-form-item nz-row>
@@ -21,13 +21,13 @@
             <i class="anticon anticon-lock"></i>
           </ng-template>
         </nz-input>
-        <div nz-form-explain *ngIf="validateForm.controls.password.dirty&&validateForm.controls.password.hasError('required')">Please input your Password!</div>
+        <div nz-form-explain *ngIf="validateForm.controls.password.dirty&&validateForm.controls.password.hasError('required')">请输入密码！</div>
       </div>
     </div>
     <div nz-form-item>
       <div nz-form-control>
         <button nz-button [nzLoading]="loadStatus" class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">{{loginBtn}}</button>
-        <p><span>Username：guest</span><span>Password：guest</span></p>
+        <p><span>游客账号：guest</span><span>密码：guest</span></p>
       </div>
     </div>
   </form>
