@@ -146,8 +146,7 @@ export class OrderComponent implements OnInit {
         let data = [];
         for (let i = 0; i < this.labdata.length; i++)
           if (this.labdata[i].checked) {
-            data.push(this.labdata[i].id);
-            data.push(this.labdata[i].aqCount);
+            data.push({id:this.labdata[i].id,aqCount:this.labdata[i].aqCount});
           }
           console.log(data);
         // let res = this.orderService.executeHttp(url[1],{username:this._storage.get('username'),data:data});
