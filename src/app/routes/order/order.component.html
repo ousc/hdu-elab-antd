@@ -474,9 +474,9 @@
 </div>
 <div nz-row *ngIf="current==3">
   <nz-alert [nzType]="'info'" [nzMessage]="'请确认以下预约信息，确认无误后点击提交按钮。'" nzShowIcon="true" style="margin-top: 30px;">
+  </nz-alert>
   <div nz-form-control>
     <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="back()">{{submitBackBtn}}</button>
     <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">{{submitBtn}}</button>
   </div>
-  </nz-alert>
 </div>
