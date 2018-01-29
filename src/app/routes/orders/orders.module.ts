@@ -4,7 +4,7 @@ import {SharedModule} from '../../shared.module';
 import {DetailComponent} from './detail/detail.component';
 
 @NgModule({
-  declarations: [OrdersComponent],
+  declarations: [OrdersComponent, DetailComponent],
   imports: [SharedModule],
   exports: [OrdersComponent]
 })

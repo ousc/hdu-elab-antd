@@ -43,7 +43,7 @@
 <div nz-row [nzType]="'flex'" [nzJustify]="'start'">
   <div nz-col [nzSpan]="24" >
     <button nz-button [nzType]="'dashed'" style="width: inherit" >
-      <a  routerLink="/courses/add" routerLinkActive="active">
+      <a  routerLink="add" routerLinkActive="active">
       <i class="anticon anticon-plus"></i>
       <span>添加</span></a>
     </button>
@@ -75,7 +75,7 @@
         <td nz-td>
             <span>
               <span nz-table-divider></span>
-              <a href="#">编辑</a>
+              <a routerLink="edit">编辑</a>
               <span nz-table-divider></span>
               <nz-dropdown>
                 <a class="ant-dropdown-link" nz-dropdown>

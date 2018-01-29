@@ -25,9 +25,8 @@ import {AddcourseModule} from './courses/addcourse/addcourse.module';
         ChartsModule,
         CalendarModule,
         OrderModule,
-        OrdersModule, DetailModule,
+        OrdersModule,
         CoursesModule,
-        AddcourseModule
     ]
 })
 
