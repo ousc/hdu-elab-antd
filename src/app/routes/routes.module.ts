@@ -6,22 +6,29 @@ import {UserModule} from './user/user.module';
 import {LoginModule} from './login/login.module';
 import {routes} from './routes';
 import {ChartsModule} from './charts/charts.module';
-import {CalendarModule} from "./calendar/calendar.module";
-import {OrderModule} from "./order/order.module";
+import {CalendarModule} from './calendar/calendar.module';
+import {OrderModule} from './order/order.module';
+import {OrdersModule} from './orders/orders.module';
+import {DetailModule} from './orders/detail/detail.module';
+import {CoursesModule} from './courses/courses.module';
+import {AddcourseModule} from './courses/addcourse/addcourse.module';
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {useHash: true}),
-  ],
-  exports: [
-    IndexModule,
-    HomeModule,
-    UserModule,
-    LoginModule,
-    ChartsModule,
-    CalendarModule,
-    OrderModule
-  ]
+    imports: [
+        RouterModule.forRoot(routes, {useHash: true}),
+    ],
+    exports: [
+        IndexModule,
+        HomeModule,
+        UserModule,
+        LoginModule,
+        ChartsModule,
+        CalendarModule,
+        OrderModule,
+        OrdersModule, DetailModule,
+        CoursesModule,
+        AddcourseModule
+    ]
 })
 
 export class RoutesModule {

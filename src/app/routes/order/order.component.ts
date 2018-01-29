@@ -3,8 +3,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {OrderService} from './order.service';
 import {Router} from '@angular/router';
+<<<<<<< HEAD
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from "@core/storage/storage.service";
+=======
+import {NzMessageService} from 'ng-zorro-antd';
+import {SessionStorageService} from '@core/storage/storage.service';
+>>>>>>> update
 
 @Component({
   selector: 'app-order',

@@ -33,12 +33,12 @@ export class SiderComponent {
     {
       "icon": "clock-circle-o",
       "name": "预约管理",
-      "route": "",
+      "route": "/orders",
     },
     {
       "icon": "clock-circle-o",
       "name": "课程管理",
-      "route": "",
+      "route": "/courses",
     },
     {
       "icon": "clock-circle-o",
