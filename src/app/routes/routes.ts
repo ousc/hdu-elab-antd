@@ -9,8 +9,8 @@ import {CanAuthProvide} from '@core/services/auth.service';
 import {ChartsComponent} from './charts/charts.component';
 import {CalendarComponent} from './calendar/calendar.component';
 import {OrderComponent} from './order/order.component';
-import {OrdersComponent} from './orders/orders.component';
-import {DetailComponent} from './orders/detail/detail.component';
+import {YyglComponent} from './yygl/yygl.component';
+import {DetailComponent} from './yygl/detail/detail.component';
 import {CoursesComponent} from './courses/courses.component';
 import {AddcourseComponent} from './courses/addcourse/addcourse.component';
 import {EditcourseComponent} from './courses/editcourse/editcourse.component';
@@ -45,7 +45,7 @@ export const routes: Routes = [
                 }
             },
             {
-                path: 'orders', component: OrdersComponent, canActivate: [CanAuthProvide],
+                path: 'orders', component: YyglComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '预约管理'
                 }

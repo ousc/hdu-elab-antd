@@ -1,17 +1,19 @@
 ///<reference path="../../../../node_modules/@angular/forms/src/model.d.ts"/>
+///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {OrdersService} from './orders.service';
+import {YyglService} from './yygl.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+
 @Component({
-  selector: 'orders',
-  templateUrl: 'orders.component.html',
-  styleUrls: ['./orders.component.less'],
-  providers: [OrdersService]
+  selector: 'Yygl',
+  templateUrl: 'yygl.component.html',
+  styleUrls: ['./yygl.component.less'],
+  providers: [YyglService]
 })
 
-export class OrdersComponent {
+export class YyglComponent {
     _value = ''; /*搜索内容*/
     choice = 'all'; /*筛选条件:全部：all 进行中：ing 未开始：no*/
     /*预约情况：预约课程数，已预约学时，待通过预约数*/

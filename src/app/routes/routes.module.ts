@@ -8,7 +8,7 @@ import {routes} from './routes';
 import {ChartsModule} from './charts/charts.module';
 import {CalendarModule} from './calendar/calendar.module';
 import {OrderModule} from './order/order.module';
-import {OrdersModule} from './orders/orders.module';
+import {YyglModule} from './yygl/yygl.module';
 import {CoursesModule} from './courses/courses.module';
 
 
@@ -24,7 +24,7 @@ import {CoursesModule} from './courses/courses.module';
         ChartsModule,
         CalendarModule,
         OrderModule,
-        OrdersModule,
+        YyglModule,
         CoursesModule,
     ]
 })

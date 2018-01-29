@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
-import {OrdersComponent} from './orders.component';
+import {YyglComponent} from './yygl.component';
 import {SharedModule} from '../../shared.module';
 import {DetailComponent} from './detail/detail.component';
 
 @NgModule({
-  declarations: [OrdersComponent, DetailComponent],
+  declarations: [YyglComponent, DetailComponent],
   imports: [SharedModule],
-  exports: [OrdersComponent]
+  exports: [YyglComponent]
 })
 
-export class OrdersModule {
+export class YyglModule {
 
 }
