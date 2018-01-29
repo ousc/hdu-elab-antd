@@ -48,7 +48,7 @@ export const routes: Routes = [
                 path: 'orders', component: OrdersComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '预约管理'
-                },
+                }
             },
             { path : 'orders/detail', component: DetailComponent, canActivate: [CanAuthProvide],
                 data : {

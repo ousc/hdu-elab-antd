@@ -9,9 +9,8 @@ import {ChartsModule} from './charts/charts.module';
 import {CalendarModule} from './calendar/calendar.module';
 import {OrderModule} from './order/order.module';
 import {OrdersModule} from './orders/orders.module';
-import {DetailModule} from './orders/detail/detail.module';
 import {CoursesModule} from './courses/courses.module';
-import {AddcourseModule} from './courses/addcourse/addcourse.module';
+
 
 @NgModule({
     imports: [

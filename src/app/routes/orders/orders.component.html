@@ -55,7 +55,7 @@
       <tbody nz-tbody>
       <tr nz-tbody-tr *ngFor="let data of nzTable.data">
         <td nz-td>
-          <a href="#/orders/detail">{{data.course}}</a>
+          <a routerLink="detail">{{data.course}}</a>
           <br>
           <span>{{data.coursetime}}</span>
         </td>
