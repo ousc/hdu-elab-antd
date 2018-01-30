@@ -10,6 +10,7 @@ import {CalendarModule} from './calendar/calendar.module';
 import {OrderModule} from './order/order.module';
 import {YyglModule} from './yygl/yygl.module';
 import {CoursesModule} from './courses/courses.module';
+import {SyglModule} from './sygl/sygl.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {CoursesModule} from './courses/courses.module';
         OrderModule,
         YyglModule,
         CoursesModule,
+        SyglModule
     ]
 })
 

@@ -14,6 +14,7 @@ import {DetailComponent} from './yygl/detail/detail.component';
 import {CoursesComponent} from './courses/courses.component';
 import {AddcourseComponent} from './courses/addcourse/addcourse.component';
 import {EditcourseComponent} from './courses/editcourse/editcourse.component';
+import {SyglComponent} from './sygl/sygl.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
@@ -71,6 +72,12 @@ export const routes: Routes = [
                 path: 'courses/edit', component: EditcourseComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '编辑课程'
+                }
+            },
+            {
+                path: 'sygl', component: SyglComponent, canActivate: [CanAuthProvide],
+                data: {
+                    breadcrumb: '实验管理'
                 }
             },
             {path: 'charts', component: ChartsComponent, canActivate: [CanAuthProvide]},
