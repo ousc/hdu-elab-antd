@@ -14,14 +14,36 @@
   <div nz-col></div>
 </div>
 <div nz-row>
-  <form [nzLayout]="horizontal" nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()" nz-col [nzOffset]="'5'" nzSpan="10">
+  <form [nzLayout]="'horizontal'" nz-form [formGroup]="validateForm" (ngSubmit)="'_submitForm()'" nz-col [nzOffset]="'5'" nzSpan="10">
     <div class="formItem" nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.course1"  [nzValidateStatus]="getFormControl('course1')"  nzHasFeedback >
-        <label for="course1" nz-col nzSpan="10">课程：</label>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.coursenum"  [nzValidateStatus]="getFormControl('coursenum')"  nzHasFeedback >
+        <label for="coursenum" nz-col nzSpan="10">课程号：</label>
         <div nz-col nzSpan="12">
           <nz-select
-                  id="course1"
-                  formControlName="course1"
+                  id="coursenum"
+                  formControlName="coursenum"
+                  [nzPlaceHolder]="'请选择课程号'"
+                  [nzNotFoundContent]="'无该课程号'"
+                  nzShowSearch="true">
+            <nz-option
+                    *ngFor="let option of coursenum"
+                    [nzLabel]="option.label"
+                    [nzValue]="option">
+            </nz-option>
+          </nz-select>
+        </div>
+        <div class="help">
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.coursenum.dirty&&validateForm.controls.coursenum.hasError('required')">课程号为必选项！</div>
+        </div>
+      </div>
+    </div>
+    <div class="formItem" nz-form-item>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.course"  [nzValidateStatus]="getFormControl('course')"  nzHasFeedback >
+        <label for="course" nz-col nzSpan="10">课程：</label>
+        <div nz-col nzSpan="12">
+          <nz-select
+                  id="course"
+                  formControlName="course"
                   [nzPlaceHolder]="'请选择课程'"
                   [nzNotFoundContent]="'无该课程记录'"
                   nzShowSearch="true">
@@ -33,18 +55,18 @@
           </nz-select>
         </div>
         <div class="help">
-          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.course1.dirty&&validateForm.controls.course1.hasError('required')">课程为必选项！</div>
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.course.dirty&&validateForm.controls.course.hasError('required')">课程为必选项！</div>
         </div>
       </div>
     </div>
     <div class="formItem" nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.week1"  [nzValidateStatus]="getFormControl('week1')"  nzHasFeedback >
-        <label for="week1" nz-col nzSpan="10">预约周次（可多选）：</label>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.week"  [nzValidateStatus]="getFormControl('week')"  nzHasFeedback >
+        <label for="week" nz-col nzSpan="10">预约周次（可多选）：</label>
         <div nz-col nzSpan="12">
           <nz-select
                   nzMode="multiple"
-                  id="week1"
-                  formControlName="week1"
+                  id="week"
+                  formControlName="week"
                   [nzPlaceHolder]="'请选择周数'"
           >
             <nz-option
@@ -56,26 +78,26 @@
         </div>
         <div nz-col nzSpan="12" [nzOffset]="'10'">
           <nz-button-group style="float: right">
-            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week1',0)">全选</button>
-            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week1',1)">单周</button>
-            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week1',2)">双周</button>
-            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week1',3)">重置</button>
+            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week',0)">全选</button>
+            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week',1)">单周</button>
+            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week',2)">双周</button>
+            <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week',3)">重置</button>
           </nz-button-group>
         </div>
         <div class="help">
-          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.week1.dirty&&validateForm.controls.week1.hasError('required')">周数为必选项！</div>
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.week.dirty&&validateForm.controls.week.hasError('required')">周数为必选项！</div>
         </div>
       </div>
     </div>
     <div class="formItem" nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.weekday1&&validateForm.controls.classNum1"  [nzValidateStatus]="getFormControl('weekday1')&&getFormControl('classNum1')"  nzHasFeedback >
-        <label for="weekday1" nz-col nzSpan="10">预约时间（可多选）：</label>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.weekday&&validateForm.controls.classNum"  [nzValidateStatus]="getFormControl('weekday')&&getFormControl('classNum')"  nzHasFeedback >
+        <label for="weekday" nz-col nzSpan="10">预约时间（可多选）：</label>
         <div nz-col nzSpan="12">
           <nz-input-group nz-col nzSpan="24" [nzSize]="'large'" nzCompact>
             <nz-select
                     style="width:50%"
-                    id="weekday1"
-                    formControlName="weekday1"
+                    id="weekday"
+                    formControlName="weekday"
                     [nzPlaceHolder]="'星期 '"
                     nzShowSearch="true">
               <nz-option
@@ -87,9 +109,9 @@
             <nz-select
                     nzMode="multiple"
                     style="width:50%"
-                    id="classNum1"
+                    id="classNum"
                     [nzPlaceHolder]="'第 节'"
-                    formControlName="classNum1"
+                    formControlName="classNum"
                     nzShowSearch="true">
               <nz-option
                       *ngFor="let option of classNum"
@@ -100,16 +122,31 @@
           </nz-input-group>
         </div>
         <div nz-col nzSpan="12" [nzOffset]="'10'">
-          <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('weekday1',3);setWeek('classNum1',3);" style="float: right;">重置时间</button>
+          <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('weekday',3);setWeek('classNum',3);" style="float: right;">重置时间</button>
         </div>
         <div class="help">
-          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.weekday1.dirty&&validateForm.controls.weekday1.hasError('required')&&validateForm.controls.classNum1.dirty&&validateForm.controls.classNum1.hasError('required')">上课时间为必选项！</div>
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.weekday.dirty&&validateForm.controls.weekday.hasError('required')&&validateForm.controls.classNum.dirty&&validateForm.controls.classNum.hasError('required')">上课时间为必选项！</div>
+        </div>
+      </div>
+    </div>
+    <div class="formItem" nz-form-item>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.scnum"  [nzValidateStatus]="getFormControl('scnum')"  nzHasFeedback >
+        <label for="scnum" nz-col nzSpan="10">人数：</label>
+        <div nz-col nzSpan="12">
+          <nz-input-number  [nzMin]="1"  [nzStep]="1" id="scnum" [formControlName]="'scnum'"></nz-input-number>
+        </div>
+        <div class="help">
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.scnum.dirty&&validateForm.controls.scnum.hasError('required')">人数为必填项！</div>
         </div>
       </div>
     </div>
     <div class="submitBtn" nz-form-item nz-col nzSpan="22">
       <div nz-form-control>
+        <button nz-button [nzType]="'danger'" [nzSize]="'large'">
+          <span>删除</span>
+        </button>
         <button nz-button [nzLoading]="loadStatus" [nzType]="'primary'" [nzSize]="'large'">{{submitBtn}}</button>
+
       </div>
     </div>
   </form>

@@ -1,25 +1,31 @@
 ///<reference path="../../../../../node_modules/@angular/forms/src/model.d.ts"/>
+///<reference path="../../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {AddcourseService} from './addcourse.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
-import {OrderService} from '../../order/order.service';
+
 
 @Component({
-  selector: 'addcourse',
-  templateUrl: 'addcourse.component.html',
-  styleUrls: ['./addcourse.component.less'],
-  providers: [AddcourseService]
+    selector: 'addcourse',
+    templateUrl: 'addcourse.component.html',
+    styleUrls: ['./addcourse.component.less'],
+    providers: [AddcourseService]
 })
 export class AddcourseComponent implements OnInit {
     validateForm: FormGroup;
     loadStatus: boolean;
-    submitBtn = '下一步';
+    submitBtn = '提交';
     constructor(private fb: FormBuilder, private addcourseService: AddcourseService,
                 private router: Router, private _message: NzMessageService) {
     }
     public current = 0;
+    coursenum = [
+        {value: 'A2301020-41478-1', label: '(2017-2018-1)-A2301020-41478-1'},
+        {value: 'A2301020-41478-2', label: '(2017-2018-1)-A2301020-41478-2'},
+        {value: 'A2301020-41478-3', label: '(2017-2018-1)-A2301020-41478-3'}
+    ]
     course = [
         { value: '101123123', label: '数据结构课程设计{周一345节 1-17周}' },
         { value: '101123124', label: '数据结构课程设计{周一456节 1-17周}' },
@@ -68,25 +74,25 @@ export class AddcourseComponent implements OnInit {
         this.validateForm.controls[target].reset();
         if (operation == 0) {
             let c = this.validateForm.value;
-            c.week1 = this.week;
+            c.week = this.week;
             this.validateForm.setValue(c);
         }
         if(operation==1){
             let c = this.validateForm.value;
-            c.week1 = [];
+            c.week = [];
             for(let i=0;i< this.week.length;i++){
                 if(i%2==0){
-                    c.week1.push(this.week[i]);
+                    c.week.push(this.week[i]);
                 }
             }
             this.validateForm.setValue(c);
         }
         if(operation==2){
             let c = this.validateForm.value;
-            c.week1 = [];
+            c.week = [];
             for(let i=0;i< this.week.length;i++){
                 if(i%2){
-                    c.week1.push(this.week[i]);
+                    c.week.push(this.week[i]);
                 }
             }
             this.validateForm.setValue(c);
@@ -99,21 +105,12 @@ export class AddcourseComponent implements OnInit {
     }
     ngOnInit() {
         this.validateForm = this.fb.group({
-            course1: [null, [Validators.required]],
-            course2: [null, [Validators.required]],
-            course3: [null, [Validators.required]],
-            week1: [null, [Validators.required]],
-            week2: [null, [Validators.required]],
-            week3: [null, [Validators.required]],
-            weekday1: [null, [Validators.required]],
-            weekday2: [null, [Validators.required]],
-            weekday3: [null, [Validators.required]],
-            classNum1: [null, [Validators.required]],
-            classNum2: [null, [Validators.required]],
-            classNum3: [null, [Validators.required]],
-            type1: [null, [Validators.required]],
-            type2: [null, [Validators.required]],
-            type3: [null, [Validators.required]],
+            coursenum: [null, [Validators.required]],
+            course: [null, [Validators.required]],
+            week: [null, [Validators.required]],
+            weekday: [null, [Validators.required]],
+            classNum: [null, [Validators.required]],
+            scnum: [null, [Validators.required]],
         });
     }
 }
