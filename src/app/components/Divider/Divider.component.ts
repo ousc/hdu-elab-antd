@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'Divider',
@@ -7,4 +7,8 @@ import {Component} from '@angular/core';
 })
 
 export class DividerComponent {
+    @Input() simple;
+    @Input() len;
+    constructor(){
+    }
 }

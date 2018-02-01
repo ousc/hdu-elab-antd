@@ -4,12 +4,13 @@ import { UserService } from './user.service';
 import { UserformComponent } from './userform/userform.component';
 import { SearchParams } from '@core/interfaces/table.interface';
 import { GridComponent } from '@core/grid.component';
+import {Http} from "@angular/http";
 
 @Component({
   selector: 'app-user',
   templateUrl: 'user.component.html',
   styleUrls: ['./user.component.less'],
-  providers: [UserService]
+  providers: [UserService,Http]
 })
 export class UserComponent extends GridComponent implements OnInit {
 
@@ -62,7 +63,8 @@ export class UserComponent extends GridComponent implements OnInit {
    */
   getData = (event?: number) => {
     this.setLoading(true);
-    this.userService.getUserList(event ||this.current, this.pageSize).then((result: any) => {
+    this.userService.getUserList(event || this.current, this.pageSize)
+      .then((result: any) => {
         const { data, total } = result;
         this.setTableData(data);
         this.setTotal(total);

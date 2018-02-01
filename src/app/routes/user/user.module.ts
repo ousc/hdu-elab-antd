@@ -4,12 +4,11 @@ import {SharedModule} from '../../shared.module';
 import {TableModule} from '@components/table/table.module';
 import {UserformComponent} from './userform/userform.component';
 import {UserformModule} from './userform/userform.module';
-import {HttpModule} from "@angular/http";
-
+import {HttpModule} from '@angular/http';
 @NgModule({
   declarations: [UserComponent],
   exports: [UserComponent],
-  imports: [SharedModule, TableModule, UserformModule,HttpModule],
+  imports: [SharedModule, TableModule, UserformModule, HttpModule],
   entryComponents: [UserformComponent]
 })
 

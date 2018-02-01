@@ -19,5 +19,4 @@ export class OrderService {
         console.log(err); }
     );
   }
-
 }
