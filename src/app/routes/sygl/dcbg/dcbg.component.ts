@@ -2,7 +2,6 @@
 ///<reference path="../../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
 import {DcbgService} from './dcbg.service';
 
@@ -13,37 +12,63 @@ import {DcbgService} from './dcbg.service';
   providers: [DcbgService]
 })
 
-export class DcbgComponent {
+export class DcbgComponent implements OnInit{
+    validateForm: FormGroup;
+    course = [
+        { value: '101123123', label: '数据结构课程设计{周一345节 1-17周}', },
+        { value: '101123124', label: '数据结构课程设计{周一345节 1-17周}', },
+        { value: '101123125', label: '数据结构课程设计{周一345节 1-17周}', },
+    ];
+    type = [
+        { value: '1', label: '计算机房1' },
+        { value: '2', label: '计算机房2' },
+    ];
     current = 0;
-    index = 'First-content';
+    page1 = true;
+    page2 = false;
+    error = false;
     pre() {
         this.current -= 1;
         this.changeContent();
     }
+
     next() {
         this.current += 1;
         this.changeContent();
     }
+
     done() {
-        this._message.success('done');
+        this._message.success('完成');
     }
+
     changeContent() {
         switch (this.current) {
             case 0: {
-                this.index = 'First-content';
+                this.page1 = true;
+                this.page2 = false;
+                this.error = false;
                 break;
             }
             case 1: {
-                this.index = 'Second-content';
+                this.page1 = false;
+                this.page2 = true;
+                this.error = false;
                 break;
             }
             default: {
-                this.index = 'error';
+                this.page1 = false;
+                this.page2 = false;
+                this.error = true;
             }
         }
     }
-
-    constructor(private _message: NzMessageService) {
+    constructor(private _message: NzMessageService, private fb: FormBuilder) {
     }
+    ngOnInit() {
+        this.validateForm = this.fb.group({
+            select         : [ 'China' ],
+        });
+    }
+
 }
 

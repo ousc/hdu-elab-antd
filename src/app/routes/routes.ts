@@ -16,6 +16,7 @@ import {AddcourseComponent} from './courses/addcourse/addcourse.component';
 import {EditcourseComponent} from './courses/editcourse/editcourse.component';
 import {SyglComponent} from './sygl/sygl.component';
 import {SyszComponent} from './sygl/sysz/sysz.component';
+import {DcbgComponent} from './sygl/dcbg/dcbg.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
@@ -88,7 +89,7 @@ export const routes: Routes = [
                 }
             },
             {
-                path: 'sygl/dcbg', component: SyszComponent, canActivate: [CanAuthProvide],
+                path: 'sygl/dcbg', component: DcbgComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '导出表格'
                 }

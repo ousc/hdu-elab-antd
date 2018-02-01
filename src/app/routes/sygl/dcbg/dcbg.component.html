@@ -6,21 +6,80 @@
     <p>当前学期：2017学年第一学期（本周为第11周）</p>
   </div>
 </div>
+
 <div class="devider"></div>
-<nz-steps [(nzCurrent)]="current">
-  <nz-step [nzTitle]="'Finished'"></nz-step>
-  <nz-step [nzTitle]="'In Progress'"></nz-step>
-  <nz-step [nzTitle]="'Waiting'"></nz-step>
-</nz-steps>
-<div class="steps-content">{{index}}</div>
-<div class="steps-action">
-  <button nz-button [nzType]="'default'" (click)="pre()" *ngIf="current > 0">
-    <span>Previous</span>
-  </button>
-  <button nz-button [nzType]="'default'" (click)="next()" *ngIf="current < 2">
-    <span>Next</span>
-  </button>
-  <button nz-button [nzType]="'primary'" (click)="done()" *ngIf="current === 2">
-    <span>Done</span>
-  </button>
+<div nz-row [nzType]="'flex'" [nzJustify]="'center'">
+  <div nz-col [nzSpan]="12" style="margin-bottom: 40px">
+    <nz-steps [(nzCurrent)]="current" [nzSize]="'default'">
+      <nz-step [nzTitle]="'选择表格种类'"></nz-step>
+      <nz-step [nzTitle]="'导出或打印表格'"></nz-step>
+    </nz-steps>
+    <div class="steps-content" *ngIf="page1">
+      <form nz-form [nzType]="'horizontal'" [formGroup]="validateForm">
+        <div nz-form-item nz-row>
+          <div nz-form-label nz-col [nzSpan]="6">
+            <label nz-form-item-required>表格种类</label>
+          </div>
+          <div nz-form-control nz-col [nzSpan]="14">
+            <nz-select formControlName="select" [nzSize]="'large'">
+              <nz-option [nzLabel]="'数据结构课程设计'" [nzValue]="'13213213'"></nz-option>
+              <nz-option [nzLabel]="'程序设计基础'" [nzValue]="'13213213213'"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-form-item nz-row>
+          <div nz-form-label nz-col [nzSpan]="6">
+            <label nz-form-item-required>时间</label>
+          </div>
+          <div nz-form-control nz-col [nzSpan]="14">
+            <nz-select formControlName="select" [nzSize]="'large'">
+              <nz-option [nzLabel]="'周一1，2，3'" [nzValue]="'周一1，2，3'"></nz-option>
+              <nz-option [nzLabel]="'周一6，7，8'" [nzValue]="'周一6，7，8'"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="steps-content" *ngIf="page2">
+      <P>数据结构课程设计</P>
+      <P>周一1，2，3</P>
+    </div>
+    <div class="steps-action" style="float: right">
+      <button nz-button [nzType]="'default'" (click)="pre()" *ngIf="current > 0">
+        <span>返回</span>
+      </button>
+      <button nz-button [nzType]="'default'" (click)="next()" *ngIf="current < 1">
+        <span>下一步</span>
+      </button>
+      <button nz-button [nzType]="'primary'" (click)="done()" *ngIf="current === 1">
+        <span>提交</span>
+      </button>
+    </div>
+  </div>
+</div>
+<br><br>
+<br><br>
+<br><br>
+
+<div nz-row>
+  <div nz-col [nzOffset]="'1'" nzSpan="22">
+
+    <div style="line-height: 30px;padding-left: 50px;">
+      <div style="margin-bottom: 25px;">
+        <h3>说明</h3>
+      </div>
+      <div>
+        <h3>系统的使用方法</h3>
+      </div>
+      <div>
+        这里应该有系统的使用方法
+      </div>
+      <div>
+        <h3>系统的使用说明</h3>
+      </div>
+      <div>
+        这里应该有系统的使用说明
+      </div>
+    </div>
+  </div>
 </div>
