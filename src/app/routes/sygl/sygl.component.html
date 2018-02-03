@@ -27,8 +27,7 @@
   </div>
 </div>
 <div class="devider"></div>
-<div nz-row [nzGutter]="12">
-  <div nz-col [nzSpan]="8" *ngFor="let data of data">
+<div nz-row *ngFor="let data of data" style="display: inline-block">
     <nz-card>
       <ng-template #body>
         <div class="course">
@@ -42,5 +41,4 @@
         </div>
       </ng-template>
     </nz-card>
-  </div>
 </div>
