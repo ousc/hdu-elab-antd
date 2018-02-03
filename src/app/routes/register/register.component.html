@@ -9,7 +9,7 @@
         <label for="userName" nz-form-item-required>
             <span>
               用户名
-              <nz-tooltip [nzTitle]="'用户名用于登录'">
+              <nz-tooltip [nzTitle]="'用户名用于登录，只能为数字'">
                 <i nz-tooltip class="anticon anticon-question-circle-o"></i>
               </nz-tooltip>
             </span>
@@ -17,7 +17,12 @@
       </div>
       <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
         <nz-input [nzSize]="'large'" formControlName="userName" [nzId]="'userName'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('userName').dirty&&getFormControl('userName').hasError('required')">请输入用户名!</div>
+        <div nz-form-explain *ngIf="getFormControl('userName').dirty&&getFormControl('userName').hasError('required')">
+          请输入用户名！
+        </div>
+        <div nz-form-explain *ngIf="confirmUserName()">
+          用户名只能为数字！
+        </div>
       </div>
     </div>
     <div nz-form-item nz-row>
