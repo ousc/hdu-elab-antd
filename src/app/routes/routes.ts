@@ -17,9 +17,12 @@ import {EditcourseComponent} from './courses/editcourse/editcourse.component';
 import {SyglComponent} from './sygl/sygl.component';
 import {SyszComponent} from './sygl/sysz/sysz.component';
 import {DcbgComponent} from './sygl/dcbg/dcbg.component';
+import {ProfileComponent} from './profile/profile.component';
+import {RegisterComponent} from './register/register.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
+    {path: 'register', component: RegisterComponent},
     {
         path: '', component: HomeComponent, canActivate: [CanAuthProvide],
         children: [
@@ -92,6 +95,11 @@ export const routes: Routes = [
                 path: 'sygl/dcbg', component: DcbgComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '导出表格'
+                }
+            }, {
+                path: 'profile', component: ProfileComponent, canActivate: [CanAuthProvide],
+                data: {
+                    breadcrumb: '个人资料'
                 }
             },
             {path: 'charts', component: ChartsComponent, canActivate: [CanAuthProvide]},

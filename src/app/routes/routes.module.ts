@@ -11,6 +11,8 @@ import {OrderModule} from './order/order.module';
 import {YyglModule} from './yygl/yygl.module';
 import {CoursesModule} from './courses/courses.module';
 import {SyglModule} from './sygl/sygl.module';
+import {ProfileModule} from './profile/profile.module';
+import {RegisterModule} from './register/register.module';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import {SyglModule} from './sygl/sygl.module';
         OrderModule,
         YyglModule,
         CoursesModule,
-        SyglModule
+        SyglModule,
+        ProfileModule,
+        RegisterModule,
     ]
 })
 

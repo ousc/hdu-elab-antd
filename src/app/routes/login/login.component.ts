@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   validateForm: FormGroup;
   loadStatus: boolean;
   loginBtn = '登录';
+    registerBtn = '没有账号？去注册';
 
   _submitForm() {
     for (const i in this.validateForm.controls) {
