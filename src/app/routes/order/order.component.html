@@ -49,6 +49,14 @@
           </nz-option>
         </nz-select>
       </div>
+        <div nzSpan="1">
+            <nz-popover [nzTitle]="'课表'">
+                <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
+                <ng-template #nzTemplate>
+                    <img src="../../../assets/timetable.png" height="504" width="422"/>
+                </ng-template>
+            </nz-popover>
+        </div>
       <div nz-col nzSpan="13" [nzOffset]="'9'">
         <nz-button-group style="float: right">
           <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week1',0)">全选</button>
@@ -94,6 +102,14 @@
           </nz-select>
         </nz-input-group>
       </div>
+        <div nzSpan="1">
+            <nz-popover [nzTitle]="'校历'">
+                <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
+                <ng-template #nzTemplate>
+                    <img src="../../../assets/weeks.png" height="419" width="597"/>
+                </ng-template>
+            </nz-popover>
+        </div>
       <div nz-col nzSpan="13" [nzOffset]="'9'">
         <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('weekday1',3);setWeek('classNum1',3);" style="float: right;">重置时间</button>
       </div>
@@ -158,6 +174,14 @@
               </nz-option>
             </nz-select>
           </div>
+            <div nzSpan="1">
+                <nz-popover [nzTitle]="'课表'">
+                    <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
+                    <ng-template #nzTemplate>
+                        <img src="../../../assets/timetable.png" height="504" width="422"/>
+                    </ng-template>
+                </nz-popover>
+            </div>
           <div nz-col nzSpan="13" [nzOffset]="'9'">
             <nz-button-group style="float: right">
               <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week2',0)">全选</button>
@@ -203,6 +227,14 @@
               </nz-select>
             </nz-input-group>
           </div>
+            <div nzSpan="1">
+                <nz-popover [nzTitle]="'校历'">
+                    <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
+                    <ng-template #nzTemplate>
+                        <img src="../../../assets/weeks.png" height="419" width="597"/>
+                    </ng-template>
+                </nz-popover>
+            </div>
           <div nz-col nzSpan="13" [nzOffset]="'9'">
             <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('weekday2',3);setWeek('classNum2',3);" style="float: right;">重置时间</button>
           </div>
@@ -268,6 +300,14 @@
               </nz-option>
             </nz-select>
           </div>
+            <div nzSpan="1">
+                <nz-popover [nzTitle]="'课表'">
+                    <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
+                    <ng-template #nzTemplate>
+                        <img src="../../../assets/timetable.png" height="504" width="422"/>
+                    </ng-template>
+                </nz-popover>
+            </div>
           <div nz-col nzSpan="13" [nzOffset]="'9'">
             <nz-button-group style="float: right">
               <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('week3',0)">全选</button>
@@ -313,6 +353,14 @@
               </nz-select>
             </nz-input-group>
           </div>
+            <div nzSpan="1">
+                <nz-popover [nzTitle]="'校历'">
+                    <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
+                    <ng-template #nzTemplate>
+                        <img src="../../../assets/weeks.png" height="419" width="597"/>
+                    </ng-template>
+                </nz-popover>
+            </div>
           <div nz-col nzSpan="13" [nzOffset]="'9'">
             <button type="button" nz-button [nzType]="'defaut'" (click)="setWeek('weekday3',3);setWeek('classNum3',3);" style="float: right;">重置时间</button>
           </div>
@@ -391,7 +439,7 @@
     <tbody nz-tbody>
     <tr>
       <td colspan="9">
-    <nz-alert *ngIf="labdata[0].length!=0" [nzType]="'info'" [nzMessage]="'第一志愿共有'+labdata[0].length+'个实验室符合要求'" nzShowIcon="true" style="margin-top: 30px;">
+    <nz-alert *ngIf="labdata[0].length!=0" [nzType]="'info'" [nzMessage]="'第一志愿共有'+labdata[0].length+'个实验室符合要求'" nzShowIcon="true" style="margin-top: 15px;">
     </nz-alert></td></tr>
     <tr nz-tbody-tr *ngFor="let data of labdata[0]">
       <td nz-td nzCheckbox>
@@ -420,7 +468,7 @@
     </tr>
     <tr>
       <td colspan="9">
-    <nz-alert *ngIf="labdata[1].length!=0" [nzType]="'info'" [nzMessage]="'第二志愿共有'+labdata[1].length+'个实验室符合要求'" nzShowIcon="true" style="margin-top: 30px;">
+    <nz-alert *ngIf="labdata[1].length!=0" [nzType]="'info'" [nzMessage]="'第二志愿共有'+labdata[1].length+'个实验室符合要求'" nzShowIcon="true" style="margin-top: 15px;">
     </nz-alert></td></tr>
     <tr nz-tbody-tr *ngFor="let data of labdata[1]">
       <td nz-td nzCheckbox>
@@ -449,7 +497,7 @@
     </tr>
     <tr>
       <td colspan="9">
-        <nz-alert *ngIf="labdata[2].length!=0" [nzType]="'info'" [nzMessage]="'第三志愿共有'+labdata[2].length+'个实验室符合要求'" nzShowIcon="true" style="margin-top: 30px;">
+        <nz-alert *ngIf="labdata[2].length!=0" [nzType]="'info'" [nzMessage]="'第三志愿共有'+labdata[2].length+'个实验室符合要求'" nzShowIcon="true" style="margin-top: 15px;">
         </nz-alert>
       </td>
     </tr>
@@ -505,7 +553,13 @@
     </tr>
     </thead>
     <tbody nz-tbody>
-      <tr nz-tbody-tr *ngFor="let data of labdata[0]">
+      <tr>
+        <td colspan="9">
+          <nz-alert *ngIf="zhiyuandata[0].length!=0" [nzType]="'info'" [nzMessage]="'请填写第一志愿实验室的分配人数'" nzShowIcon="true" style="margin-top: 30px;">
+          </nz-alert>
+        </td>
+      </tr>
+      <tr nz-tbody-tr *ngFor="let data of zhiyuandata[0]">
         <td *ngIf="data.checked" nz-td>{{data.id}}</td>
         <td *ngIf="data.checked" nz-td>{{data.labName}}</td>
         <td *ngIf="data.checked" nz-td>{{data.labBuild}}</td>
@@ -515,12 +569,18 @@
         <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
         <td *ngIf="data.checked" nz-td>
               <span>
-                <nz-input-number [(ngModel)]="data.PeoCount" [nzMin]="1" [nzMax]="data.labPeoCount" [nzStep]="1"></nz-input-number>
+                <nz-input-number [(ngModel)]="data.PeoCount" [nzMin]="0" [nzMax]="data.labPeoCount" [nzStep]="1"></nz-input-number>
                 人
               </span>
         </td>
       </tr>
-      <tr nz-tbody-tr *ngFor="let data of labdata[1]">
+      <tr>
+        <td colspan="9">
+          <nz-alert *ngIf="zhiyuandata[1].length!=0" [nzType]="'info'" [nzMessage]="'请填写第二志愿实验室的分配人数'" nzShowIcon="true" style="margin-top: 30px;">
+          </nz-alert>
+        </td>
+      </tr>
+      <tr nz-tbody-tr *ngFor="let data of zhiyuandata[1]">
         <td *ngIf="data.checked" nz-td>{{data.id}}</td>
         <td *ngIf="data.checked" nz-td>{{data.labName}}</td>
         <td *ngIf="data.checked" nz-td>{{data.labBuild}}</td>
@@ -530,12 +590,18 @@
         <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
         <td *ngIf="data.checked" nz-td>
               <span>
-                <nz-input-number [(ngModel)]="data.PeoCount" [nzMin]="1" [nzMax]="data.labPeoCount" [nzStep]="1"></nz-input-number>
+                <nz-input-number [(ngModel)]="data.PeoCount" [nzMin]="0" [nzMax]="data.labPeoCount" [nzStep]="1"></nz-input-number>
                 人
               </span>
         </td>
       </tr>
-      <tr nz-tbody-tr *ngFor="let data of labdata[2]">
+      <tr>
+        <td colspan="9">
+          <nz-alert *ngIf="zhiyuandata[2].length!=0" [nzType]="'info'" [nzMessage]="'请填写第三志愿实验室的分配人数'" nzShowIcon="true" style="margin-top: 30px;">
+          </nz-alert>
+        </td>
+      </tr>
+      <tr nz-tbody-tr *ngFor="let data of zhiyuandata[2]">
         <td *ngIf="data.checked" nz-td>{{data.id}}</td>
         <td *ngIf="data.checked" nz-td>{{data.labName}}</td>
         <td *ngIf="data.checked" nz-td>{{data.labBuild}}</td>
@@ -545,7 +611,7 @@
         <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
         <td *ngIf="data.checked" nz-td>
               <span>
-                <nz-input-number [(ngModel)]="data.PeoCount" [nzMin]="1" [nzMax]="data.labPeoCount" [nzStep]="1"></nz-input-number>
+                <nz-input-number [(ngModel)]="data.PeoCount" [nzMin]="0" [nzMax]="data.labPeoCount" [nzStep]="1"></nz-input-number>
                 人
               </span>
         </td>
@@ -559,11 +625,88 @@
     </div>
   </div>
 </div>
-<div nz-row *ngIf="current==3">
+<!--第三步结束-->
+<div nz-row *ngIf="current==3" class="lastdata">
   <nz-alert [nzType]="'info'" [nzMessage]="'请确认以下预约信息，确认无误后点击提交按钮。'" nzShowIcon="true" style="margin-top: 30px;">
   </nz-alert>
-  <div nz-form-control>
+  <div nz-row>
+    <div nz-col [nzOffset]="'6'" [nzSpan]="6">
+      <p>课号：{{lastData.classId}}</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <p>课名：{{lastData.className}}</p>
+    </div>
+    <div nz-col [nzSpan]="6"></div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="6" [nzOffset]="'6'">
+      <p>人数：{{lastData.classpeoCount}}</p>
+    </div>
+    <div nz-col [nzSpan]="12"></div>
+  </div>
+  <nz-table #nzTable [nzDataSource]="labdata" nzShowFooter="false">
+    <thead nz-thead>
+    <tr>
+      <th nz-th><span>编号</span></th>
+      <th nz-th><span>实验室名称</span></th>
+      <th nz-th><span>楼栋</span></th>
+      <th nz-th><span>门牌号</span></th>
+      <th nz-th><span>可容纳人员</span></th>
+      <th nz-th><span>分类</span></th>
+      <th nz-th><span>管理员</span></th>
+      <th nz-th><span>分配人数</span></th>
+    </tr>
+    </thead>
+    <tbody nz-tbody>
+    <tr>
+      <td colspan="9" *ngIf="lastData.orderDetails[0].type!=null">
+        <p style="text-align: center"><span>预约周次:{{lastData.orderDetails[0].orderWeek}}</span><span>预约时间:{{lastData.orderDetails[0].classNum}}</span></p>
+      </td>
+    </tr>
+    <tr nz-tbody-tr *ngFor="let data of zhiyuandata[0]">
+      <td *ngIf="data.checked" nz-td>{{data.id}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labName}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labBuild}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labNumber}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labPeoCount}}人</td>
+      <td *ngIf="data.checked" nz-td>{{data.labType}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labPeoCount}}</td>
+    </tr>
+    <tr>
+      <td colspan="9" *ngIf="lastData.orderDetails[1].type!=null">
+        <p style="text-align: center"><span>预约周次:{{lastData.orderDetails[1].orderWeek}}</span><span>预约时间:{{lastData.orderDetails[1].classNum}}</span></p>
+      </td>
+    </tr>
+    <tr nz-tbody-tr *ngFor="let data of zhiyuandata[1]">
+      <td *ngIf="data.checked" nz-td>{{data.id}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labName}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labBuild}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labNumber}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labPeoCount}}人</td>
+      <td *ngIf="data.checked" nz-td>{{data.labType}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labPeoCount}}</td>
+    </tr>
+    <tr>
+      <td colspan="9" *ngIf="lastData.orderDetails[2].type!=null">
+        <p style="text-align: center"><span>预约周次:{{lastData.orderDetails[2].orderWeek}}</span><span>预约时间:{{lastData.orderDetails[2].classNum}}</span></p>
+      </td>
+    </tr>
+    <tr nz-tbody-tr *ngFor="let data of zhiyuandata[2]">
+      <td *ngIf="data.checked" nz-td>{{data.id}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labName}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labBuild}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labNumber}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labPeoCount}}人</td>
+      <td *ngIf="data.checked" nz-td>{{data.labType}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
+      <td *ngIf="data.checked" nz-td>{{data.labPeoCount}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+  <div nz-form-control style="text-align: center">
     <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="back()">{{submitBackBtn}}</button>
-    <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">{{submitBtn}}</button>
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">提交</button>
   </div>
 </div>

@@ -1,78 +1,78 @@
 <div class="form">
-  <div class="logo">
-    <img alt="logo" src="../../../assets/logo.png">
-    <span>实验室预约系统</span>
-  </div>
-  <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-        <label for="userName" nz-form-item-required>
+    <div class="logo">
+        <img alt="logo" src="../../../assets/logo.png">
+        <span>实验室预约系统</span>
+    </div>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                <label for="userName" nz-form-item-required>
             <span>
               用户名
               <nz-tooltip [nzTitle]="'用户名用于登录'">
                 <i nz-tooltip class="anticon anticon-question-circle-o"></i>
               </nz-tooltip>
             </span>
-        </label>
-      </div>
-      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-        <nz-input [nzSize]="'large'" formControlName="userName" [nzId]="'userName'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('userName').dirty&&getFormControl('userName').hasError('required')">请输入用户名!</div>
-      </div>
-    </div>
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-        <label for="password" nz-form-item-required>密码</label>
-      </div>
-      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-        <nz-input [nzSize]="'large'" formControlName="password" [nzType]="'password'" [nzId]="'password'" (ngModelChange)="updateConfirmValidator()"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码!</div>
-      </div>
-    </div>
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-        <label for="checkPassword" nz-form-item-required>确认密码</label>
-      </div>
-      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-        <nz-input [nzSize]="'large'" formControlName="checkPassword" [nzType]="'password'" [nzId]="'checkPassword'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('checkPassword').dirty&&getFormControl('checkPassword').hasError('required')">请确认你的密码!</div>
-        <div nz-form-explain *ngIf="getFormControl('checkPassword').dirty&&getFormControl('checkPassword').hasError('confirm')">输入的密码不一致!</div>
-      </div>
-    </div>
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-        <label for="nickName" nz-form-item-required>
-            <span>用户昵称</span>
-        </label>
-      </div>
-      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-        <nz-input [nzSize]="'large'" formControlName="nickName" [nzId]="'nickName'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('nickName').dirty&&getFormControl('nickName').hasError('required')">请输入昵称!</div>
-      </div>
-    </div>
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-        <label for="email" nz-form-item-required>E-mail</label>
-      </div>
-      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-        <nz-input [nzSize]="'large'" formControlName="email" [nzId]="'email'"></nz-input>
-        <div nz-form-explain *ngIf="getFormControl('email').dirty&&getFormControl('email').hasError('email')">输入的邮箱不合法!</div>
-      </div>
-    </div>
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-        <label for="phoneNumber" nz-form-item-required>手机号码</label>
-      </div>
-      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
-          <input formControlName="phoneNumber" id="'phoneNumber'" nz-input>
-        <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('required')">请输入手机号码!</div>
-      </div>
-    </div>
-    <div nz-form-item nz-row style="margin-bottom:8px;">
-      <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
-        <button nz-button [nzSize]="'large'" [nzType]="'primary'" [nzLoading]="loadStatus">{{registerBtn}}</button>
-        <p><a routerLink="/login">{{loginBtn}}</a></p>
-      </div>
-    </div>
-  </form>
+                </label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                <nz-input [nzSize]="'large'" formControlName="userName" [nzId]="'userName'"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('userName').dirty&&getFormControl('userName').hasError('required')">请输入用户名!</div>
+            </div>
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                <label for="password" nz-form-item-required>密码</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                <nz-input [nzSize]="'large'" formControlName="password" [nzType]="'password'" [nzId]="'password'" (ngModelChange)="updateConfirmValidator()"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">请输入密码!</div>
+            </div>
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                <label for="checkPassword" nz-form-item-required>确认密码</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                <nz-input [nzSize]="'large'" formControlName="checkPassword" [nzType]="'password'" [nzId]="'checkPassword'"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('checkPassword').dirty&&getFormControl('checkPassword').hasError('required')">请确认你的密码!</div>
+                <div nz-form-explain *ngIf="getFormControl('checkPassword').dirty&&getFormControl('checkPassword').hasError('confirm')">输入的密码不一致!</div>
+            </div>
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                <label for="nickName" nz-form-item-required>
+                    <span>用户昵称</span>
+                </label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                <nz-input [nzSize]="'large'" formControlName="nickName" [nzId]="'nickName'"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('nickName').dirty&&getFormControl('nickName').hasError('required')">请输入昵称!</div>
+            </div>
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                <label for="email" nz-form-item-required>E-mail</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                <nz-input [nzSize]="'large'" formControlName="email" [nzId]="'email'"></nz-input>
+                <div nz-form-explain *ngIf="getFormControl('email').dirty&&getFormControl('email').hasError('email')">输入的邮箱不合法!</div>
+            </div>
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                <label for="phoneNumber" nz-form-item-required>手机号码</label>
+            </div>
+            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                <input formControlName="phoneNumber" id="'phoneNumber'" nz-input>
+                <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('required')">请输入手机号码!</div>
+            </div>
+        </div>
+        <div nz-form-item nz-row style="margin-bottom:8px;">
+            <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
+                <button nz-button [nzSize]="'large'" [nzType]="'primary'" [nzLoading]="loadStatus">{{registerBtn}}</button>
+                <p><a routerLink="/login">{{loginBtn}}</a></p>
+            </div>
+        </div>
+    </form>
 </div>

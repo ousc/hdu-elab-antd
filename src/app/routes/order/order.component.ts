@@ -5,7 +5,7 @@ import {OrderService} from './order.service';
 import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from "@core/storage/storage.service";
-import {isUndefined} from "util";
+import {current} from "codelyzer/util/syntaxKind";
 
 @Component({
     selector: 'app-order',
@@ -21,7 +21,7 @@ export class OrderComponent implements OnInit {
     loadStatus: boolean;//加载状况
     labdata = [[],[],[]];
     //获取的实验室信息
-    zhiyuandata = [];
+    zhiyuandata = [[],[],[]];
     submitBtn = '下一步';
     submitBackBtn = '上一步';
     current = 0;//初始化步骤
@@ -47,7 +47,16 @@ export class OrderComponent implements OnInit {
         { value:13, label: '13' },
         { value:14, label: '14' },
         { value:15, label: '15' },
-        { value:16, label: '16' }
+        { value:16, label: '16' },
+        { value:17, label: '17' },
+        { value:18, label: '18' },
+        { value:19, label: '19' },
+        { value:20, label: '20' },
+        { value:21, label: '21' },
+        { value:22, label: '22' },
+        { value:23, label: '23' },
+        { value:24, label: '24' },
+        { value:25, label: '25' },
     ];//周数
     weekday = [{ value:1, label: '星期一' },
         { value:2, label: '星期二' },
@@ -74,33 +83,54 @@ export class OrderComponent implements OnInit {
         { value:'1', label: '计算机房1' },
         { value:'2', label: '计算机房2' },
     ];//类型
-    info(contentTpl) {
+    info(title,contentTpl) {
         this.confirmServ.info({
-            title: '警告',
+            title: title,
             content: contentTpl
         });
     }//警告框
+    success = () => {
+        const modal = this.confirmServ.success({
+            title: '提交成功',
+            content: '3秒后回到首页'
+        });
+        setTimeout(function () {
+            modal.destroy();
+            window.location.assign('/');
+        },3000);
+
+    };
     lastData = {
         classId:null,
         className:null,
         classpeoCount:null,
-        teacherId:null,
-        orderDetails:[]
-    };
-    lastdetail = {
-        type:null,
-        orderWeek:[],
-        weekDays:[],
-        classNum:[],
-        firstLaPeoCount:null,
-        secondLab:null,
-        secondLaPeoCount:null,
-        thirdLab:null,
-        thirdLaPeoCount:null
+        username:null,
+        orderDetails:[{
+            type:null,
+            orderWeek:[],
+            weekDays:[],
+            classNum:[],
+            lab:[],
+            labPeoCount:[]
+        },{
+            type:null,
+            orderWeek:[],
+            weekDays:[],
+            classNum:[],
+            lab:[],
+            labPeoCount:[]
+        },{
+            type:null,
+            orderWeek:[],
+            weekDays:[],
+            classNum:[],
+            lab:[],
+            labPeoCount:[]
+        }]
     };
     submit(n): void {
         let url = ['https://www.easy-mock.com/mock/5a5b5ba932a4fc7429df228a/lab1',
-            '接口地址2'];//改为接口地址
+            'https://www.easy-mock.com/mock/5a5b5ba932a4fc7429df228a/resultsuccess'];//改为接口地址
         switch (n) {
             case 0: {
                 for (let i = 1; i < 4; i++) {
@@ -123,17 +153,14 @@ export class OrderComponent implements OnInit {
                         classNum: classNumtemp,//第几节
                         type: typetemp//种类
                     };
-                    console.log(this.validateForm.controls['course'].value);
                     this.lastData.classId = this.validateForm.controls['course'].value.value;
                     this.lastData.className = this.validateForm.controls['course'].value.className;
                     this.lastData.classpeoCount = this.validateForm.controls['course'].value.classPeoCount;
-                    this.lastData.teacherId = this.validateForm.controls['course'].value.teacherId;
-                    console.log(this.lastData);
+                    this.lastData.username = this._storage.get('username');
                     this.orderService.executeHttp(url[n],{username:this._storage.get('username'),data:data,no:i}).then((result: any) => {
                         let res = JSON.parse(result['_body']);
-                        console.log(res);
                         if(res['result']!='success'){
-                            this.info('志愿'+i+'提交失败,请检查网络连接后重试！');
+                            this.info('警告','志愿'+i+'提交失败,请检查网络连接后重试！');
                             return;
                         }else{
                             for(let k=0;k<res['lab'].length;k++){
@@ -143,7 +170,6 @@ export class OrderComponent implements OnInit {
                                 this.labdata[i-1].push(res['lab'][k]);
                             }
                         }
-                        console.log('已将{username:'+this._storage.get('username')+',data:'+JSON.stringify(data)+",zhiyuan"+i+1+'}提交到' + url[0]);
                     });
                 }
                 this.current += 1;
@@ -151,14 +177,14 @@ export class OrderComponent implements OnInit {
                 break;
             }//第一步提交完成
             case 1: {
-                this.zhiyuandata=[];
+                this.zhiyuandata = [[],[],[]];
                 for (let i = 0; i < this.labdata.length; i++)
                     for(let j=0; j < this.labdata[i].length;j++)
                     if (this.labdata[i][j].checked) {
-                        this.zhiyuandata.push({i:i,j:j});
+                        this.zhiyuandata[i].push(this.labdata[i][j]);
                     }
-                if (this.zhiyuandata.length == 0) {
-                    this.info('请至少选择一个实验室！');
+                if (this.zhiyuandata[0].length == 0) {
+                    this.info('警告','请至少选择一个实验室！');
                     this.submitBtn = '下一步';
                     break;
                 }
@@ -167,22 +193,77 @@ export class OrderComponent implements OnInit {
                 break;
             }//第二步提交完成
             case 2:{
-                let peocountsum = 0;
-                for (let i = 0; i < this.labdata.length; i++)
-                    for(let j=0; j < this.labdata[i].length;j++)
-                        if (this.labdata[i][j].checked) {
-                            peocountsum+=this.labdata[i][j].PeoCount;
+                for (let i = 0; i < this.zhiyuandata.length; i++) {
+                    let peocountsum = 0;
+                    if (this.zhiyuandata[i].length==0) continue;
+                    for (let j = 0; j < this.zhiyuandata[i].length; j++){
+                        if (this.zhiyuandata[i][j].checked) {
+                            peocountsum += this.zhiyuandata[i][j].PeoCount;
                         }
-                if(peocountsum!=this.lastData.classpeoCount){
+                    }
                     console.log(peocountsum);
-                    console.log(this.lastData.classpeoCount)
-                    this.info('预约实验室人数必须等于班级总人数！');
-                    break;
+                    console.log(this.lastData.classpeoCount);
+                    if(peocountsum!=this.lastData.classpeoCount){
+                        this.info('警告','预约实验室人数必须等于班级总人数！');
+                        return;
+                    }
                 }
+                //信息总结：
+                //志愿1
+                this.lastData.orderDetails[0].type=this.validateForm.controls['type1'].value.value;
+                for (let j = 0; j < this.validateForm.controls['week1'].value.length; j++) {
+                    this.lastData.orderDetails[0].orderWeek.push(this.validateForm.controls['week1'].value[j].value);
+                }
+                this.lastData.orderDetails[0].weekDays=this.validateForm.controls['weekday1'].value.value;
+                for (let j = 0; j < this.validateForm.controls['classNum1'].value.length; j++) {
+                    this.lastData.orderDetails[0].classNum.push(this.validateForm.controls['classNum1'].value[j].value);
+                }
+                for(let i=0;i<this.zhiyuandata[0].length;i++){
+                    this.lastData.orderDetails[0].lab.push(this.zhiyuandata[0][i].id);
+                    this.lastData.orderDetails[0].labPeoCount.push(this.zhiyuandata[0][i].PeoCount);
+                }
+                if(this.zhiyuan2!=false){
+                    this.lastData.orderDetails[1].type=this.validateForm.controls['type2'].value.value;
+                    for (let j = 0; j < this.validateForm.controls['week2'].value.length; j++) {
+                        this.lastData.orderDetails[1].orderWeek.push(this.validateForm.controls['week2'].value[j].value);
+                    }
+                    this.lastData.orderDetails[1].weekDays=this.validateForm.controls['weekday2'].value.value;
+                    for (let j = 0; j < this.validateForm.controls['classNum2'].value.length; j++) {
+                        this.lastData.orderDetails[1].classNum.push(this.validateForm.controls['classNum2'].value[j].value);
+                    }
+                    for(let i=0;i<this.zhiyuandata[1].length;i++){
+                        this.lastData.orderDetails[1].lab.push(this.zhiyuandata[1][i].id);
+                        this.lastData.orderDetails[1].labPeoCount.push(this.zhiyuandata[1][i].PeoCount);
+                    }
+                }
+                if(this.zhiyuan3!=false){
+                    this.lastData.orderDetails[2].type=this.validateForm.controls['type3'].value.value;
+                    for (let j = 0; j < this.validateForm.controls['week3'].value.length; j++) {
+                        this.lastData.orderDetails[2].orderWeek.push(this.validateForm.controls['week3'].value[j].value);
+                    }
+                    this.lastData.orderDetails[2].weekDays=this.validateForm.controls['weekday3'].value.value;
+                    for (let j = 0; j < this.validateForm.controls['classNum3'].value.length; j++) {
+                        this.lastData.orderDetails[2].classNum.push(this.validateForm.controls['classNum3'].value[j].value);
+                    }
+                    for(let i=0;i<this.zhiyuandata[2].length;i++){
+                        this.lastData.orderDetails[2].lab.push(this.zhiyuandata[2][i].id);
+                        this.lastData.orderDetails[2].labPeoCount.push(this.zhiyuandata[2][i].PeoCount);
+                    }
+                }
+                console.log(this.lastData);
                 this.current += 1;
                 this.submitBtn = '下一步';
                 break;
             }//第三步提交完成
+            case 3:{
+                this.orderService.executeHttp(url[1],JSON.stringify(this.lastData)).then((result: any) => {
+                    let res = JSON.parse(result['_body']);
+                    console.log(res);
+                    if(res["result"]=="success"){
+                         this.success();
+                    }
+                })
+            }
         }
     }
 
