@@ -65,6 +65,17 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    confirmUserName() {
+      const userName = this.validateForm.value.userName;
+      if (userName == null || userName == '') return false;
+      const name = parseInt(userName, 0);
+      if (isNaN(name)) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
     ngOnInit() {
         this.validateForm = this.fb.group({
             userName        : [ null, [ Validators.required]],
