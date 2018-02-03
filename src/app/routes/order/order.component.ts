@@ -201,8 +201,6 @@ export class OrderComponent implements OnInit {
                             peocountsum += this.zhiyuandata[i][j].PeoCount;
                         }
                     }
-                    console.log(peocountsum);
-                    console.log(this.lastData.classpeoCount);
                     if(peocountsum!=this.lastData.classpeoCount){
                         this.info('警告','预约实验室人数必须等于班级总人数！');
                         return;
@@ -250,7 +248,6 @@ export class OrderComponent implements OnInit {
                         this.lastData.orderDetails[2].labPeoCount.push(this.zhiyuandata[2][i].PeoCount);
                     }
                 }
-                console.log(this.lastData);
                 this.current += 1;
                 this.submitBtn = '下一步';
                 break;
@@ -258,7 +255,6 @@ export class OrderComponent implements OnInit {
             case 3:{
                 this.orderService.executeHttp(url[1],JSON.stringify(this.lastData)).then((result: any) => {
                     let res = JSON.parse(result['_body']);
-                    console.log(res);
                     if(res["result"]=="success"){
                          this.success();
                     }
