@@ -6,6 +6,7 @@ import {YyglService} from './yygl.service';
 import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {UserService} from '../user/user.service';
+import {SessionStorageService} from '@core/storage/storage.module';
 
 @Component({
   selector: 'Yygl',
@@ -15,12 +16,16 @@ import {UserService} from '../user/user.service';
 })
 
 export class YyglComponent implements OnInit {
+    ngOnInit(): void {
+        this._getData();
+    }
     _value = ''; /*搜索内容*/
     choice = 100; /*筛选条件:全部：100 进行中：0 未开始：0*/
     /*预约情况：预约课程数，已预约学时，待通过预约数*/
-    orders = { orderednum : 3 , orderedhour: 64, ordering: 3};
+    orders = {};
     /*预约列表*/
-    constructor(private yyglService: YyglService, private message: NzMessageService, private modalService: NzModalService) {
+    constructor(private yyglService: YyglService, private confirmServ: NzMessageService,
+                private modalService: NzModalService, private _storage: SessionStorageService) {
     }
     data = [];
     /*data = [
@@ -33,21 +38,29 @@ export class YyglComponent implements OnInit {
             progress : '',
         }
     ];*/
+    private orderlisturl = 'https://www.easy-mock.com/mock/5a73c90cb4ec7020fa2f63e8/yygl';
     private _getData = () => {
-        this.yyglService.getOrderList()
-            .then((result: any) => {
-                const { data } = result;
-                this.data = data;
-            });
         this.yyglService.getOrder()
             .then((result: any) => {
                 const {data} = result;
                 this.orders = data;
             });
-    }
-
-    ngOnInit(): void {
-        this._getData();
+        this.yyglService.executeHttp(this.orderlisturl, {username: this._storage.get('username')})
+            .then((result: any) => {
+                console.log(result);
+                this.data = result['data'];
+                /*let res = JSON.parse(result['body']);
+                console.log(res);
+                if (res['result'] !== 'success') {
+                console.log('失败');
+                return;
+                }*/
+        });
+    /*    this.yyglService.getOrderList()
+            .then((result: any) => {
+                const { data } = result;
+                this.data = data;
+            });*/
     }
     onSearch(event: string): void {
         console.log(event);
