@@ -253,6 +253,7 @@ export class OrderComponent implements OnInit {
                 break;
             }//第三步提交完成
             case 3:{
+                console.log(JSON.stringify(this.lastData));
                 this.orderService.executeHttp(url[1],JSON.stringify(this.lastData)).then((result: any) => {
                     let res = JSON.parse(result['_body']);
                     if(res["result"]=="success"){
