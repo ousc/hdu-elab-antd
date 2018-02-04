@@ -537,7 +537,7 @@
 </div>
 <!--第二步结束-->
 <div nz-row *ngIf="current==2">
-  <nz-alert [nzType]="'info'" [nzMessage]="'您共选择了个实验室'" nzShowIcon="true" style="margin-top: 30px;">
+  <nz-alert [nzType]="'info'" [nzMessage]="'您共选择了'+(zhiyuandata[0].length+zhiyuandata[1].length+zhiyuandata[2].length)+'个实验室'" nzShowIcon="true" style="margin-top: 30px;">
   </nz-alert>
   <nz-table #nzTable [nzDataSource]="labdata" nzShowFooter="false">
     <thead nz-thead>

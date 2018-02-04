@@ -11,4 +11,4 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
 console.log("%c%s","color: red; background: yellow; font-size: 40px;","欢迎访问杭州电子科技大学实验室预约系统！");
-console.log("OUSC", "color:red;font-weight:bold;");
+console.log("%c%s", "color:red;font-weight:bold;","OUSC");
