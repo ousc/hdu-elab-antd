@@ -3,9 +3,9 @@ import {SettingsService} from '@core/services/settings.service';
 import {MenuService} from '@core/services/menu.service';
 
 @Component({
-  selector: 'app-sider',
-  templateUrl: 'sider.component.html',
-  styleUrls: ['./sider.component.less']
+    selector: 'app-sider',
+    templateUrl: 'sider.component.html',
+    styleUrls: ['./sider.component.less']
 })
 export class SiderComponent {
   theme = true;

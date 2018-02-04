@@ -9,7 +9,7 @@ export class LoginService {
   login(username: string, password: string) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if ((username === 'admin' && password === 'admin') || (username === 'guest' && password === 'guest')) {
+        if ((username === 'admin' && password === 'admin') || (username === 'guest' && password === 'guest') || (username === '40392' && password === '123456')) {
           this._storage.set('username', username);
           resolve(true);
         } else {

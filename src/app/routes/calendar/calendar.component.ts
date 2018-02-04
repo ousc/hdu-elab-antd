@@ -23,8 +23,7 @@ export class CalendarComponent implements OnInit {
   public week = 5;
   public timetable = [];
   constructor(private CalendarService: CalendarService){
-      this.CalendarService.getCalendar('http://192.168.174.65:8080/LabManager/class/getCourseTableByUsername').then((result: any) => {
-          console.log(result);
+      this.CalendarService.getCalendar('/class/getCourseTableByUsername').then((result: any) => {
           this.timetable = JSON.parse(result['_body'])['courseTable']['courseTable'];
       })
   }

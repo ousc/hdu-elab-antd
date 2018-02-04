@@ -7,31 +7,29 @@ import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from "@core/storage/storage.service";
 import {current} from "codelyzer/util/syntaxKind";
 
+function NumAscSort(a,b) {return a - b;}
 @Component({
     selector: 'app-order',
     templateUrl: 'order.component.html',
     styleUrls: ['./order.component.less'],
     providers: [OrderService]
 })
-
 export class OrderComponent implements OnInit {
-    constructor(private _storage : SessionStorageService,private confirmServ: NzModalService,private fb: FormBuilder, private orderService: OrderService, private router: Router, private _message: NzMessageService) {
+    constructor(private _storage : SessionStorageService,private confirmServ: NzModalService,private fb: FormBuilder, private orderService: OrderService, private _message: NzMessageService) {
     }
     validateForm: FormGroup;//定义表单验证
     loadStatus: boolean;//加载状况
     labdata = [[],[],[]];
     //获取的实验室信息
+    rweek = ['一','二','三','四','五','六','日',];
     zhiyuandata = [[],[],[]];
     submitBtn = '下一步';
     submitBackBtn = '上一步';
     current = 0;//初始化步骤
     zhiyuan2  = false;//初始志愿2表单为关闭状态
     zhiyuan3  = false;//初始志愿3表单为关闭状态
-    course = [
-        { value: '101123123', label: '数据结构课程设计{周一345节 1-17周}',className:'数据结构课程设计',teacherId:'12332123',classPeoCount:120 },
-        { value: '101123124', label: '数据结构课程设计{周一456节 1-17周}',className:'数据结构课程设计',teacherId:'12332123',classPeoCount:120 },
-        { value: '101123125', label: '数据结构课程设计{周一678节 1-17周}',className:'数据结构课程设计',teacherId:'12332123',classPeoCount:120 }
-    ];//课程信息
+    course = [];//课程信息
+    type = [];
     week = [{ value:1, label: '1' },
         { value:2, label: '2' },
         { value:3, label: '3' },
@@ -79,10 +77,25 @@ export class OrderComponent implements OnInit {
         { value:11, label: '第11节' },
         { value:12, label: '第12节' },
     ];//节数
-    type = [
-        { value:'1', label: '计算机房1' },
-        { value:'2', label: '计算机房2' },
-    ];//类型
+    getType(){
+        this.orderService.executeGET("/lab/getAllLabType").then((result: any) => {
+            let res = JSON.parse(result['_body'])["labType"];
+            for(let i=0;i<res.length;i++){
+                this.type.push({value:res[i],label:res[i]})
+            }
+        })
+    }
+    getCourse(){
+        this.orderService.executeHttp("/class/getclassbyusername",{userName: this._storage.get('username')}).then((result: any) => {
+            let res = JSON.parse(result['_body']);
+            for(let i=0;i<res['course'].length;i++){
+                res['course'][i]['value'] = res['course'][i]['classId'];
+                res['course'][i]['label'] = res['course'][i]['className']+"{周"+this.rweek[res['course'][i]["weekDays"][0]-1]+res["course"][i]["classNumString"]+"节 "+ res["course"][i]["classWeek"][0]+"-"+res["course"][i]["classWeek"][res["course"][i]["classWeek"].length-1]+"周}";
+                res['course'][i]['teacherId'] = res['course'][i]['userName'];
+                this.course.push(res['course'][i]);
+            }
+        })
+    }
     info(title,contentTpl) {
         this.confirmServ.info({
             title: title,
@@ -103,36 +116,41 @@ export class OrderComponent implements OnInit {
     lastData = {
         classId:null,
         className:null,
-        classpeoCount:null,
-        username:null,
+        classPeoCount:null,
+        userName:null,
+        passFlagString:"未安排",
         orderDetails:[{
-            type:null,
+            type:1,
             orderWeek:[],
             weekDays:[],
             classNum:[],
             lab:[],
-            labPeoCount:[]
+            labArrangedPeoCount:[]
         },{
-            type:null,
+            type:2,
             orderWeek:[],
             weekDays:[],
             classNum:[],
             lab:[],
-            labPeoCount:[]
+            labArrangedPeoCount:[]
         },{
-            type:null,
+            type:3,
             orderWeek:[],
             weekDays:[],
             classNum:[],
             lab:[],
-            labPeoCount:[]
+            labArrangedPeoCount:[]
         }]
     };
     submit(n): void {
-        let url = ['http://192.168.174.65:8080/LabManager/lab/getLabByType',
-            'http://192.168.174.65:8080/LabManager/order/addOrder'];//改为接口地址
+        let url = ['/lab/getLabByType',
+            '/order/addOrder'];//改为接口地址
         switch (n) {
             case 0: {
+                if(this.zhiyuan2==false&&this.zhiyuan3==true){
+                    this.info("警告","请先填写第二志愿再填写第三志愿");
+                    return;
+                }
                 for (let i = 1; i < 4; i++) {
                     if (i == 2 && this.zhiyuan2 == false) continue;
                     if (i == 3 && this.zhiyuan3 == false) continue;
@@ -155,8 +173,8 @@ export class OrderComponent implements OnInit {
                     };
                     this.lastData.classId = this.validateForm.controls['course'].value.value;
                     this.lastData.className = this.validateForm.controls['course'].value.className;
-                    this.lastData.classpeoCount = this.validateForm.controls['course'].value.classPeoCount;
-                    this.lastData.username = this._storage.get('username');
+                    this.lastData.classPeoCount = this.validateForm.controls['course'].value.classPeoCount;
+                    this.lastData.userName = this._storage.get('username');
                     this.orderService.executeHttp(url[n],{username:this._storage.get('username'),data:data,no:i}).then((result: any) => {
                         let res = JSON.parse(result['_body']);
                         if(res['result']!='success'){
@@ -193,6 +211,28 @@ export class OrderComponent implements OnInit {
                 break;
             }//第二步提交完成
             case 2:{
+                this.lastData.orderDetails = [{
+                    type:1,
+                    orderWeek:[],
+                    weekDays:[],
+                    classNum:[],
+                    lab:[],
+                    labArrangedPeoCount:[]
+                },{
+                    type:2,
+                    orderWeek:[],
+                    weekDays:[],
+                    classNum:[],
+                    lab:[],
+                    labArrangedPeoCount:[]
+                },{
+                    type:3,
+                    orderWeek:[],
+                    weekDays:[],
+                    classNum:[],
+                    lab:[],
+                    labArrangedPeoCount:[]
+                }];
                 for (let i = 0; i < this.zhiyuandata.length; i++) {
                     let peocountsum = 0;
                     if (this.zhiyuandata[i].length==0) continue;
@@ -201,51 +241,56 @@ export class OrderComponent implements OnInit {
                             peocountsum += this.zhiyuandata[i][j].PeoCount;
                         }
                     }
-                    if(peocountsum!=this.lastData.classpeoCount){
+                    if(peocountsum!=this.lastData.classPeoCount){
                         this.info('警告','预约实验室人数必须等于班级总人数！');
                         return;
                     }
                 }
                 //信息总结：
                 //志愿1
-                this.lastData.orderDetails[0].type=this.validateForm.controls['type1'].value.value;
                 for (let j = 0; j < this.validateForm.controls['week1'].value.length; j++) {
                     this.lastData.orderDetails[0].orderWeek.push(this.validateForm.controls['week1'].value[j].value);
                 }
-                this.lastData.orderDetails[0].weekDays=this.validateForm.controls['weekday1'].value.value;
+                this.lastData.orderDetails[0].orderWeek.sort(NumAscSort);
+                this.lastData.orderDetails[0].weekDays.push(this.validateForm.controls['weekday1'].value.value);
                 for (let j = 0; j < this.validateForm.controls['classNum1'].value.length; j++) {
                     this.lastData.orderDetails[0].classNum.push(this.validateForm.controls['classNum1'].value[j].value);
                 }
+                this.lastData.orderDetails[0].classNum.sort(NumAscSort);
                 for(let i=0;i<this.zhiyuandata[0].length;i++){
                     this.lastData.orderDetails[0].lab.push(this.zhiyuandata[0][i].id);
-                    this.lastData.orderDetails[0].labPeoCount.push(this.zhiyuandata[0][i].PeoCount);
+                    this.lastData.orderDetails[0].labArrangedPeoCount.push(this.zhiyuandata[0][i].PeoCount);
                 }
                 if(this.zhiyuan2!=false){
-                    this.lastData.orderDetails[1].type=this.validateForm.controls['type2'].value.value;
                     for (let j = 0; j < this.validateForm.controls['week2'].value.length; j++) {
                         this.lastData.orderDetails[1].orderWeek.push(this.validateForm.controls['week2'].value[j].value);
                     }
-                    this.lastData.orderDetails[1].weekDays=this.validateForm.controls['weekday2'].value.value;
+                    this.lastData.orderDetails[1].orderWeek.sort(NumAscSort);
+                    this.lastData.orderDetails[1].weekDays.push(this.validateForm.controls['weekday2'].value.value);
                     for (let j = 0; j < this.validateForm.controls['classNum2'].value.length; j++) {
                         this.lastData.orderDetails[1].classNum.push(this.validateForm.controls['classNum2'].value[j].value);
                     }
+                    console.log(this.lastData.orderDetails[1].classNum);
+                    this.lastData.orderDetails[1].classNum.sort(NumAscSort);
+                    console.log(this.lastData.orderDetails[1].classNum);
                     for(let i=0;i<this.zhiyuandata[1].length;i++){
                         this.lastData.orderDetails[1].lab.push(this.zhiyuandata[1][i].id);
-                        this.lastData.orderDetails[1].labPeoCount.push(this.zhiyuandata[1][i].PeoCount);
+                        this.lastData.orderDetails[1].labArrangedPeoCount.push(this.zhiyuandata[1][i].PeoCount);
                     }
                 }
                 if(this.zhiyuan3!=false){
-                    this.lastData.orderDetails[2].type=this.validateForm.controls['type3'].value.value;
                     for (let j = 0; j < this.validateForm.controls['week3'].value.length; j++) {
                         this.lastData.orderDetails[2].orderWeek.push(this.validateForm.controls['week3'].value[j].value);
                     }
-                    this.lastData.orderDetails[2].weekDays=this.validateForm.controls['weekday3'].value.value;
+                    this.lastData.orderDetails[2].orderWeek.sort(NumAscSort);
+                    this.lastData.orderDetails[2].weekDays.push(this.validateForm.controls['weekday3'].value.value);
                     for (let j = 0; j < this.validateForm.controls['classNum3'].value.length; j++) {
                         this.lastData.orderDetails[2].classNum.push(this.validateForm.controls['classNum3'].value[j].value);
                     }
+                    this.lastData.orderDetails[2].classNum.sort(NumAscSort);
                     for(let i=0;i<this.zhiyuandata[2].length;i++){
                         this.lastData.orderDetails[2].lab.push(this.zhiyuandata[2][i].id);
-                        this.lastData.orderDetails[2].labPeoCount.push(this.zhiyuandata[2][i].PeoCount);
+                        this.lastData.orderDetails[2].labArrangedPeoCount.push(this.zhiyuandata[2][i].PeoCount);
                     }
                 }
                 this.current += 1;
@@ -254,9 +299,9 @@ export class OrderComponent implements OnInit {
             }//第三步提交完成
             case 3:{
                 console.log(JSON.stringify(this.lastData));
-                this.orderService.executeHttp(url[1],JSON.stringify(this.lastData)).then((result: any) => {
+                this.orderService.executeHttp(url[1],this.lastData).then((result: any) => {
                     let res = JSON.parse(result['_body']);
-                    if(res["result"]=="success"){
+                    if(res["result"]==1){
                          this.success();
                     }
                 })
@@ -269,7 +314,7 @@ export class OrderComponent implements OnInit {
             this.validateForm.controls['week2'].reset();
             this.validateForm.controls['weekday2'].reset();
             this.validateForm.controls['classNum2'].reset();
-            this.validateForm.controls['type3'].reset();
+            this.validateForm.controls['type2'].reset();
             let c = this.validateForm.value;
             c['week2']=[{value:-1,"label":" "}];
             c['weekday2']={value:-1,"label":" "};
@@ -355,5 +400,7 @@ export class OrderComponent implements OnInit {
             type2:[null, [Validators.required]],
             type3:[null, [Validators.required]],
         });
+        this.getType();
+        this.getCourse();
     }
 }
