@@ -129,8 +129,8 @@ export class OrderComponent implements OnInit {
         }]
     };
     submit(n): void {
-        let url = ['https://www.easy-mock.com/mock/5a5b5ba932a4fc7429df228a/lab1',
-            'https://www.easy-mock.com/mock/5a5b5ba932a4fc7429df228a/resultsuccess'];//改为接口地址
+        let url = ['http://192.168.174.65:8080/LabManager/lab/getLabByType',
+            'http://192.168.174.65:8080/LabManager/order/addOrder'];//改为接口地址
         switch (n) {
             case 0: {
                 for (let i = 1; i < 4; i++) {
