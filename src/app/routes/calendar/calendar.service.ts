@@ -8,7 +8,7 @@ export class CalendarService {
     constructor(private _storage: SessionStorageService,public http: Http) {
     }
     getCalendar( curl: any) {
-        let headers = new Headers({'Content-Type': 'application/json','charset':'utf-8');
+        let headers = new Headers({'Content-Type': 'application/json','charset':'utf-8'});
         let options = new RequestOptions({headers: headers});
         let content = JSON.stringify({userName: '40392'});
         return new Promise((resolve, reject) => {
