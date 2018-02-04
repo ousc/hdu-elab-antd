@@ -6,7 +6,7 @@
   <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="_submitForm()">
     <div nz-form-item nz-row>
       <div nz-form-control nz-col [nzValidateStatus]="validateForm.controls.userName"  [nzValidateStatus]="getFormControl('userName')" nzHasFeedback >
-        <nz-input formControlName="userName" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+        <nz-input formControlName="userName" [nzPlaceHolder]="'请输入账号'" [nzSize]="'large'">
           <ng-template #prefix>
             <i class="anticon anticon-user"></i>
           </ng-template>
@@ -16,7 +16,7 @@
     </div>
     <div nz-form-item nz-row>
       <div nz-form-control nz-col [nzValidateStatus]="validateForm.controls.password" [nzValidateStatus]="getFormControl('Password')" nzHasFeedback >
-        <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'Password'" [nzSize]="'large'" >
+        <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'请输入密码'" [nzSize]="'large'" >
           <ng-template #prefix>
             <i class="anticon anticon-lock"></i>
           </ng-template>
