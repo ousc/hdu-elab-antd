@@ -42,4 +42,15 @@ export class YyglService {
                 });
         });
     }
+    delOrder( curl: any, id: any) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let content = JSON.stringify({id: id});
+        return new Promise((resolve, reject) => {
+            this.http.post(curl, content, options)
+                .subscribe(result => {
+                    resolve(result);
+                });
+        });
+    }
 }

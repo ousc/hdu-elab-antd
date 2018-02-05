@@ -71,7 +71,7 @@
       <tr nz-tbody-tr *ngFor="let data of nzTable.data">
         <td nz-td>{{data.id}}</td>
         <td nz-td>
-          <a href="/detail">{{data.className}}</a>
+          <span>{{data.className}}</span>
           <br>
           <span>周{{this.WEEK[data.weekDays]}} 第{{data.classNum}}节</span>
           <br>
@@ -85,7 +85,7 @@
             <span>
               <a routerLink="edit">编辑</a>
               <span nz-table-divider></span>
-              <a routerLink="edit">删除</a>
+              <a (click)="this.delClass(data.classId)">删除</a>
             </span>
         </td>
       </tr>

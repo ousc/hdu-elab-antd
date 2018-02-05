@@ -30,18 +30,18 @@ export class SiderComponent {
         'name': '实验室预约',
         'route': '/order'
       }, {
-        'icon': 'clock-circle-o',
+        'icon': 'database',
         'name': '预约管理',
         'route': '/orders'
           }]
     },
     {
-      'icon': 'clock-circle-o',
+      'icon': 'book',
       'name': '课程管理',
       'route': '/courses',
     },
     {
-      'icon': 'clock-circle-o',
+      'icon': 'bulb',
       'name': '实验管理',
       'route': '/sygl',
     },

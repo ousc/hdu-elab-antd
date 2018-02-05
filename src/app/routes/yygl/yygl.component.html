@@ -62,7 +62,7 @@
       <tbody nz-tbody>
       <ng-template ngFor let-data [ngForOf]="nzTable.data">
       <tr nz-tbody-tr >
-        <td nz-td nzExpand (click)="this.boolOpen(data.expand, data)">
+        <td nz-td nzExpand (click)="this.boolOpen(data.expand, data.orderDetails)">
           <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
         </td>
         <td nz-td>{{data.id}}</td>
@@ -76,21 +76,21 @@
         <td nz-td>{{data.passFlagString}}</td>
         <td nz-td>
             <span *ngIf="this.boolArranged(data.passFlagString)">
-              <a href="">删除</a>
+              <a (click)="this.delOrder(data.id)">删除</a>
             </span>
         </td>
       </tr>
       <tr nz-tbody-tr *ngIf="data.expand">
         <td nz-td colspan="9" style="padding: 0">
           <!--展开头-->
-          <div nz-row *ngFor="let order of data.orderDetails">
+<div nz-row *ngFor="let order of data.orderDetails">
             <nz-alert [nzType]="'info'"  nzShowIcon="true"  style="text-align: center">
         <span alert-body >
             <span style="float: left">志愿{{order.type}}</span>&nbsp;&nbsp;
             <span>预约时间：星期{{getDayByNum(order.weekDays)}}</span>&nbsp;&nbsp;
-             <span>预约周次：{{order.orderWeek}}</span>&nbsp;&nbsp;
-             <span>预约节次：{{order.classNum}}</span>&nbsp;&nbsp;
-             <span>班级人数：{{order.classPeoCount}}</span>&nbsp;&nbsp;
+            <span>预约节次：{{order.classNum}}</span>&nbsp;&nbsp;
+            <span>预约周次：{{order.orderWeek}}</span>&nbsp;&nbsp;
+            <span>班级人数：{{data.classPeoCount}}</span>&nbsp;&nbsp;
             <a *ngIf="order.type==1" style="float: right">编辑</a>
         </span>
             </nz-alert>
@@ -107,16 +107,16 @@
         <th nz-th><span>分配人数</span></th>
       </tr>
       </thead>
-      <tbody nz-tbody >
-      <tr nz-tbody-tr>
-        <td nz-td></td>
-        <td nz-td></td>
-        <td nz-td></td>
-        <td nz-td></td>
-        <td nz-td></td>
-        <td nz-td></td>
-        <td nz-td></td>
-        <td nz-td></td>
+      <tbody nz-tbody *ngFor="let i of [0,1,2]" >
+      <tr nz-tbody-tr *ngIf="i<order.lab.length&&lab[order.lab[i]]!=null" >
+        <td nz-td>{{order.lab[i]}}</td>
+        <td nz-td>{{lab[order.lab[i]].labName}}</td>
+        <td nz-td>{{lab[order.lab[i]].labBuild}}</td>
+        <td nz-td>{{lab[order.lab[i]].labNumber}}</td>
+        <td nz-td>{{lab[order.lab[i]].labPeoCount}}</td>
+        <td nz-td>{{lab[order.lab[i]].labType}}</td>
+        <td nz-td>{{lab[order.lab[i]].adminUserName}}</td>
+        <td nz-td>{{order.labArrangedPeoCount[i]}}</td>
       </tr>
       </tbody>
     </nz-table>

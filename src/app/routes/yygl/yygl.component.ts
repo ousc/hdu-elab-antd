@@ -19,7 +19,6 @@ import {consoleTestResultHandler} from 'tslint/lib/test';
 export class YyglComponent implements OnInit {
     _value = ''; /*搜索内容*/
     choice = 100; /*筛选条件:全部：100 进行中：0 未开始：0*/
-    userName = '40392';
     orderDetails = [];
     UnfinishOrder = [];
     orders = [];
@@ -31,6 +30,7 @@ export class YyglComponent implements OnInit {
         'http://aliyun.charlesxu.cn:8080/LabManager/order/getFinishedSimpleOrderListByUsername', /*2获取通过预约*/
         'http://aliyun.charlesxu.cn:8080/LabManager/order/getUnfinishedSimpleOrderListByUsername', /*3获取未通过预约*/
         'http://aliyun.charlesxu.cn:8080/LabManager/lab/getLabById',
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/deleteOrder',
     ];
     constructor(private yyglService: YyglService, private confirmServ: NzMessageService, private  router: Router,
                private _storage: SessionStorageService) {
@@ -73,7 +73,7 @@ export class YyglComponent implements OnInit {
     }
     private _getData = () => {
         // 获取预约
-        this.yyglService.getOrders(this.apiUrl[1], this.userName)
+        this.yyglService.getOrders(this.apiUrl[1], this._storage.get('username'))
             .then((result: any) => {
                 const data = JSON.parse(result['_body'])['Order'];
                 for (let i of data) {
@@ -81,30 +81,38 @@ export class YyglComponent implements OnInit {
                 }
                 this.orders = data;
             });
-        // 获取通过预约
-       /* this.yyglService.getOrders(this.apiUrl[1], this.userName)
-            .then((result: any) => {
-                this.finishOrder = JSON.parse(result['_body'])['SimpleOrder'];
-            });*/
         // 获取未通过预约
-        this.yyglService.getOrders(this.apiUrl[3], this.userName)
+        this.yyglService.getOrders(this.apiUrl[3], this._storage.get('username'))
             .then((result: any) => {
                 this.UnfinishOrder = JSON.parse(result['_body'])['SimpleOrder'];
             });
     }
-    private boolOpen(expand: boolean, datas: any) {
+    private boolOpen(expand: boolean, data: any) {
         if (expand) {
-                for (let j of datas.orderDetails) {
-                    for (let k of j.lab) {
-                        this.yyglService.getLab(this.apiUrl[4], k)
-                            .then((result: any) => {
-                                const data = JSON.parse(result['_body'])['lab'];
-                                this.lab[datas.id] = data;
-                            });
-                    }
+            for (let d of data) {
+                for (let i = 0; i < d.lab.length; i++) {
+                    this.yyglService.getLab(this.apiUrl[4], d.lab[i])
+                        .then((result: any) => {
+                            const lab = JSON.parse(result['_body'])['lab'];
+                            this.lab[d.lab[i]] = lab;
+                        });
                 }
+            }
         }
         return expand;
+    }
+    private getLabById (id: any) {
+        this.yyglService.getLab(this.apiUrl[4], id)
+            .then((result: any) => {
+                const lab = JSON.parse(result['_body'])['lab'];
+                console.log(lab);
+            });
+    }
+    private delOrder(id: any) {
+        this.yyglService.delOrder(this.apiUrl[5], id)
+            .then((result: any) => {
+                console.log(result);
+            });
     }
     onSearch(event: string): void {
         console.log(event);
