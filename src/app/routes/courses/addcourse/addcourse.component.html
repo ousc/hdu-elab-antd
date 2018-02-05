@@ -16,21 +16,10 @@
 <div nz-row>
   <form [nzLayout]="'horizontal'" nz-form [formGroup]="validateForm" (ngSubmit)="'_submitForm()'" nz-col [nzOffset]="'5'" nzSpan="10">
     <div class="formItem" nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.coursenum"  [nzValidateStatus]="getFormControl('coursenum')"  nzHasFeedback >
-        <label for="coursenum" nz-col nzSpan="10">课程号：</label>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.classId"  [nzValidateStatus]="getFormControl('classId')"  nzHasFeedback >
+        <label for="classId" nz-col nzSpan="10">课程号：</label>
         <div nz-col nzSpan="12">
-          <nz-select
-                  id="coursenum"
-                  formControlName="coursenum"
-                  [nzPlaceHolder]="'请选择课程号'"
-                  [nzNotFoundContent]="'无该课程号'"
-                  nzShowSearch="true">
-            <nz-option
-                    *ngFor="let option of coursenum"
-                    [nzLabel]="option.label"
-                    [nzValue]="option">
-            </nz-option>
-          </nz-select>
+          <nz-input></nz-input>
         </div>
         <div class="help">
           <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.coursenum.dirty&&validateForm.controls.coursenum.hasError('required')">课程号为必选项！</div>

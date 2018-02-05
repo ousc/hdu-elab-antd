@@ -5,13 +5,12 @@
   <div nz-col [nzSpan]="22">
     <p>当前学期：2017学年第一学期（本周为第11周）</p>
   </div>
-  <div nz-col [nzSpan]="1">
+  <div nz-col [nzSpan]="1" style="margin-left: -2em">
     <button nz-button [nzType]="'primary'" [nzSize]="'large'">
       <span>查询历史实验</span>
     </button>
   </div>
 </div>
-<div class="devider"></div>
 <div nz-row class="mycard" [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
   <div nz-col [nzSpan]="8">
     <p>本周实验</p>
@@ -26,8 +25,7 @@
     <p>{{experiments.sum}}个实验</p>
   </div>
 </div>
-<div class="devider"></div>
-<div nz-row *ngFor="let data of data" style="display: inline-block">
+<div nz-row *ngFor="let data of data" style="display: inline-block;margin-left: 3em">
     <nz-card>
       <ng-template #body>
         <div class="course">

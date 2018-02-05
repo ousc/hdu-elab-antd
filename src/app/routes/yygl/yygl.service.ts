@@ -6,14 +6,13 @@ import {reject} from 'q';
 import {Headers, Http, RequestOptions} from '@angular/http';
 
 @Injectable()
-export class YyglService extends BaseService {
-  constructor(private _storage: SessionStorageService, http: Http, https: NHttpClinet) {
-    super('yygl', https);
+export class YyglService {
+  constructor(private _storage: SessionStorageService, private http: Http) {
   }
-    executeHttp( curl: any, data: any) {
+  getOrders( curl: any, username: any) {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({username: this._storage.get('username'), data: data});
+        let content = JSON.stringify({userName: username});
         return new Promise((resolve, reject) => {
             this.http.post(curl, content, options)
                 .subscribe(result => {
@@ -21,19 +20,12 @@ export class YyglService extends BaseService {
                 });
         });
     }
-  getOrder() {
-    const yyqk = 'https://www.easy-mock.com/mock/5a73c90cb4ec7020fa2f63e8/example/yyqk';
-      return new Promise((resolve, reject) => {
-          this.http.get(yyqk)
-              .subscribe(result => {
-                  resolve(result);
-              });
-      });
-  }
-
-    getOrderList() {
+    getOrderDetails( curl: any, username: any) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let content = JSON.stringify({userName: username});
         return new Promise((resolve, reject) => {
-            this.http.get('https://www.easy-mock.com/mock/5a73c90cb4ec7020fa2f63e8/yygl')
+            this.http.post(curl, content, options)
                 .subscribe(result => {
                     resolve(result);
                 });

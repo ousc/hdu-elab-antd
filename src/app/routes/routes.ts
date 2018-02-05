@@ -21,8 +21,8 @@ import {ProfileComponent} from './profile/profile.component';
 import {RegisterComponent} from './register/register.component';
 
 export const routes: Routes = [
-    {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
     {path: 'register', component: RegisterComponent},
+    {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
     {
         path: '', component: HomeComponent, canActivate: [CanAuthProvide],
         children: [
@@ -56,7 +56,7 @@ export const routes: Routes = [
                     breadcrumb: '预约管理'
                 }
             },
-            { path : 'orders/detail', component: DetailComponent, canActivate: [CanAuthProvide],
+            { path : 'orders/detail/?id=:id', component: DetailComponent, canActivate: [CanAuthProvide],
                 data : {
                     breadcrumb: '预约详情'
                 }
@@ -106,6 +106,7 @@ export const routes: Routes = [
             {path: '', redirectTo: 'index', pathMatch: 'full'}
         ]
     },
+    {path: 'admin', component: LoginComponent, canLoad: [CanAuthProvide]},
     {path: '**', redirectTo: 'index', pathMatch: 'full'}
 ];
 

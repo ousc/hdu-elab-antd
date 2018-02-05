@@ -75,6 +75,16 @@ export class RegisterComponent implements OnInit {
           return false;
       }
     }
+    confirmPhoneNumber() {
+        const phone = this.validateForm.value.phoneNumber;
+        if (phone == null || phone === '') {return false};
+        const name = parseInt(phone, 0);
+        if (isNaN(name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     ngOnInit() {
         this.validateForm = this.fb.group({

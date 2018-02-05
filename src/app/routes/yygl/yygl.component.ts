@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {UserService} from '../user/user.service';
 import {SessionStorageService} from '@core/storage/storage.module';
+import {consoleTestResultHandler} from 'tslint/lib/test';
 
 @Component({
   selector: 'Yygl',
@@ -16,54 +17,93 @@ import {SessionStorageService} from '@core/storage/storage.module';
 })
 
 export class YyglComponent implements OnInit {
-    ngOnInit(): void {
-        this._getData();
-    }
     _value = ''; /*搜索内容*/
     choice = 100; /*筛选条件:全部：100 进行中：0 未开始：0*/
-    /*预约情况：预约课程数，已预约学时，待通过预约数*/
-    orders = {};
-    /*预约列表*/
-    constructor(private yyglService: YyglService, private confirmServ: NzMessageService,
-                private modalService: NzModalService, private _storage: SessionStorageService) {
+    userName = '40392';
+    orderDetails = [];
+    UnfinishOrder = [];
+    orders = [];
+    /*接口地址*/
+    apiUrl = [
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/getOrderByUsername', /*0获取预约*/
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/getFinishedSimpleOrderListByUsername', /*1获取通过预约*/
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/getUnfinishedSimpleOrderListByUsername', /*2获取未通过预约*/
+    ];
+    constructor(private yyglService: YyglService, private confirmServ: NzMessageService, private  router: Router,
+               private _storage: SessionStorageService) {
     }
-    data = [];
-    /*data = [
-        {
-            id: 1,
-            course    : '', /!*课程名称*!/
-            coursetime : '', /!*课程时间*!/
-            orderedhour : 16, /!*已预约学时*!/
-            ordertime:  '', /!*预约提交时间*!/
-            progress : '',
+    // 换星期几
+    private getDayByNum(num: number) {
+        const array = ['天', '一', '二', '三', '四', '五', '六', '天'];
+        return array[num];
+    }
+    // 获得全部学时
+    private getAllHour(orders: any) {
+        let hour = 0;
+        for (let i of orders) {
+            for (let j of i.orderDetails) {
+                hour += j.classNum.length  * j.orderWeek.length;
+            }
         }
-    ];*/
-    private orderlisturl = 'https://www.easy-mock.com/mock/5a73c90cb4ec7020fa2f63e8/yygl';
+        return hour;
+    }
+    // 获得课程学时
+    private getHour(order: any) {
+        let hour = 0;
+        for (let i of order) {
+                hour += i.classNum.length * i.orderWeek.length;
+        }
+        return hour;
+    }
+    private goToDetail(data: any) {
+        console.log(data.id);
+        this.router.navigate(['/orders/detail/?id=', data.id]);
+    }
+    private boolArranged(pass: any) {
+        if (pass === '未安排') {
+            return true;
+        } else if (pass === '安排失败') {
+            return true;
+        } else {
+            return false;
+        }
+    }
     private _getData = () => {
-        this.yyglService.getOrder()
+        // 获取预约
+        this.yyglService.getOrders(this.apiUrl[0], this.userName)
             .then((result: any) => {
-                const {data} = result;
+                const data = JSON.parse(result['_body'])['Order'];
+                for (let i of data) {
+                    i.expand = false;
+                }
                 this.orders = data;
             });
-        this.yyglService.executeHttp(this.orderlisturl, {username: this._storage.get('username')})
+        // 获取通过预约
+       /* this.yyglService.getOrders(this.apiUrl[1], this.userName)
             .then((result: any) => {
-                console.log(result);
-                this.data = result['data'];
-                /*let res = JSON.parse(result['body']);
-                console.log(res);
-                if (res['result'] !== 'success') {
-                console.log('失败');
-                return;
-                }*/
-        });
-    /*    this.yyglService.getOrderList()
-            .then((result: any) => {
-                const { data } = result;
-                this.data = data;
+                this.finishOrder = JSON.parse(result['_body'])['SimpleOrder'];
             });*/
+        // 获取未通过预约
+        this.yyglService.getOrders(this.apiUrl[2], this.userName)
+            .then((result: any) => {
+                this.UnfinishOrder = JSON.parse(result['_body'])['SimpleOrder'];
+            });
+    }
+    private boolOpen(expand: boolean) {
+        if (expand) {
+            this.yyglService.getLab()
+                .then((result: any) => {
+                    const { data } = result;
+                    this.orderDetails = data;
+                });
+        }
+        return expand;
     }
     onSearch(event: string): void {
         console.log(event);
+    }
+    ngOnInit(): void {
+        this._getData();
     }
 }
 
