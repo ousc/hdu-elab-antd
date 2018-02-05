@@ -20,10 +20,21 @@ export class YyglService {
                 });
         });
     }
-    getOrderDetails( curl: any, username: any) {
+    getOrderDetails( curl: any, id: any) {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({userName: username});
+        let content = JSON.stringify({orderId: id});
+        return new Promise((resolve, reject) => {
+            this.http.post(curl, content, options)
+                .subscribe(result => {
+                    resolve(result);
+                });
+        });
+    }
+    getLab( curl: any, id: any) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let content = JSON.stringify({labId: id});
         return new Promise((resolve, reject) => {
             this.http.post(curl, content, options)
                 .subscribe(result => {

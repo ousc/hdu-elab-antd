@@ -73,8 +73,9 @@
         <td nz-td>
           <a href="/detail">{{data.className}}</a>
           <br>
-          <span>{{data.classWeek}}周</span><br>
-          <span>周{{this.WEEK[data.weekDays]}} {{data.classNum}}节</span>
+          <span>周{{this.WEEK[data.weekDays]}} 第{{data.classNum}}节</span>
+          <br>
+          <span>第{{data.classWeek}}周</span>
         </td>
         <td nz-td>{{data.classId}}</td>
         <td nz-td>{{this.getHours(data)}}</td>

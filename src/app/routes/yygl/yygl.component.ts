@@ -23,11 +23,14 @@ export class YyglComponent implements OnInit {
     orderDetails = [];
     UnfinishOrder = [];
     orders = [];
+    lab = [];
     /*接口地址*/
     apiUrl = [
-        'http://aliyun.charlesxu.cn:8080/LabManager/order/getOrderByUsername', /*0获取预约*/
-        'http://aliyun.charlesxu.cn:8080/LabManager/order/getFinishedSimpleOrderListByUsername', /*1获取通过预约*/
-        'http://aliyun.charlesxu.cn:8080/LabManager/order/getUnfinishedSimpleOrderListByUsername', /*2获取未通过预约*/
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/getSimpleOrderByUsername', /*0获取预约*/
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/getOrderByUsername', /*1获取预约*/
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/getFinishedSimpleOrderListByUsername', /*2获取通过预约*/
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/getUnfinishedSimpleOrderListByUsername', /*3获取未通过预约*/
+        'http://aliyun.charlesxu.cn:8080/LabManager/lab/getLabById',
     ];
     constructor(private yyglService: YyglService, private confirmServ: NzMessageService, private  router: Router,
                private _storage: SessionStorageService) {
@@ -70,7 +73,7 @@ export class YyglComponent implements OnInit {
     }
     private _getData = () => {
         // 获取预约
-        this.yyglService.getOrders(this.apiUrl[0], this.userName)
+        this.yyglService.getOrders(this.apiUrl[1], this.userName)
             .then((result: any) => {
                 const data = JSON.parse(result['_body'])['Order'];
                 for (let i of data) {
@@ -84,14 +87,22 @@ export class YyglComponent implements OnInit {
                 this.finishOrder = JSON.parse(result['_body'])['SimpleOrder'];
             });*/
         // 获取未通过预约
-        this.yyglService.getOrders(this.apiUrl[2], this.userName)
+        this.yyglService.getOrders(this.apiUrl[3], this.userName)
             .then((result: any) => {
                 this.UnfinishOrder = JSON.parse(result['_body'])['SimpleOrder'];
             });
     }
-    private boolOpen(expand: boolean) {
+    private boolOpen(expand: boolean, datas: any) {
         if (expand) {
-
+                for (let j of datas.orderDetails) {
+                    for (let k of j.lab) {
+                        this.yyglService.getLab(this.apiUrl[4], k)
+                            .then((result: any) => {
+                                const data = JSON.parse(result['_body'])['lab'];
+                                this.lab[datas.id] = data;
+                            });
+                    }
+                }
         }
         return expand;
     }

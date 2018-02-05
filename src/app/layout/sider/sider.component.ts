@@ -24,16 +24,16 @@ export class SiderComponent {
       'icon': 'clock-circle-o',
       'name': '上机预约',
       'route': '/order',
-      'submenu': [{
+      'submenu': [
+          {
         'icon': 'calendar',
         'name': '实验室预约',
         'route': '/order'
-      }]
-    },
-    {
-      'icon': 'clock-circle-o',
-      'name': '预约管理',
-      'route': '/orders',
+      }, {
+        'icon': 'clock-circle-o',
+        'name': '预约管理',
+        'route': '/orders'
+          }]
     },
     {
       'icon': 'clock-circle-o',
