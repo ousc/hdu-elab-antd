@@ -91,11 +91,7 @@ export class YyglComponent implements OnInit {
     }
     private boolOpen(expand: boolean) {
         if (expand) {
-            this.yyglService.getLab()
-                .then((result: any) => {
-                    const { data } = result;
-                    this.orderDetails = data;
-                });
+
         }
         return expand;
     }
