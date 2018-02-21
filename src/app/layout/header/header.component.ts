@@ -24,6 +24,6 @@ export class HeaderComponent {
         this.router.navigate(['profile']);
   }
   modifyPass() {
-        this.router.navigate(['password']);
+        this.router.navigate(['passwordEdit']);
   }
 }

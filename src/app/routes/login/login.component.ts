@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['']);
         }, (err) => {
           this.loadStatus = false;
-          this.loginBtn = 'Login';
-          this._message.error('登录失败！');
+          this.loginBtn = '登录';
+          this._message.error('用户名或密码错误！');
         });
     }
   }

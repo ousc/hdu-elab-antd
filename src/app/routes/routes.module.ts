@@ -13,6 +13,7 @@ import {CoursesModule} from './courses/courses.module';
 import {SyglModule} from './sygl/sygl.module';
 import {ProfileModule} from './profile/profile.module';
 import {RegisterModule} from './register/register.module';
+import {passwordEditModule} from './passwordEdit/passwordEdit.module';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import {RegisterModule} from './register/register.module';
         SyglModule,
         ProfileModule,
         RegisterModule,
+        passwordEditModule,
     ]
 })
 

@@ -23,7 +23,6 @@ export class LoginService {
       setTimeout(() => {
         this.executeHttp("/user/login",{"userName":username,"password":password}).then((result: any) => {
             let res = JSON.parse(result['_body']).result;
-            console.log(res);
             if(res==1){
                 this._storage.set('username', username);
                 resolve(true);

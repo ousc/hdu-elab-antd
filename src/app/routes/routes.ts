@@ -19,6 +19,7 @@ import {SyszComponent} from './sygl/sysz/sysz.component';
 import {DcbgComponent} from './sygl/dcbg/dcbg.component';
 import {ProfileComponent} from './profile/profile.component';
 import {RegisterComponent} from './register/register.component';
+import {passwordEditComponent} from "./passwordEdit/passwordEdit.component";
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
@@ -100,6 +101,11 @@ export const routes: Routes = [
                 path: 'profile', component: ProfileComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '个人资料'
+                }
+            }, {
+                path: 'passwordEdit', component: passwordEditComponent, canActivate: [CanAuthProvide],
+                data: {
+                    breadcrumb: '密码修改'
                 }
             },
             {path: 'charts', component: ChartsComponent, canActivate: [CanAuthProvide]},
