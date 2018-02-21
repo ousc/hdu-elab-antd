@@ -7,7 +7,8 @@ import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from "@core/storage/storage.service";
 import {current} from "codelyzer/util/syntaxKind";
 
-function NumAscSort(a,b) {return a - b;}
+function NumAscSort(a,b) {return a - b;}//排序算法，升序
+
 @Component({
     selector: 'app-order',
     templateUrl: 'order.component.html',
@@ -17,20 +18,21 @@ function NumAscSort(a,b) {return a - b;}
 export class OrderComponent implements OnInit {
     constructor(private _storage : SessionStorageService,private confirmServ: NzModalService,private fb: FormBuilder, private orderService: OrderService, private _message: NzMessageService) {
     }
+    //************************************************
+    // 变量定义部分
     validateForm: FormGroup;//定义表单验证
     loadStatus: boolean;//加载状况
-    labdata = [[],[],[]];
-    //获取的实验室信息
-    rweek = ['一','二','三','四','五','六','日',];
-    zhiyuandata = [[],[],[]];
-    submitBtn = '下一步';
-    submitBackBtn = '上一步';
+    labdata = [[],[],[]];//获取的实验室信息
+    rweek = ['一','二','三','四','五','六','日',];//周几汉字
+    zhiyuandata = [[],[],[]];//转存的志愿实验室信息，三个数组分别储存一、二、三志愿
+    submitBtn = '下一步';//下一步按钮文字
+    submitBackBtn = '上一步';//上一步按钮文字
     current = 0;//初始化步骤
     zhiyuan2  = false;//初始志愿2表单为关闭状态
     zhiyuan3  = false;//初始志愿3表单为关闭状态
     course = [];//课程信息
-    type = [];
-    week = [{ value:1, label: '1' },
+    type = [];//实验室种类
+    week = [{ value:1, label: '1' },//value为绑定值，label为显示内容
         { value:2, label: '2' },
         { value:3, label: '3' },
         { value:4, label: '4' },
@@ -64,6 +66,7 @@ export class OrderComponent implements OnInit {
         { value:6, label: '星期六' },
         { value:7, label: '星期日' }
     ];//星期
+
     classNum = [{ value:1, label: '第1节' },
         { value:2, label: '第2节' },
         { value:3, label: '第3节' },
@@ -77,55 +80,20 @@ export class OrderComponent implements OnInit {
         { value:11, label: '第11节' },
         { value:12, label: '第12节' },
     ];//节数
-    getType(){
-        this.orderService.executeGET("/lab/getAllLabType").then((result: any) => {
-            let res = JSON.parse(result['_body'])["labType"];
-            for(let i=0;i<res.length;i++){
-                this.type.push({value:res[i],label:res[i]})
-            }
-        })
-    }
-    getCourse(){
-        this.orderService.executeHttp("/class/getclassbyusername",{userName: this._storage.get('username')}).then((result: any) => {
-            let res = JSON.parse(result['_body']);
-            for(let i=0;i<res['course'].length;i++){
-                res['course'][i]['value'] = res['course'][i]['classId'];
-                res['course'][i]['label'] = res['course'][i]['className']+"{周"+this.rweek[res['course'][i]["weekDays"][0]-1]+res["course"][i]["classNumString"]+"节 "+ res["course"][i]["classWeek"][0]+"-"+res["course"][i]["classWeek"][res["course"][i]["classWeek"].length-1]+"周}";
-                res['course'][i]['teacherId'] = res['course'][i]['userName'];
-                this.course.push(res['course'][i]);
-            }
-        })
-    }
-    info(title,contentTpl) {
-        this.confirmServ.info({
-            title: title,
-            content: contentTpl
-        });
-    }//警告框
-    success = () => {
-        const modal = this.confirmServ.success({
-            title: '提交成功',
-            content: '3秒后回到首页'
-        });
-        setTimeout(function () {
-            modal.destroy();
-            window.location.assign('/');
-        },3000);
 
-    };
     lastData = {
-        classId:null,
-        className:null,
-        classPeoCount:null,
-        userName:null,
+        classId:null,//课程号
+        className:null,//课程名
+        classPeoCount:null,//班级人数
+        userName:null,//用户名
         passFlagString:"未安排",
         orderDetails:[{
-            type:1,
-            orderWeek:[],
-            weekDays:[],
-            classNum:[],
-            lab:[],
-            labArrangedPeoCount:[]
+            type:1,//第几志愿
+            orderWeek:[],//预定周次
+            weekDays:[],//星期几
+            classNum:[],//第几节
+            lab:[],//实验室
+            labArrangedPeoCount:[]//和lab对应的实验室安排人数
         },{
             type:2,
             orderWeek:[],
@@ -141,16 +109,59 @@ export class OrderComponent implements OnInit {
             lab:[],
             labArrangedPeoCount:[]
         }]
+    };//第四步提交的最终数据格式
+    //************************************************
+    //方法定义
+    //1.获取实验室类型
+    getType(){
+        this.orderService.executeGET("/lab/getAllLabType").then((result: any) => {
+            let res = JSON.parse(result['_body'])["labType"];
+            for(let i=0;i<res.length;i++){
+                this.type.push({value:res[i],label:res[i]})
+            }
+        })
+    }
+    //2.获取课程内容
+    getCourse(){
+        this.orderService.executeHttp("/class/getclassbyusername",{userName: this._storage.get('username')}).then((result: any) => {
+            let res = JSON.parse(result['_body']);
+            for(let i=0;i<res['course'].length;i++){
+                res['course'][i]['value'] = res['course'][i]['classId'];
+                res['course'][i]['label'] = res['course'][i]['className']+"{周"+this.rweek[res['course'][i]["weekDays"][0]-1]+res["course"][i]["classNumString"]+"节 "+ res["course"][i]["classWeek"][0]+"-"+res["course"][i]["classWeek"][res["course"][i]["classWeek"].length-1]+"周}";
+                res['course'][i]['teacherId'] = res['course'][i]['userName'];
+                this.course.push(res['course'][i]);
+            }
+        })
+    }
+    //3.显示alert窗口，title为标题，contentTpl为内容
+    info(title,contentTpl) {
+        this.confirmServ.info({
+            title: title,
+            content: contentTpl
+        });
+    }
+    //4.第三部提交成功的alert窗口
+    success = () => {
+        const modal = this.confirmServ.success({
+            title: '提交成功',
+            content: '3秒后回到首页'
+        });
+        setTimeout(function () {
+            modal.destroy();
+            window.location.assign('/');
+        },3000);
+
     };
+    //5.下一步/提交
     submit(n): void {
         let url = ['/lab/getLabByType',
-            '/order/addOrder'];//改为接口地址
+            '/order/addOrder'];//定义接口地址
         switch (n) {
             case 0: {
                 if(this.zhiyuan2==false&&this.zhiyuan3==true){
                     this.info("警告","请先填写第二志愿再填写第三志愿");
                     return;
-                }
+                }//检测是否没填第二志愿直接填写第三志愿
                 for (let i = 1; i < 4; i++) {
                     if (i == 2 && this.zhiyuan2 == false) continue;
                     if (i == 3 && this.zhiyuan3 == false) continue;
@@ -188,24 +199,24 @@ export class OrderComponent implements OnInit {
                                 this.labdata[i-1].push(res['lab'][k]);
                             }
                         }
-                    });
+                    });//提交志愿并将返回数据储存进labdata中
                 }
                 this.current += 1;
                 this.submitBtn = '下一步';
                 break;
             }//第一步提交完成
             case 1: {
-                this.zhiyuandata = [[],[],[]];
+                this.zhiyuandata = [[],[],[]];//重置数据
                 for (let i = 0; i < this.labdata.length; i++)
                     for(let j=0; j < this.labdata[i].length;j++)
                     if (this.labdata[i][j].checked) {
                         this.zhiyuandata[i].push(this.labdata[i][j]);
-                    }
+                    }//将用户勾选的数据放进zhiyaundata中，zhiyuandata0、1、2分别对应1、2、3志愿
                 if (this.zhiyuandata[0].length == 0) {
                     this.info('警告','请至少选择一个实验室！');
                     this.submitBtn = '下一步';
                     break;
-                }
+                }//检测是否没有勾选实验室
                 this.current += 1;
                 this.submitBtn = '下一步';
                 break;
@@ -232,9 +243,9 @@ export class OrderComponent implements OnInit {
                     classNum:[],
                     lab:[],
                     labArrangedPeoCount:[]
-                }];
+                }];//重置lastdata
                 for (let i = 0; i < this.zhiyuandata.length; i++) {
-                    let peocountsum = 0;
+                    let peocountsum = 0;//重置人数
                     if (this.zhiyuandata[i].length==0) continue;
                     for (let j = 0; j < this.zhiyuandata[i].length; j++){
                         if (this.zhiyuandata[i][j].checked) {
@@ -244,7 +255,7 @@ export class OrderComponent implements OnInit {
                     if(peocountsum!=this.lastData.classPeoCount){
                         this.info('警告','预约实验室人数必须等于班级总人数！');
                         return;
-                    }
+                    }//检测预约实验室人数是否等于班级总人数
                 }
                 //信息总结：
                 //志愿1
@@ -261,7 +272,7 @@ export class OrderComponent implements OnInit {
                     this.lastData.orderDetails[0].lab.push(this.zhiyuandata[0][i].id);
                     this.lastData.orderDetails[0].labArrangedPeoCount.push(this.zhiyuandata[0][i].PeoCount);
                 }
-                if(this.zhiyuan2!=false){
+                if(this.zhiyuandata[1].length!=0){
                     for (let j = 0; j < this.validateForm.controls['week2'].value.length; j++) {
                         this.lastData.orderDetails[1].orderWeek.push(this.validateForm.controls['week2'].value[j].value);
                     }
@@ -278,7 +289,7 @@ export class OrderComponent implements OnInit {
                         this.lastData.orderDetails[1].labArrangedPeoCount.push(this.zhiyuandata[1][i].PeoCount);
                     }
                 }
-                if(this.zhiyuan3!=false){
+                if(this.zhiyuandata[2].length!=0){
                     for (let j = 0; j < this.validateForm.controls['week3'].value.length; j++) {
                         this.lastData.orderDetails[2].orderWeek.push(this.validateForm.controls['week3'].value[j].value);
                     }
@@ -292,7 +303,7 @@ export class OrderComponent implements OnInit {
                         this.lastData.orderDetails[2].lab.push(this.zhiyuandata[2][i].id);
                         this.lastData.orderDetails[2].labArrangedPeoCount.push(this.zhiyuandata[2][i].PeoCount);
                     }
-                }
+                }//将zhiyaundata的数据放入lastdata
                 this.current += 1;
                 this.submitBtn = '下一步';
                 break;
@@ -305,10 +316,10 @@ export class OrderComponent implements OnInit {
                          this.success();
                     }
                 })
-            }
+            }//第四步提交完成
         }
     }
-
+    //6.提交第一张表单的表单验证
     _submitForm() {
         if(this.zhiyuan2==false){
             this.validateForm.controls['week2'].reset();
@@ -344,6 +355,8 @@ export class OrderComponent implements OnInit {
             this.loadStatus = false;
         }
     }
+
+    //7.返回上一步
     back(){
         if(this.current==1){
             this.labdata = [[],[],[]];
@@ -352,7 +365,7 @@ export class OrderComponent implements OnInit {
         this.current-=1;
         this.loadStatus = false;
     }
-    //控制全选单双重置
+    //8.控制周次全选单双重置，传入数据源和操作类型，操作类型0=>全选，1双数，2单数，其他重置
     setWeek = (target, operation) => {
         this.validateForm.controls[target].reset();
         if(operation==0){
@@ -381,9 +394,11 @@ export class OrderComponent implements OnInit {
             this.validateForm.setValue(c);
         }
     };
+    //9.获得表单控制
     getFormControl(name) {
         return this.validateForm.controls[name];
     }
+    //10.全局初始化
     ngOnInit() {
         this.validateForm = this.fb.group({
             course: ['', [Validators.required]],
@@ -399,8 +414,8 @@ export class OrderComponent implements OnInit {
             type1:[null, [Validators.required]],
             type2:[null, [Validators.required]],
             type3:[null, [Validators.required]],
-        });
-        this.getType();
-        this.getCourse();
+        });//绑定数据校验
+        this.getType()//获取实验室类型;
+        this.getCourse();//获取课程名
     }
 }

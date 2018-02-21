@@ -10,7 +10,7 @@ export class CalendarService {
     getCalendar( curl: any) {
         let headers = new Headers({'Content-Type': 'application/json','charset':'utf-8'});
         let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({userName: '40392'});
+        let content = JSON.stringify({userName: this._storage.get("username")});
         return new Promise((resolve, reject) => {
             this.http.post(host+curl, content, options)
                 .subscribe(result => {
