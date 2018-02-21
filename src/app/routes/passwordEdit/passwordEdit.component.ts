@@ -31,9 +31,12 @@ export class passwordEditComponent implements OnInit {
               let res = JSON.parse(result['_body']).result;
               if(res=="success"){
                   this._message.success('修改成功！');
+                  this._storage.clear();
                   setTimeout(function () {
                       window.location.assign('/');
                   },2000)
+              }else{
+                  this._message.error("旧密码错误！");
               }
           })
     }

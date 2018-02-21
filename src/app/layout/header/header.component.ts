@@ -4,9 +4,9 @@ import {SettingsService} from '@core/services/settings.service';
 import {SessionStorageService} from '@core/storage/storage.module';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: 'header.component.html',
-  styleUrls: ['./header.component.less'],
+    selector: 'app-header',
+    templateUrl: 'header.component.html',
+    styleUrls: ['./header.component.less'],
 })
 export class HeaderComponent {
   constructor(public settings: SettingsService, private router: Router, private _storage: SessionStorageService) {
