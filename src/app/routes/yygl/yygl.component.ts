@@ -5,7 +5,6 @@ import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {YyglService} from './yygl.service';
 import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
-import {UserService} from '../user/user.service';
 import {SessionStorageService} from '@core/storage/storage.module';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 

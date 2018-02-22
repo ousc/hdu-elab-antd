@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {CookieModule} from 'ngx-cookie';
-import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {StorageModule} from '@core/storage/storage.module';
 import {DividerModule} from "@components/Divider/Divider.module";
 
@@ -22,7 +21,6 @@ import {DividerModule} from "@components/Divider/Divider.module";
     ReactiveFormsModule,
     NgZorroAntdModule,
     RouterModule,
-    ChartsModule
   ]
 })
 export class SharedModule {
