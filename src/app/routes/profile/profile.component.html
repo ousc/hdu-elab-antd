@@ -1,23 +1,69 @@
+
 <div nz-row>
   <div nz-col>
     <h1>个人资料</h1>
+    <button nz-button [nzType]="'default'" (click)="edit()" [nzSize]="size" style="float: right;margin-right: 40px;">
+      <i class="anticon anticon-edit" *ngIf="!editMode"></i>
+      <i class="anticon anticon-rollback" *ngIf="editMode"></i>
+      <span>{{editText}}</span>
+    </button>
   </div>
 </div>
-<div nz-row>
-  <div nz-col nzSpan="8" nzOffset="4">
+<form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+<div nz-row style="margin-top: 50px;">
+  <div nz-col nzSpan="4" nzOffset="8">
     <h3>用户名：</h3>
   </div>
-  <div nz-col nzOffset="4">
-
+  <div nz-col nzSpan="4">
+    {{this._storage.get("username")}}
   </div>
 </div>
-<div nz-row>
-  <div  nz-col nzSpan="8" nzOffset="4">
+<div nz-row style="margin-top: 30px;">
+  <div nz-col nzSpan="4" nzOffset="8">
+    <h3>昵称：</h3>
+  </div>
+  <div nz-col  nzSpan="4">
+    <span *ngIf="!editMode">{{nickname}}</span>
+    <div nz-form-item *ngIf="editMode">
+      <div nz-form-control>
+        <nz-input formControlName="newNickName" [nzPlaceHolder]="'请输入新的昵称'"></nz-input>
+        <div nz-form-explain *ngIf="validateForm.controls.newNickName.dirty&&validateForm.controls.newNickName.hasError('required')" style="color: red">昵称不能为空!</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div nz-row style="margin-top: 30px;">
+  <div nz-col nzSpan="4" nzOffset="8">
     <h3>邮箱：</h3>
   </div>
-</div>
-<div nz-row>
-  <div  nz-col nzSpan="8" nzOffset="4">
-    <h3>电话号码：</h3>
+  <div nz-col  nzSpan="4">
+    <span *ngIf="!editMode">{{email}}</span>
+    <div nz-form-item *ngIf="editMode">
+      <div nz-form-control>
+        <nz-input formControlName="newEmail" [nzPlaceHolder]="'请输入新的邮箱'"></nz-input>
+        <div nz-form-explain *ngIf="validateForm.controls.newEmail.dirty&&validateForm.controls.newEmail.hasError('required')" style="color: red">邮箱不能为空!</div>
+      </div>
+    </div>
   </div>
 </div>
+<div nz-row style="margin-top: 30px;">
+  <div nz-col nzSpan="4" nzOffset="8">
+    <h3>电话号码：</h3>
+  </div>
+  <div nz-col  nzSpan="4">
+    <span *ngIf="!editMode">{{phone}}</span>
+    <div nz-form-item *ngIf="editMode">
+      <div nz-form-control>
+        <nz-input formControlName="newPhone" [nzPlaceHolder]="'请输入新的电话号码'"></nz-input>
+        <div nz-form-explain *ngIf="validateForm.controls.newPhone.dirty&&validateForm.controls.newPhone.hasError('required')" style="color: red">电话号码不能为空!</div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div style="text-align: center;margin-top: 50px">
+  <nz-button-group *ngIf="editMode">
+    <button nz-button [nzType]="'primary'">提交</button>
+    <button nz-button (click)="cancle()">取消</button>
+  </nz-button-group>
+  </div>
+</form>
