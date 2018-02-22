@@ -4,6 +4,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProfileService} from './profile.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+import {SessionStorageService} from "@core/storage/storage.service";
 
 
 @Component({
@@ -13,8 +14,15 @@ import {NzMessageService} from 'ng-zorro-antd';
   providers: [ProfileService]
 })
 export class ProfileComponent implements OnInit {
-    constructor( private ProfileService: ProfileService, private _message: NzMessageService) {
+    constructor(private _storage : SessionStorageService, private ProfileService: ProfileService, private _message: NzMessageService) {
+    }
+    getUserInfo(){
+        this.ProfileService.executeHttp("user/getUserByUserName",{"userName":this._storage.get("username")}).then((result: any) => {
+            let res = JSON.parse(result['_body']);
+            console.log(res);
+        })
     }
     ngOnInit() {
+        this.getUserInfo();
     }
 }
