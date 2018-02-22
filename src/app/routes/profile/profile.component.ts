@@ -33,12 +33,17 @@ export class ProfileComponent implements OnInit {
     edit(){
         if(!this.editMode){
             this.editText="返回";
+            this.validateForm.controls['newEmail'].setValue(this.email);
+            this.validateForm.controls['newPhone'].setValue(this.phone);
+            this.validateForm.controls['newNickName'].setValue(this.nickname);
+
         }else{
             this.editText="编辑";
         }
         this.editMode=!this.editMode;
     }
     cancle(){
+        this.editText="编辑";
         this.editMode=false;
     }
     validateForm: FormGroup;
