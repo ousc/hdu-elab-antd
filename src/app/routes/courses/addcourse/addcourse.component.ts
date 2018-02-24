@@ -3,8 +3,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {AddcourseService} from './addcourse.service';
-import {Router} from '@angular/router';
-import {NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {SessionStorageService} from '@core/storage/storage.service';
 
 
 @Component({
@@ -17,20 +17,10 @@ export class AddcourseComponent implements OnInit {
     validateForm: FormGroup;
     loadStatus: boolean;
     submitBtn = '提交';
-    constructor(private fb: FormBuilder, private addcourseService: AddcourseService,
-                private router: Router, private _message: NzMessageService) {
+    curl = 'http://aliyun.charlesxu.cn:8080/LabManager/class/addclass';
+    constructor(private _storage: SessionStorageService, private fb: FormBuilder,
+                private addcourseService: AddcourseService, private confirmServ: NzModalService) {
     }
-    public current = 0;
-    coursenum = [
-        {value: 'A2301020-41478-1', label: '(2017-2018-1)-A2301020-41478-1'},
-        {value: 'A2301020-41478-2', label: '(2017-2018-1)-A2301020-41478-2'},
-        {value: 'A2301020-41478-3', label: '(2017-2018-1)-A2301020-41478-3'}
-    ]
-    course = [
-        { value: '101123123', label: '数据结构课程设计{周一345节 1-17周}' },
-        { value: '101123124', label: '数据结构课程设计{周一456节 1-17周}' },
-        { value: '101123125', label: '数据结构课程设计{周一678节 1-17周}' }
-    ];
     week = [{ value: 1, label: '1' },
         { value: 2, label: '2' },
         { value: 3, label: '3' },
@@ -46,7 +36,11 @@ export class AddcourseComponent implements OnInit {
         { value: 13, label: '13' },
         { value: 14, label: '14' },
         { value: 15, label: '15' },
-        { value: 16, label: '16' }
+        { value: 16, label: '16' },
+        { value: 17, label: '17' },
+        { value: 18, label: '18' },
+        { value: 19, label: '19' },
+        { value: 20, label: '20' },
     ];
     weekday = [{ value: 1, label: '星期一' },
         { value: 2, label: '星期二' },
@@ -103,14 +97,61 @@ export class AddcourseComponent implements OnInit {
     getFormControl(name) {
         return this.validateForm.controls[name];
     }
+
+    info(title, contentTpl) {
+        this.confirmServ.info({
+            title: title,
+            content: contentTpl
+        });
+    }
+    success = () => {
+        const modal = this.confirmServ.success({
+            title: '添加成功',
+            content: '1秒后回到课程管理'
+        });
+        setTimeout(function () {
+            modal.destroy();
+            window.location.assign('/courses');
+        }, 1000);
+
+    }
+    _submitForm() {
+        let classId = '', className = '', weektemp = [], weekdaytemp = [], classNumtemp = [], classPeoCount = '';
+        for (let j = 0; j < this.validateForm.controls['week'].value.length; j++) {
+            weektemp.push(this.validateForm.controls['week'].value[j].value);
+        }
+        for (let j = 0; j < this.validateForm.controls['classNum'].value.length; j++) {
+            classNumtemp.push(this.validateForm.controls['classNum'].value[j].value);
+        }
+        weekdaytemp[0] = this.validateForm.controls['weekday'].value.value;
+        className = this.validateForm.controls['className'].value.value;
+        let data = {
+            classId: classId,
+            className: className,//课程
+            week: weektemp,//周数
+            weekday: weekdaytemp,//星期几
+            classNum: classNumtemp,//第几节
+            classPeoCount: classPeoCount
+        };
+        this.addcourseService.executeHttp(this.curl, {username: this._storage.get('username'), data: data})
+            .then((result: any) => {
+                let res = JSON.parse(result['_body']);
+                if (res['result'] !== 'success') {
+                    this.info('警告', '提交失败,请检查网络连接后重试！');
+                    return;
+                } else {
+                    this.success();
+                }
+            });
+    }
     ngOnInit() {
         this.validateForm = this.fb.group({
-            coursenum: [null, [Validators.required]],
-            course: [null, [Validators.required]],
+            classId: [null, [Validators.required]],
+            className: [null, [Validators.required]],
             week: [null, [Validators.required]],
             weekday: [null, [Validators.required]],
             classNum: [null, [Validators.required]],
-            scnum: [null, [Validators.required]],
+            classPeoCount: [null, [Validators.required]],
         });
     }
 }

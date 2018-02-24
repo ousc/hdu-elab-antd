@@ -49,11 +49,11 @@ export const routes: Routes = [
                     breadcrumb: '预约管理'
                 }
             },
-            /*{ path : 'orders/detail/?id=:id', component: DetailComponent, canActivate: [CanAuthProvide],
+            { path : 'orders/detail', component: DetailComponent, canActivate: [CanAuthProvide],
                 data : {
                     breadcrumb: '预约详情'
                 }
-            },*/
+            },
             {
                 path: 'courses', component: CoursesComponent, canActivate: [CanAuthProvide],
                 data: {
