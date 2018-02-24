@@ -26,7 +26,6 @@
     "antd": "^2.13.9",
     "core-js": "^2.4.1",
     "ng-zorro-antd": "^0.5.5",
-    "ng2-charts": "^1.6.0",
     "ngx-cookie": "^1.0.1",
     "rxjs": "^5.4.2",
     "web-storage-cache": "^1.0.3",

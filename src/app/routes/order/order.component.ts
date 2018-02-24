@@ -172,9 +172,11 @@ export class OrderComponent implements OnInit {
                     for (let j = 0; j < this.validateForm.controls['classNum' + i].value.length; j++) {
                         classNumtemp.push(this.validateForm.controls['classNum' + i].value[j].value);
                     }
+                    for (let j = 0; j < this.validateForm.controls['type' + i].value.length; j++) {
+                        typetemp.push(this.validateForm.controls['type' + i].value[j].value);
+                    }
                     weekdaytemp[0] = this.validateForm.controls['weekday' + i].value.value;
                     coursetemp[0] = this.validateForm.controls['course'].value.value;
-                    typetemp[0] = this.validateForm.controls['type' + i].value.value;
                     let data = {
                         course: coursetemp,//课程
                         week: weektemp,//周数
@@ -182,6 +184,7 @@ export class OrderComponent implements OnInit {
                         classNum: classNumtemp,//第几节
                         type: typetemp//种类
                     };
+                    console.log(data);
                     this.lastData.classId = this.validateForm.controls['course'].value.value;
                     this.lastData.className = this.validateForm.controls['course'].value.className;
                     this.lastData.classPeoCount = this.validateForm.controls['course'].value.classPeoCount;

@@ -53,7 +53,7 @@
             <nz-popover [nzTitle]="'课表'">
                 <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
                 <ng-template #nzTemplate>
-                    <img src="../../../assets/timetable.png" height="504" width="422"/>
+                    <img src="../../../assets/weeks.png" height="504" width="422"/>
                 </ng-template>
             </nz-popover>
         </div>
@@ -106,7 +106,7 @@
             <nz-popover [nzTitle]="'校历'">
                 <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
                 <ng-template #nzTemplate>
-                    <img src="../../../assets/weeks.png" height="419" width="597"/>
+                    <img src="../../../assets/timetable.png" height="419" width="597"/>
                 </ng-template>
             </nz-popover>
         </div>
@@ -120,10 +120,11 @@
   </div>
       <div class="formItem" nz-form-item>
         <div nz-form-control [nzValidateStatus]="validateForm.controls.type1"  [nzValidateStatus]="getFormControl('type1')"  nzHasFeedback >
-          <label for="type1" nz-col nzSpan="9">实验室种类：</label>
+          <label for="type1" nz-col nzSpan="9">实验室种类（可多选）：</label>
           <div nz-col nzSpan="13">
             <nz-select
               id="type1"
+              nzMode="multiple"
               formControlName="type1"
               [nzPlaceHolder]="'请选择实验室种类'"
               [nzNotFoundContent]="'无该实验室种类记录'"
@@ -136,7 +137,7 @@
             </nz-select>
           </div>
           <div class="help">
-            <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.type1.dirty&&validateForm.controls.type1.hasError('required')">课程为必选项！</div>
+            <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.type1.dirty&&validateForm.controls.type1.hasError('required')">实验室种类为必选项！</div>
           </div>
         </div>
       </div>
@@ -178,7 +179,7 @@
                 <nz-popover [nzTitle]="'课表'">
                     <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
                     <ng-template #nzTemplate>
-                        <img src="../../../assets/timetable.png" height="504" width="422"/>
+                        <img src="../../../assets/weeks.png" height="504" width="422"/>
                     </ng-template>
                 </nz-popover>
             </div>
@@ -231,7 +232,7 @@
                 <nz-popover [nzTitle]="'校历'">
                     <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
                     <ng-template #nzTemplate>
-                        <img src="../../../assets/weeks.png" height="419" width="597"/>
+                        <img src="../../../assets/timetable.png" height="419" width="597"/>
                     </ng-template>
                 </nz-popover>
             </div>
@@ -245,10 +246,11 @@
       </div>
       <div class="formItem" nz-form-item>
       <div nz-form-control [nzValidateStatus]="validateForm.controls.type2"  [nzValidateStatus]="getFormControl('type2')"  nzHasFeedback >
-        <label for="type2" nz-col nzSpan="9">实验室种类：</label>
+        <label for="type2" nz-col nzSpan="9">实验室种类（可多选）：</label>
         <div nz-col nzSpan="13">
           <nz-select
             id="type2"
+            nzMode="multiple"
             formControlName="type2"
             [nzPlaceHolder]="'请选择实验室种类'"
             [nzNotFoundContent]="'无该实验室种类记录'"
@@ -261,7 +263,7 @@
           </nz-select>
         </div>
         <div class="help">
-          <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.type2.dirty&&validateForm.controls.type2.hasError('required')">课程为必选项！</div>
+          <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.type2.dirty&&validateForm.controls.type2.hasError('required')">实验室种类为必选项！</div>
         </div>
       </div>
     </div>
@@ -304,7 +306,7 @@
                 <nz-popover [nzTitle]="'课表'">
                     <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
                     <ng-template #nzTemplate>
-                        <img src="../../../assets/timetable.png" height="504" width="422"/>
+                        <img src="../../../assets/weeks.png" height="504" width="422"/>
                     </ng-template>
                 </nz-popover>
             </div>
@@ -357,7 +359,7 @@
                 <nz-popover [nzTitle]="'校历'">
                     <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
                     <ng-template #nzTemplate>
-                        <img src="../../../assets/weeks.png" height="419" width="597"/>
+                        <img src="../../../assets/timetable.png" height="419" width="597"/>
                     </ng-template>
                 </nz-popover>
             </div>
@@ -371,10 +373,11 @@
       </div>
       <div class="formItem" nz-form-item>
         <div nz-form-control [nzValidateStatus]="validateForm.controls.type3"  [nzValidateStatus]="getFormControl('type3')"  nzHasFeedback >
-          <label for="type3" nz-col nzSpan="9">实验室种类：</label>
+          <label for="type3" nz-col nzSpan="9">实验室种类（可多选）：</label>
           <div nz-col nzSpan="13">
                 <nz-select
                   id="type3"
+                  nzMode="multiple"
                   formControlName="type3"
                   [nzPlaceHolder]="'请选择实验室种类'"
                   [nzNotFoundContent]="'无该实验室种类记录'"
@@ -387,7 +390,7 @@
               </nz-select>
             </div>
             <div class="help">
-              <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.type3.dirty&&validateForm.controls.type3.hasError('required')">课程为必选项！</div>
+              <div nz-col nzSpan="13" [nzOffset]="'9'" nz-form-explain *ngIf="validateForm.controls.type3.dirty&&validateForm.controls.type3.hasError('required')">实验室种类为必选项！</div>
             </div>
           </div>
         </div>

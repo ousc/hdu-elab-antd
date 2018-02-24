@@ -44,16 +44,6 @@ export class SiderComponent {
       'icon': 'bulb',
       'name': '实验管理',
       'route': '/sygl',
-    },
-    {
-      'icon': 'user',
-      'name': 'User',
-      'route': '/user'
-    },
-    {
-      'icon': 'code-o',
-      'name': 'Charts',
-      'route': '/charts'
     }
   ]; //菜单定义
 
