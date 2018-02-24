@@ -1,13 +1,10 @@
 ///<reference path="../../../../node_modules/@angular/forms/src/model.d.ts"/>
 ///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {YyglService} from './yygl.service';
 import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
-import {UserService} from '../user/user.service';
 import {SessionStorageService} from '@core/storage/storage.module';
-import {consoleTestResultHandler} from 'tslint/lib/test';
 
 @Component({
     selector: 'Yygl',
