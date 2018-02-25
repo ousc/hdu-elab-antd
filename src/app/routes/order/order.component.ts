@@ -217,7 +217,7 @@ export class OrderComponent implements OnInit {
                         this._message.error("最多可选择3个实验室！");
                         this.submitBtn = '下一步';
                         break;
-                    }//检测是否勾选超过3个实验室
+                    }//检测是否勾选超过3个实验室!
                 }
                 this.current += 1;
                 this.submitBtn = '下一步';
