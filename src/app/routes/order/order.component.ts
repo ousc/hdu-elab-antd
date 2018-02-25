@@ -206,7 +206,7 @@ export class OrderComponent implements OnInit {
                         this.zhiyuandata[i].push(this.labdata[i][j]);
                     }//将用户勾选的数据放进zhiyaundata中，zhiyuandata0、1、2分别对应1、2、3志愿
                 for(let i=0;i<3;i++){
-                    if (this.zhiyuandata[i].length == 0) {
+                    if (this["zhiyuan"+(i+1)]&&this.zhiyuandata[i].length == 0) {
                         this._message.error('每一志愿请至少选择一个实验室！');
                         this.submitBtn = '下一步';
                         return;
