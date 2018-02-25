@@ -207,16 +207,18 @@ export class OrderComponent implements OnInit {
                     if (this.labdata[i][j].checked) {
                         this.zhiyuandata[i].push(this.labdata[i][j]);
                     }//将用户勾选的数据放进zhiyaundata中，zhiyuandata0、1、2分别对应1、2、3志愿
-                if (this.zhiyuandata[0].length == 0) {
-                    this._message.error('请至少选择一个实验室！');
-                    this.submitBtn = '下一步';
-                    break;
-                }//检测是否没有勾选实验室
-                if (this.zhiyuandata[0].length > 3) {
-                    this._message.error("最多可选择3个实验室！");
-                    this.submitBtn = '下一步';
-                    break;
-                }//检测是否勾选超过3个实验室
+                for(let i=0;i<3;i++){
+                    if (this.zhiyuandata[i].length == 0) {
+                        this._message.error('请至少选择一个实验室！');
+                        this.submitBtn = '下一步';
+                        break;
+                    }//检测是否没有勾选实验室
+                    if (this.zhiyuandata[i].length > 3) {
+                        this._message.error("最多可选择3个实验室！");
+                        this.submitBtn = '下一步';
+                        break;
+                    }//检测是否勾选超过3个实验室
+                }
                 this.current += 1;
                 this.submitBtn = '下一步';
                 break;
