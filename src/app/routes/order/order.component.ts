@@ -177,7 +177,6 @@ export class OrderComponent implements OnInit {
                         classNum: classNumtemp,//第几节
                         type: typetemp//种类
                     };
-                    console.log(data);
                     this.lastData.classId = this.validateForm.controls['course'].value.value;
                     this.lastData.className = this.validateForm.controls['course'].value.className;
                     this.lastData.classPeoCount = this.validateForm.controls['course'].value.classPeoCount;
@@ -214,7 +213,7 @@ export class OrderComponent implements OnInit {
                     break;
                 }//检测是否没有勾选实验室
                 if (this.zhiyuandata[0].length > 3) {
-                    this._message.error("最多可选择3个实验室！")
+                    this._message.error("最多可选择3个实验室！");
                     this.submitBtn = '下一步';
                     break;
                 }//检测是否勾选超过3个实验室
@@ -282,9 +281,7 @@ export class OrderComponent implements OnInit {
                     for (let j = 0; j < this.validateForm.controls['classNum2'].value.length; j++) {
                         this.lastData.orderDetails[1].classNum.push(this.validateForm.controls['classNum2'].value[j].value);
                     }
-                    console.log(this.lastData.orderDetails[1].classNum);
                     this.lastData.orderDetails[1].classNum.sort(NumAscSort);
-                    console.log(this.lastData.orderDetails[1].classNum);
                     for(let i=0;i<this.zhiyuandata[1].length;i++){
                         this.lastData.orderDetails[1].lab.push(this.zhiyuandata[1][i].id);
                         this.lastData.orderDetails[1].labArrangedPeoCount.push(this.zhiyuandata[1][i].PeoCount);
@@ -310,7 +307,6 @@ export class OrderComponent implements OnInit {
                 break;
             }//第三步提交完成
             case 3:{
-                console.log(JSON.stringify(this.lastData));
                 this.orderService.executeHttp(url[1],this.lastData).then((result: any) => {
                     let res = JSON.parse(result['_body']);
                     if(res["result"]==1){
