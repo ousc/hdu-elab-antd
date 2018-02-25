@@ -412,7 +412,7 @@ export class OrderComponent implements OnInit {
     //10.全局初始化
     ngOnInit() {
         this.validateForm = this.fb.group({
-            course: [null, [Validators.required]],
+            course: ["", [Validators.required]],
             week1: [null, [Validators.required]],
             week2: [null, [Validators.required]],
             week3: [null, [Validators.required]],
