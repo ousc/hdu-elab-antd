@@ -22,29 +22,18 @@
           <nz-input></nz-input>
         </div>
         <div class="help">
-          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.coursenum.dirty&&validateForm.controls.coursenum.hasError('required')">课程号为必选项！</div>
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.classId.dirty&&validateForm.controls.classId.hasError('required')">课程号为必选项！</div>
         </div>
       </div>
     </div>
     <div class="formItem" nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.course"  [nzValidateStatus]="getFormControl('course')"  nzHasFeedback >
-        <label for="course" nz-col nzSpan="10">课程：</label>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.className"  [nzValidateStatus]="getFormControl('className')"  nzHasFeedback >
+        <label for="className" nz-col nzSpan="10">课程名称：</label>
         <div nz-col nzSpan="12">
-          <nz-select
-                  id="course"
-                  formControlName="course"
-                  [nzPlaceHolder]="'请选择课程'"
-                  [nzNotFoundContent]="'无该课程记录'"
-                  nzShowSearch="true">
-            <nz-option
-                    *ngFor="let option of course"
-                    [nzLabel]="option.label"
-                    [nzValue]="option">
-            </nz-option>
-          </nz-select>
+          <nz-input></nz-input>
         </div>
         <div class="help">
-          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.course.dirty&&validateForm.controls.course.hasError('required')">课程为必选项！</div>
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.className.dirty&&validateForm.controls.className.hasError('required')">课程号为必选项！</div>
         </div>
       </div>
     </div>
@@ -119,22 +108,22 @@
       </div>
     </div>
     <div class="formItem" nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.scnum"  [nzValidateStatus]="getFormControl('scnum')"  nzHasFeedback >
-        <label for="scnum" nz-col nzSpan="10">人数：</label>
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.scnum"  [nzValidateStatus]="getFormControl('classPeoCount')"  nzHasFeedback >
+        <label for="classPeoCount" nz-col nzSpan="10">人数：</label>
         <div nz-col nzSpan="12">
-          <nz-input-number  [nzMin]="1"  [nzStep]="1" id="scnum" [formControlName]="'scnum'"></nz-input-number>
+          <nz-input-number  [nzMin]="1"  [nzStep]="1" id="classPeoCount" [formControlName]="'classPeoCount'"></nz-input-number>
         </div>
         <div class="help">
-          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.scnum.dirty&&validateForm.controls.scnum.hasError('required')">人数为必填项！</div>
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.classPeoCount.dirty&&validateForm.controls.classPeoCount.hasError('required')">人数为必填项！</div>
         </div>
       </div>
     </div>
     <div class="submitBtn" nz-form-item nz-col nzSpan="22">
       <div nz-form-control>
-        <button nz-button [nzType]="'danger'" [nzSize]="'large'">
-          <span>删除</span>
+        <button nz-button [nzType]="'danger'" [nzSize]="'large'" type="reset">
+          <span>重置</span>
         </button>
-        <button nz-button [nzLoading]="loadStatus" [nzType]="'primary'" [nzSize]="'large'">{{submitBtn}}</button>
+        <button nz-button [nzLoading]="loadStatus" [nzType]="'primary'" [nzSize]="'large'" (click)="_submitForm()">{{submitBtn}}</button>
 
       </div>
     </div>

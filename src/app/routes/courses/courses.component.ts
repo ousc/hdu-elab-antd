@@ -21,7 +21,6 @@ export class CoursesComponent implements OnInit {
     ];
     WEEK = ['日', '一', '二', '三', '四', '五', '六', '日'];
     _value = ''; /*搜索内容*/
-    userName = '40392';
     choice = 'all';
     courses = [];
     data = [
@@ -59,10 +58,9 @@ export class CoursesComponent implements OnInit {
     }
     private _getData = () => {
         // 获取课程
-        this.CoursesService.getCourses(this.apiUrl[0], this.userName)
+        this.CoursesService.getCourses(this.apiUrl[0], this._storage.get('username'))
             .then((result: any) => {
                 this.courses = JSON.parse(result['_body'])['course'];
-                console.log(this.courses);
             });
     }
     onSearch(event: string): void {
