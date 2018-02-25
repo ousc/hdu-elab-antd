@@ -114,7 +114,7 @@ export class OrderComponent implements OnInit {
     //方法定义
     //1.获取实验室类型
     getType(){
-        this.orderService.executeGET("/lab/getAllLabType").then((result: any) => {
+        this.orderService.executeGET("lab/getAllLabType").then((result: any) => {
             let res = JSON.parse(result['_body'])["labType"];
             for(let i=0;i<res.length;i++){
                 this.type.push({value:res[i],label:res[i]})
@@ -123,7 +123,7 @@ export class OrderComponent implements OnInit {
     }
     //2.获取课程内容
     getCourse(){
-        this.orderService.executeHttp("/class/getclassbyusername",{userName: this._storage.get('username')}).then((result: any) => {
+        this.orderService.executeHttp("class/getclassbyusername",{userName: this._storage.get('username')}).then((result: any) => {
             let res = JSON.parse(result['_body']);
             for(let i=0;i<res['course'].length;i++){
                 res['course'][i]['value'] = res['course'][i]['classId'];
@@ -147,8 +147,8 @@ export class OrderComponent implements OnInit {
     };
     //5.下一步/提交
     submit(n): void {
-        let url = ['/lab/getLabByType',
-            '/order/addOrder'];//定义接口地址
+        let url = ['lab/getLabByType',
+            'order/addOrder'];//定义接口地址
         switch (n) {
             case 0: {
                 if(this.zhiyuan2==false&&this.zhiyuan3==true){

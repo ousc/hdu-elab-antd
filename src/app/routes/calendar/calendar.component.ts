@@ -23,7 +23,7 @@ export class CalendarComponent implements OnInit {
   public week = 5;
   public timetable = [];
   constructor(private CalendarService: CalendarService){
-      this.CalendarService.getCalendar('/class/getCourseTableByUsername').then((result: any) => {
+      this.CalendarService.getCalendar('class/getCourseTableByUsername').then((result: any) => {
           this.timetable = JSON.parse(result['_body'])['courseTable']['courseTable'];
       })
   }
