@@ -46,9 +46,9 @@ export class passwordEditComponent implements OnInit {
             this.validateForm.controls[ 'checkPassword' ].updateValueAndValidity();
         });
     }
-  getFormControl(name) {
-    return this.validateForm.controls[name];
-  }
+    getFormControl(name) {
+        return this.validateForm.controls[name];
+    }
     confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
         if (!control.value) {
             return { required: true };
