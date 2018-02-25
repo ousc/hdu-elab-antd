@@ -207,12 +207,12 @@ export class OrderComponent implements OnInit {
                     }//将用户勾选的数据放进zhiyaundata中，zhiyuandata0、1、2分别对应1、2、3志愿
                 for(let i=0;i<3;i++){
                     if (this.zhiyuandata[i].length == 0) {
-                        this._message.error('请至少选择一个实验室！');
+                        this._message.error('每一志愿请至少选择一个实验室！');
                         this.submitBtn = '下一步';
                         return;
                     }//检测是否没有勾选实验室
                     if (this.zhiyuandata[i].length > 3) {
-                        this._message.error("最多可选择3个实验室！");
+                        this._message.error("每一志愿最多可选择3个实验室！");
                         this.submitBtn = '下一步';
                         return;
                     }//检测是否勾选超过3个实验室!
