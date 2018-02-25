@@ -133,13 +133,6 @@ export class OrderComponent implements OnInit {
             }
         })
     }
-    //3.显示alert窗口，title为标题，contentTpl为内容
-    info(title,contentTpl) {
-        this.confirmServ.info({
-            title: title,
-            content: contentTpl
-        });
-    }
     //4.第三部提交成功的alert窗口
     success = () => {
         const modal = this.confirmServ.success({
@@ -159,7 +152,7 @@ export class OrderComponent implements OnInit {
         switch (n) {
             case 0: {
                 if(this.zhiyuan2==false&&this.zhiyuan3==true){
-                    this.info("警告","请先填写第二志愿再填写第三志愿");
+                    this._message.error("请先填写第二志愿再填写第三志愿");
                     return;
                 }//检测是否没填第二志愿直接填写第三志愿
                 for (let i = 1; i < 4; i++) {
@@ -192,7 +185,7 @@ export class OrderComponent implements OnInit {
                     this.orderService.executeHttp(url[n],{username:this._storage.get('username'),data:data,no:i}).then((result: any) => {
                         let res = JSON.parse(result['_body']);
                         if(res['result']!='success'){
-                            this.info('警告','志愿'+i+'提交失败,请检查网络连接后重试！');
+                            this._message.error('志愿'+i+'提交失败,请检查网络连接后重试！');
                             return;
                         }else{
                             for(let k=0;k<res['lab'].length;k++){
@@ -216,7 +209,7 @@ export class OrderComponent implements OnInit {
                         this.zhiyuandata[i].push(this.labdata[i][j]);
                     }//将用户勾选的数据放进zhiyaundata中，zhiyuandata0、1、2分别对应1、2、3志愿
                 if (this.zhiyuandata[0].length == 0) {
-                    this.info('警告','请至少选择一个实验室！');
+                    this._message.error('请至少选择一个实验室！');
                     this.submitBtn = '下一步';
                     break;
                 }//检测是否没有勾选实验室
@@ -224,7 +217,7 @@ export class OrderComponent implements OnInit {
                     this._message.error("最多可选择3个实验室！")
                     this.submitBtn = '下一步';
                     break;
-                }//检测是否没有勾选实验室
+                }//检测是否勾选超过3个实验室
                 this.current += 1;
                 this.submitBtn = '下一步';
                 break;
@@ -261,7 +254,7 @@ export class OrderComponent implements OnInit {
                         }
                     }
                     if(peocountsum!=this.lastData.classPeoCount){
-                        this.info('警告','预约实验室人数必须等于班级总人数！');
+                        this._message.error('预约实验室人数必须等于班级总人数！');
                         return;
                     }//检测预约实验室人数是否等于班级总人数
                 }
