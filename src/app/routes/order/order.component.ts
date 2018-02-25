@@ -2,10 +2,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {OrderService} from './order.service';
-import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from "@core/storage/storage.service";
-import {current} from "codelyzer/util/syntaxKind";
 
 function NumAscSort(a,b) {return a - b;}//排序算法，升序
 
@@ -211,12 +209,12 @@ export class OrderComponent implements OnInit {
                     if (this.zhiyuandata[i].length == 0) {
                         this._message.error('请至少选择一个实验室！');
                         this.submitBtn = '下一步';
-                        break;
+                        return;
                     }//检测是否没有勾选实验室
                     if (this.zhiyuandata[i].length > 3) {
                         this._message.error("最多可选择3个实验室！");
                         this.submitBtn = '下一步';
-                        break;
+                        return;
                     }//检测是否勾选超过3个实验室!
                 }
                 this.current += 1;
