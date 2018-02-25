@@ -213,7 +213,7 @@ export class OrderComponent implements OnInit {
                     this.submitBtn = '下一步';
                     break;
                 }//检测是否没有勾选实验室
-                if (this.zhiyuandata[0].length >= 3) {
+                if (this.zhiyuandata[0].length > 3) {
                     this._message.error("最多可选择3个实验室！")
                     this.submitBtn = '下一步';
                     break;
