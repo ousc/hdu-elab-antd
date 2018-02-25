@@ -327,7 +327,7 @@ export class OrderComponent implements OnInit {
             c['week2']=[{value:-1,"label":" "}];
             c['weekday2']={value:-1,"label":" "};
             c['classNum2']=[{value:-1,"label":" "}];
-            c['type2']=-1;
+            c['type2']=[{value:'',"label":" "}];
             this.validateForm.setValue(c);
         }
         if(this.zhiyuan3==false){
@@ -339,7 +339,7 @@ export class OrderComponent implements OnInit {
             c['week3']=[{value:-1,"label":" "}];
             c['weekday3']={value:-1,"label":" "};
             c['classNum3']=[{value:-1,"label":" "}];
-            c['type3']=-1;
+            c['type3']=[{value:'',"label":" "}];
             this.validateForm.setValue(c);
         }
         for (const i in this.validateForm.controls) {
@@ -357,6 +357,18 @@ export class OrderComponent implements OnInit {
     back(){
         if(this.current==1){
             this.labdata = [[],[],[]];
+        }
+        if(this.zhiyuan2==false){
+            this.validateForm.controls['week2'].reset();
+            this.validateForm.controls['weekday2'].reset();
+            this.validateForm.controls['classNum2'].reset();
+            this.validateForm.controls['type2'].reset();
+        }
+        if(this.zhiyuan3==false){
+            this.validateForm.controls['week3'].reset();
+            this.validateForm.controls['weekday3'].reset();
+            this.validateForm.controls['classNum3'].reset();
+            this.validateForm.controls['type3'].reset();
         }
         this.loadStatus = true;
         this.current-=1;
@@ -398,7 +410,7 @@ export class OrderComponent implements OnInit {
     //10.全局初始化
     ngOnInit() {
         this.validateForm = this.fb.group({
-            course: ['', [Validators.required]],
+            course: [null, [Validators.required]],
             week1: [null, [Validators.required]],
             week2: [null, [Validators.required]],
             week3: [null, [Validators.required]],
