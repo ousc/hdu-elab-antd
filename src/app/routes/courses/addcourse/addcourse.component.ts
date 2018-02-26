@@ -5,7 +5,7 @@ import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {AddcourseService} from './addcourse.service';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.service';
-import {routes} from '../../routes';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class AddcourseComponent implements OnInit {
     loadStatus: boolean;
     submitBtn = '提交';
     curl = 'http://aliyun.charlesxu.cn:8080/LabManager/class/addclass';
-    constructor(private _storage: SessionStorageService, private fb: FormBuilder,
+    constructor(private _storage: SessionStorageService, private fb: FormBuilder, private router: Router,
                 private addcourseService: AddcourseService, private confirmServ: NzModalService) {
     }
     week = [{ value: 1, label: '1' },
@@ -110,11 +110,11 @@ export class AddcourseComponent implements OnInit {
             title: '添加成功',
             content: '1秒后回到课程管理'
         });
+        const Route = this.router;
         setTimeout(function () {
             modal.destroy();
-            window.location.assign('/#/courses');
+            Route.navigate(['/courses']);
         }, 1000);
-
     }
     _submitForm() {
         let classId = '', className = '', weektemp = [], weekdaytemp = [], classNumtemp = [], classPeoCount = '';
