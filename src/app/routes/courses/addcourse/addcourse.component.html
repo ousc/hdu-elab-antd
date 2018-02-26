@@ -19,7 +19,7 @@
       <div nz-form-control [nzValidateStatus]="validateForm.controls.classId"  [nzValidateStatus]="getFormControl('classId')"  nzHasFeedback >
         <label for="classId" nz-col nzSpan="10">课程号：</label>
         <div nz-col nzSpan="12">
-          <nz-input></nz-input>
+          <nz-input id="classId" formControlName="classId"></nz-input>
         </div>
         <div class="help">
           <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.classId.dirty&&validateForm.controls.classId.hasError('required')">课程号为必选项！</div>
@@ -30,16 +30,16 @@
       <div nz-form-control [nzValidateStatus]="validateForm.controls.className"  [nzValidateStatus]="getFormControl('className')"  nzHasFeedback >
         <label for="className" nz-col nzSpan="10">课程名称：</label>
         <div nz-col nzSpan="12">
-          <nz-input></nz-input>
+          <nz-input id="className" formControlName="className"></nz-input>
         </div>
         <div class="help">
-          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.className.dirty&&validateForm.controls.className.hasError('required')">课程号为必选项！</div>
+          <div nz-col nzSpan="12" [nzOffset]="'10'" nz-form-explain *ngIf="validateForm.controls.className.dirty&&validateForm.controls.className.hasError('required')">课程名为必选项！</div>
         </div>
       </div>
     </div>
     <div class="formItem" nz-form-item>
       <div nz-form-control [nzValidateStatus]="validateForm.controls.week"  [nzValidateStatus]="getFormControl('week')"  nzHasFeedback >
-        <label for="week" nz-col nzSpan="10">预约周次（可多选）：</label>
+        <label for="week" nz-col nzSpan="10">课程周次（可多选）：</label>
         <div nz-col nzSpan="12">
           <nz-select
                   nzMode="multiple"
@@ -69,7 +69,7 @@
     </div>
     <div class="formItem" nz-form-item>
       <div nz-form-control [nzValidateStatus]="validateForm.controls.weekday&&validateForm.controls.classNum"  [nzValidateStatus]="getFormControl('weekday')&&getFormControl('classNum')"  nzHasFeedback >
-        <label for="weekday" nz-col nzSpan="10">预约时间（可多选）：</label>
+        <label for="weekday" nz-col nzSpan="10">课程时间（可多选）：</label>
         <div nz-col nzSpan="12">
           <nz-input-group nz-col nzSpan="24" [nzSize]="'large'" nzCompact>
             <nz-select
@@ -108,7 +108,7 @@
       </div>
     </div>
     <div class="formItem" nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.scnum"  [nzValidateStatus]="getFormControl('classPeoCount')"  nzHasFeedback >
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.classPeoCount"  [nzValidateStatus]="getFormControl('classPeoCount')"  nzHasFeedback >
         <label for="classPeoCount" nz-col nzSpan="10">人数：</label>
         <div nz-col nzSpan="12">
           <nz-input-number  [nzMin]="1"  [nzStep]="1" id="classPeoCount" [formControlName]="'classPeoCount'"></nz-input-number>

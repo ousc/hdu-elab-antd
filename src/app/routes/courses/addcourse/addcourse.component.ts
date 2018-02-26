@@ -5,6 +5,7 @@ import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {AddcourseService} from './addcourse.service';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.service';
+import {routes} from '../../routes';
 
 
 @Component({
@@ -111,12 +112,13 @@ export class AddcourseComponent implements OnInit {
         });
         setTimeout(function () {
             modal.destroy();
-            window.location.assign('/courses');
+            window.location.assign('/#/courses');
         }, 1000);
 
     }
     _submitForm() {
         let classId = '', className = '', weektemp = [], weekdaytemp = [], classNumtemp = [], classPeoCount = '';
+        classId = this.validateForm.controls['classId'].value;
         for (let j = 0; j < this.validateForm.controls['week'].value.length; j++) {
             weektemp.push(this.validateForm.controls['week'].value[j].value);
         }
@@ -124,20 +126,22 @@ export class AddcourseComponent implements OnInit {
             classNumtemp.push(this.validateForm.controls['classNum'].value[j].value);
         }
         weekdaytemp[0] = this.validateForm.controls['weekday'].value.value;
-        className = this.validateForm.controls['className'].value.value;
+        className = this.validateForm.controls['className'].value;
+        classPeoCount = this.validateForm.controls['classPeoCount'].value;
         let data = {
+            userName: this._storage.get('username'),
             classId: classId,
             className: className,//课程
-            week: weektemp,//周数
-            weekday: weekdaytemp,//星期几
+            classWeek: weektemp,//周数
+            weekDays: weekdaytemp,//星期几
             classNum: classNumtemp,//第几节
             classPeoCount: classPeoCount
         };
-        this.addcourseService.executeHttp(this.curl, {username: this._storage.get('username'), data: data})
+        this.addcourseService.executeHttp(this.curl, data)
             .then((result: any) => {
                 let res = JSON.parse(result['_body']);
-                if (res['result'] !== 'success') {
-                    this.info('警告', '提交失败,请检查网络连接后重试！');
+                if (res['result'] !== 1) {
+                    this.info('警告', '添加失败,请检查后重试！');
                     return;
                 } else {
                     this.success();
