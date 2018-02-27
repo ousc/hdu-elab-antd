@@ -5,7 +5,7 @@ import {CoursesService} from './courses.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.module';
-import {YyglService} from '../yygl/yygl.service';
+import {YyglService} from '../orderManage/yygl.service';
 @Component({
   selector: 'app-login',
   templateUrl: 'courses.component.html',
