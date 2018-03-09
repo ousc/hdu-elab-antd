@@ -751,10 +751,19 @@
       <td *ngIf="data.checked" nz-td>{{data.adminName}}</td>
       <td *ngIf="data.checked" nz-td>{{data.PeoCount}}</td>
     </tr>
+    <tr nz-tbody-tr>
+        <td nz-td colspan="2" style="text-align: center">备注：</td>
+        <td nz-td colspan="6">
+            <nz-input [(ngModel)]="lastData.remark" [nzPlaceHolder]="'如没有其他需求，请在备注中填“无”。'"></nz-input>
+        </td>
+    </tr>
     </tbody>
   </nz-table>
-  <div nz-form-control style="text-align: center">
-    <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="back()">{{submitBackBtn}}</button>
-    <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">提交</button>
-  </div>
-    </div></div>
+        <div class="submitBtn" nz-form-item nz-col [nzOffset]="13" nzSpan="9">
+        <div nz-form-control>
+          <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="back()">{{submitBackBtn}}</button>
+          <button nz-button [nzType]="'primary'" [nzSize]="'large'" style="margin-left: 20px;" (click)="submit(current)">提交</button>
+        </div>
+      </div>
+    </div>
+</div>

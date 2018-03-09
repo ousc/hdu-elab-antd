@@ -7,7 +7,6 @@ import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.service';
 import {Router} from '@angular/router';
 
-
 @Component({
     selector: 'addcourse',
     templateUrl: 'addcourse.component.html',

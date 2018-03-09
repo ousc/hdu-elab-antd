@@ -4,6 +4,7 @@ import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {OrderService} from './order.service';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from "@core/storage/storage.service";
+import {isUndefined} from "util";
 
 function NumAscSort(a,b) {return a - b;}//排序算法，升序
 
@@ -85,6 +86,7 @@ export class OrderComponent implements OnInit {
         classPeoCount:null,//班级人数
         userName:null,//用户名
         passFlagString:"未安排",
+        remark:null,
         orderDetails:[{
             type:1,//第几志愿
             orderWeek:[],//预定周次
@@ -200,13 +202,15 @@ export class OrderComponent implements OnInit {
             }//第一步提交完成
             case 1: {
                 this.zhiyuandata = [[],[],[]];//重置数据
-                for (let i = 0; i < this.labdata.length; i++)
-                    for(let j=0; j < this.labdata[i].length;j++)
-                    if (this.labdata[i][j].checked) {
-                        this.zhiyuandata[i].push(this.labdata[i][j]);
-                    }//将用户勾选的数据放进zhiyaundata中，zhiyuandata0、1、2分别对应1、2、3志愿
+                for (let i = 0; i < this.labdata.length; i++){
+                    for(let j=0; j < this.labdata[i].length;j++){
+                        if (this.labdata[i][j].checked) {
+                            this.zhiyuandata[i].push(this.labdata[i][j]);
+                        }
+                    }
+                }//将用户勾选的数据放进zhiyaundata中，zhiyuandata0、1、2分别对应1、2、3志愿
                 for(let i=0;i<3;i++){
-                    if (this["zhiyuan"+(i+1)]&&this.zhiyuandata[i].length == 0) {
+                    if ((this["zhiyuan"+(i+1)]==true&&this.zhiyuandata[i].length == 0)||(i==0&&this.zhiyuandata[i].length == 0)) {
                         this._message.error('每一志愿请至少选择一个实验室！');
                         this.submitBtn = '下一步';
                         return;
@@ -307,6 +311,10 @@ export class OrderComponent implements OnInit {
                 break;
             }//第三步提交完成
             case 3:{
+                if(this.lastData.remark==null||this.lastData.remark==''){
+                    this._message.error('备注不能为空！');
+                    return;
+                }
                 this.orderService.executeHttp(url[1],this.lastData).then((result: any) => {
                     let res = JSON.parse(result['_body']);
                     if(res["result"]==1){
