@@ -30,6 +30,7 @@ export class OrderComponent implements OnInit {
     zhiyuan2  = false;//初始志愿2表单为关闭状态
     zhiyuan3  = false;//初始志愿3表单为关闭状态
     course = [];//课程信息
+    courseStatus = {};
     type = [];//实验室种类
     week = [{ value:1, label: '1' },//value为绑定值，label为显示内容
         { value:2, label: '2' },
@@ -363,6 +364,7 @@ export class OrderComponent implements OnInit {
 
     //7.返回上一步
     back(){
+        this.courseStatus={};
         if(this.current==1){
             this.labdata = [[],[],[]];
         }
@@ -434,5 +436,33 @@ export class OrderComponent implements OnInit {
         });//绑定数据校验
         this.getType()//获取实验室类型;
         this.getCourse();//获取课程名
+    }
+    getRemark(n,id){
+        if(this.courseStatus[id]==null){
+        let weektemp = [], weekdaytemp = [], classNumtemp = [], coursetemp = [], typetemp=[];
+        for (let j = 0; j < this.validateForm.controls['week' + n].value.length; j++) {
+            weektemp.push(this.validateForm.controls['week' + n].value[j].value);
+        }
+        for (let j = 0; j < this.validateForm.controls['classNum' + n].value.length; j++) {
+            classNumtemp.push(this.validateForm.controls['classNum' + n].value[j].value);
+        }
+        for (let j = 0; j < this.validateForm.controls['type' + n].value.length; j++) {
+            typetemp.push(this.validateForm.controls['type' + n].value[j].value);
+        }
+        weekdaytemp[0] = this.validateForm.controls['weekday' + n].value.value;
+        let data = {
+            labId:id,
+            week: weektemp,//周数
+            weekday: weekdaytemp,//星期几
+            classNum: classNumtemp,//第几节
+        };
+        this.orderService.executeHttp("lab/getLabOrderStatus",data).then((result: any) => {
+            let res = JSON.parse(result['_body']);
+            if(res["result"]=="success"){
+                this.courseStatus[id] = res.status;
+                console.log(id,res.status)
+            }
+        })
+        }
     }
 }
