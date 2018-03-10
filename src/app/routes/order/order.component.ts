@@ -364,7 +364,7 @@ export class OrderComponent implements OnInit {
 
     //7.返回上一步
     back(){
-        this.courseStatus={};
+        this.courseStatus=[{},{},{}];
         if(this.current==1){
             this.labdata = [[],[],[]];
         }
@@ -438,7 +438,7 @@ export class OrderComponent implements OnInit {
         this.getCourse();//获取课程名
     }
     getRemark(n,id){
-        if(this.courseStatus[n][id]==null){
+        if(this.courseStatus[n-1][id]==null){
         let weektemp = [], weekdaytemp = [], classNumtemp = [], coursetemp = [], typetemp=[];
         for (let j = 0; j < this.validateForm.controls['week' + n].value.length; j++) {
             weektemp.push(this.validateForm.controls['week' + n].value[j].value);
