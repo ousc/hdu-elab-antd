@@ -30,7 +30,7 @@ export class OrderComponent implements OnInit {
     zhiyuan2  = false;//初始志愿2表单为关闭状态
     zhiyuan3  = false;//初始志愿3表单为关闭状态
     course = [];//课程信息
-    courseStatus = {};
+    courseStatus = [{},{},{}];
     type = [];//实验室种类
     week = [{ value:1, label: '1' },//value为绑定值，label为显示内容
         { value:2, label: '2' },
@@ -459,7 +459,7 @@ export class OrderComponent implements OnInit {
         this.orderService.executeHttp("lab/getLabOrderStatus",data).then((result: any) => {
             let res = JSON.parse(result['_body']);
             if(res["result"]=="success"){
-                this.courseStatus[id] = res.status;
+                this.courseStatus[n-1][id] = res.status;
                 console.log(id,res.status)
             }
         })

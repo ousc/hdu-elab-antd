@@ -461,7 +461,7 @@
           <nz-popover nzTrigger="hover" [nzTitle]="'当前预约状况'">
               <button nz-button [nzType]="'primary'" nz-popover (mouseover)="getRemark(1,data.id)">当前预约状况</button>
               <ng-template #nzTemplate>
-                  <p *ngFor="let data of courseStatus[data.id]">
+                  <p *ngFor="let data of courseStatus[0][data.id]">
                       {{data}}
                   </p>
               </ng-template>
@@ -491,7 +491,7 @@
             <nz-popover nzTrigger="hover" [nzTitle]="'当前预约状况'">
                 <button nz-button [nzType]="'primary'" nz-popover (mouseover)="getRemark(2,data.id)">当前预约状况</button>
                 <ng-template #nzTemplate>
-                    <p *ngFor="let data of courseStatus[data.id]">
+                    <p *ngFor="let data of courseStatus[1][data.id]">
                         {{data}}
                     </p>
                 </ng-template>
@@ -524,7 +524,7 @@
             <nz-popover nzTrigger="hover" [nzTitle]="'当前预约状况'">
                 <button nz-button [nzType]="'primary'" nz-popover (mouseover)="getRemark(3,data.id)">当前预约状况</button>
                 <ng-template #nzTemplate>
-                    <p *ngFor="let data of courseStatus[data.id]">
+                    <p *ngFor="let data of courseStatus[2][data.id]">
                         {{data}}
                     </p>
                 </ng-template>
