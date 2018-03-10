@@ -63,7 +63,6 @@
         <th nz-th  [nzWidth]="'22%'"><span>课程号</span></th>
         <th nz-th><span>课程学时</span></th>
         <th nz-th><span>课程人数</span></th>
-        <th nz-th  [nzWidth]="'10%'"><span>进度</span></th>
         <th nz-th><span>操作</span></th>
       </tr>
       </thead>
@@ -80,12 +79,11 @@
         <td nz-td>{{data.classId}}</td>
         <td nz-td>{{this.getHours(data)}}</td>
         <td nz-td>{{data.classPeoCount}}</td>
-        <td nz-td><nz-progress [ngModel]="'100'"></nz-progress></td>
         <td nz-td>
             <span>
-              <a routerLink="edit">编辑</a>
+              <a (click)="editCourse(data)">编辑</a>
               <span nz-table-divider></span>
-              <a (click)="this.delClass(data.classId)">删除</a>
+              <a (click)="delClass(data)">删除</a>
             </span>
         </td>
       </tr>

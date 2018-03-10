@@ -18,4 +18,15 @@ export class CoursesService {
                 });
         });
     }
+    delClass( curl: any, data: any) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let content = JSON.stringify(data);
+        return new Promise((resolve, reject) => {
+            this.http.post(curl, content, options)
+                .subscribe(result => {
+                    resolve(result);
+                });
+        });
+    }
 }

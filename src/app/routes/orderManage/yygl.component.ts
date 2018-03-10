@@ -125,7 +125,6 @@ export class YyglComponent implements OnInit {
         const Route = this.router;
         setTimeout(function () {
             modal.destroy();
-            /*Route.navigate(['/orders']);*/
             window.location.reload();
         }, 1000);
     }
