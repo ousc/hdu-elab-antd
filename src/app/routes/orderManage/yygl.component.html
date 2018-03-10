@@ -51,7 +51,7 @@
                 <th nz-th nzExpand></th>
                 <th nz-th><span>编号</span></th>
                 <th nz-th [nzWidth]="'17%'"><span>课程名称</span></th>
-                <th nz-th [nzWidth]="'21%'"><span>课程号</span></th>
+                <th nz-th [nzWidth]="'30%'"><span>课程号</span></th>
                 <th nz-th><span>人数</span></th>
                 <th nz-th><span>已预约学时</span></th>
                 <th nz-th><span>预约提交时间</span></th>
@@ -89,7 +89,6 @@
             <span>预约节次：{{order.classNum}}</span>&nbsp;&nbsp;
             <span>预约周次：{{order.orderWeek}}</span>&nbsp;&nbsp;
             <span>班级人数：{{data.classPeoCount}}</span>&nbsp;&nbsp;
-            <a *ngIf="order.type==1" style="float: right" (click)="eidtOrder(data.id)" routerLink="detail">编辑</a>
         </span>
                             </nz-alert>
                             <nz-table #nzTable [nzDataSource]="order.lab"  [nzIsPagination]="false">
@@ -118,6 +117,7 @@
             </tr>
             </tbody>
         </nz-table>
+            <span>备注：{{data.remark}}</span>
         <br>
     </div>
     <!--展开尾-->

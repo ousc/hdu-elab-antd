@@ -5,6 +5,7 @@ import {YyglService} from './yygl.service';
 import {Router} from '@angular/router';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.module';
+import {win} from '@angular/platform-browser/src/browser/tools/browser';
 
 @Component({
     selector: 'Yygl',
@@ -30,7 +31,7 @@ export class YyglComponent implements OnInit {
         'http://aliyun.charlesxu.cn:8080/LabManager/lab/getLabById',
         'http://aliyun.charlesxu.cn:8080/LabManager/order/deleteOrder',
     ];
-    constructor(private yyglService: YyglService, private confirmServ: NzMessageService, private  router: Router,
+    constructor(private yyglService: YyglService, private confirmServ: NzModalService, private  router: Router,
                 private _storage: SessionStorageService) {
     }
     // 换星期几
@@ -85,31 +86,48 @@ export class YyglComponent implements OnInit {
     }
     private boolOpen(expand: boolean, data: any) {
         if (expand) {
-            console.log(data);
             for (const d of data) {
                 for (let i = 0; i < d.lab.length; i++) {
+                    if (this.lab[d.lab[i]] == null) {
                     this.yyglService.getLab(this.apiUrl[4], d.lab[i])
                         .then((result: any) => {
                             const lab = JSON.parse(result['_body'])['lab'];
                             this.lab[d.lab[i]] = lab;
                         });
+                    }
                 }
             }
         }
         return expand;
     }
+    // 获取实验室信息
     private getLabById (id: any) {
         this.yyglService.getLab(this.apiUrl[4], id)
             .then((result: any) => {
                 const lab = JSON.parse(result['_body'])['lab'];
-                console.log(lab);
             });
     }
+    // 删除预约
     private delOrder(id: any) {
         this.yyglService.delOrder(this.apiUrl[5], id)
             .then((result: any) => {
-                console.log(result);
+                const res = JSON.parse(result['_body']);
+                if (res['result'] === 1) {
+                    this.success();
+                }
             });
+    }
+    success = () => {
+        const modal = this.confirmServ.success({
+            title: '删除成功',
+            content: '1秒后刷新'
+        });
+        const Route = this.router;
+        setTimeout(function () {
+            modal.destroy();
+            /*Route.navigate(['/orders']);*/
+            window.location.reload();
+        }, 1000);
     }
     eidtOrder(id: number) {
         this._storage.set('orderId', id);
