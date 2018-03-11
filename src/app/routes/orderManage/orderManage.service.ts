@@ -1,12 +1,9 @@
 import {Injectable} from '@angular/core';
 import {SessionStorageService} from '@core/storage/storage.module';
-import {NHttpClinet} from '@core/utils/http.client';
-import {BaseService} from '@core/utils/BaseRequest';
-import {reject} from 'q';
 import {Headers, Http, RequestOptions} from '@angular/http';
 
 @Injectable()
-export class YyglService {
+export class OrderManageService {
   constructor(private _storage: SessionStorageService, private http: Http) {
   }
   getOrders( curl: any, username: any) {

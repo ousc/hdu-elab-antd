@@ -6,7 +6,7 @@ import {LoginModule} from './login/login.module';
 import {routes} from './routes';
 import {CalendarModule} from './calendar/calendar.module';
 import {OrderModule} from './order/order.module';
-import {YyglModule} from './orderManage/yygl.module';
+import {OrderManageModule} from './orderManage/orderManage.module';
 import {CoursesModule} from './courses/courses.module';
 import {SyglModule} from './experiments/sygl.module';
 import {ProfileModule} from './profile/profile.module';
@@ -24,7 +24,7 @@ import {passwordEditModule} from './passwordEdit/passwordEdit.module';
         LoginModule,
         CalendarModule,
         OrderModule,
-        YyglModule,
+        OrderManageModule,
         CoursesModule,
         SyglModule,
         ProfileModule,

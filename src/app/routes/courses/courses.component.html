@@ -83,7 +83,9 @@
             <span>
               <a (click)="editCourse(data)">编辑</a>
               <span nz-table-divider></span>
-              <a (click)="delClass(data)">删除</a>
+              <nz-popconfirm [nzTitle]="'确定删除吗？'" (nzOnConfirm)="delClass(data)" (nzOnCancel)="null">
+                <a nz-popconfirm>删除</a>
+              </nz-popconfirm>
             </span>
         </td>
       </tr>

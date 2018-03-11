@@ -4,11 +4,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {EditcourseService} from './editcourse.service';
 import {Router} from '@angular/router';
-import {NzMessageService, NzModalService} from 'ng-zorro-antd';
-import {AddcourseService} from '../addCourse/addcourse.service';
+import {NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.service';
-import {forEach} from '@angular/router/src/utils/collection';
-
 
 @Component({
   selector: 'editcourse',
@@ -72,19 +69,18 @@ export class EditcourseComponent implements OnInit {
         { value: 12, label: '第12节' },
     ];
     _course;
-    _classWeek = [1,2,3];
-    _weekDays;
-    _classNum;
     private _getData = () => {
         // 获取课程c
         this._course = JSON.parse(this._storage.get('course'));
-
     }
     _init = () => {
         this.validateForm.controls['week'].reset();
             let c = this.validateForm.value;
             c.week = this._course.classWeek;
             this.validateForm.setValue(c);
+    }
+    _back() {
+        window.history.back();
     }
     /*//控制全选单双重置*/
     setWeek = (target, operation) => {
@@ -152,6 +148,7 @@ export class EditcourseComponent implements OnInit {
         className = this.validateForm.controls['className'].value;
         classPeoCount = this.validateForm.controls['classPeoCount'].value;
         let data = {
+            id: this._course.id,
             userName: this._storage.get('username'),
             classId: classId,
             className: className,//课程
@@ -163,11 +160,11 @@ export class EditcourseComponent implements OnInit {
         this.editcourseService.executeHttp(this.curl, data)
             .then((result: any) => {
                 let res = JSON.parse(result['_body']);
-                if (res['result'] !== 1) {
+                if (res['result'] === 1) {
+                    this.success();
+                } else {
                     this.info('警告', '修改失败,请检查后重试！');
                     return;
-                } else {
-                    this.success();
                 }
             });
     }
@@ -182,6 +179,5 @@ export class EditcourseComponent implements OnInit {
             classPeoCount: [null, [Validators.required]],
         })
         this._init();
-        console.log(this.validateForm.controls['week'].value);
     }
 }

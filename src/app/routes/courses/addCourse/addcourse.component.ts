@@ -127,23 +127,23 @@ export class AddcourseComponent implements OnInit {
         weekdaytemp[0] = this.validateForm.controls['weekday'].value.value;
         className = this.validateForm.controls['className'].value;
         classPeoCount = this.validateForm.controls['classPeoCount'].value;
-        let data = {
+        const data = {
             userName: this._storage.get('username'),
             classId: classId,
-            className: className,//课程
-            classWeek: weektemp,//周数
-            weekDays: weekdaytemp,//星期几
-            classNum: classNumtemp,//第几节
+            className: className, // 课程
+            classWeek: weektemp, // 周数
+            weekDays: weekdaytemp, // 星期几
+            classNum: classNumtemp, // 第几节
             classPeoCount: classPeoCount
         };
         this.addcourseService.executeHttp(this.curl, data)
             .then((result: any) => {
-                let res = JSON.parse(result['_body']);
-                if (res['result'] !== 1) {
+                const res = JSON.parse(result['_body']);
+                if (res['result'] === 1) {
+                    this.success();
+                } else {
                     this.info('警告', '添加失败,请检查后重试！');
                     return;
-                } else {
-                    this.success();
                 }
             });
     }

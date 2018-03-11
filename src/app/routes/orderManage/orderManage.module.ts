@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
-import {YyglComponent} from './yygl.component';
+import {OrderManageComponent} from './orderManage.component';
 import {SharedModule} from '../../shared.module';
 import {DetailComponent} from './orderDetail/detail.component';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
-  declarations: [YyglComponent, DetailComponent],
+  declarations: [OrderManageComponent, DetailComponent],
   imports: [SharedModule, RouterModule],
-  exports: [YyglComponent]
+  exports: [OrderManageComponent]
 })
 
-export class YyglModule {
+export class OrderManageModule {
 
 }

@@ -132,8 +132,8 @@
         </div>
         <div class="submitBtn" nz-form-item nz-col nzSpan="22">
             <div nz-form-control>
-                <button nz-button [nzType]="'danger'" [nzSize]="'large'" type="reset">
-                    <span>重置</span>
+                <button nz-button [nzType]="'danger'" [nzSize]="'large'" (click)="_back()">
+                    <span>取消</span>
                 </button>
                 <button nz-button [nzLoading]="loadStatus" [nzType]="'primary'" [nzSize]="'large'" (click)="_submitForm()">{{submitBtn}}</button>
 

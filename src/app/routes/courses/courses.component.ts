@@ -1,12 +1,10 @@
 ///<reference path="../../../../node_modules/@angular/forms/src/model.d.ts"/>
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {CoursesService} from './courses.service';
 import {Router} from '@angular/router';
-import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.module';
-import {YyglService} from '../orderManage/yygl.service';
-import set = Reflect.set;
+
 @Component({
   selector: 'app-login',
   templateUrl: 'courses.component.html',

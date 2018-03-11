@@ -1,20 +1,19 @@
 ///<reference path="../../../../node_modules/@angular/forms/src/model.d.ts"/>
 ///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
-import {YyglService} from './yygl.service';
+import {OrderManageService} from './orderManage.service';
 import {Router} from '@angular/router';
-import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import { NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.module';
-import {win} from '@angular/platform-browser/src/browser/tools/browser';
 
 @Component({
-    selector: 'Yygl',
-    templateUrl: 'yygl.component.html',
-    styleUrls: ['./yygl.component.less'],
-    providers: [YyglService]
+    selector: 'OrderManage',
+    templateUrl: 'orderManage.component.html',
+    styleUrls: ['./orderManage.component.less'],
+    providers: [OrderManageService]
 })
 
-export class YyglComponent implements OnInit {
+export class OrderManageComponent implements OnInit {
     _loading = true;
     _value = ''; /*搜索内容*/
     choice = 100; /*筛选条件:全部：100 进行中：0 未开始：0*/
@@ -31,7 +30,7 @@ export class YyglComponent implements OnInit {
         'http://aliyun.charlesxu.cn:8080/LabManager/lab/getLabById',
         'http://aliyun.charlesxu.cn:8080/LabManager/order/deleteOrder',
     ];
-    constructor(private yyglService: YyglService, private confirmServ: NzModalService, private  router: Router,
+    constructor(private orderManageService: OrderManageService, private confirmServ: NzModalService, private  router: Router,
                 private _storage: SessionStorageService) {
     }
     // 换星期几
@@ -69,7 +68,7 @@ export class YyglComponent implements OnInit {
     private _getData = () => {
         // 获取预约
         this._loading = true;
-        this.yyglService.getOrders(this.apiUrl[1], this._storage.get('username'))
+        this.orderManageService.getOrders(this.apiUrl[1], this._storage.get('username'))
             .then((result: any) => {
                 const data = JSON.parse(result['_body'])['Order'];
                 for (const i of data) {
@@ -79,7 +78,7 @@ export class YyglComponent implements OnInit {
                 this._loading = false;
             });
         // 获取未通过预约
-        this.yyglService.getOrders(this.apiUrl[3], this._storage.get('username'))
+        this.orderManageService.getOrders(this.apiUrl[3], this._storage.get('username'))
             .then((result: any) => {
                 this.UnfinishOrder = JSON.parse(result['_body'])['SimpleOrder'];
             });
@@ -89,7 +88,7 @@ export class YyglComponent implements OnInit {
             for (const d of data) {
                 for (let i = 0; i < d.lab.length; i++) {
                     if (this.lab[d.lab[i]] == null) {
-                    this.yyglService.getLab(this.apiUrl[4], d.lab[i])
+                    this.orderManageService.getLab(this.apiUrl[4], d.lab[i])
                         .then((result: any) => {
                             const lab = JSON.parse(result['_body'])['lab'];
                             this.lab[d.lab[i]] = lab;
@@ -102,14 +101,14 @@ export class YyglComponent implements OnInit {
     }
     // 获取实验室信息
     private getLabById (id: any) {
-        this.yyglService.getLab(this.apiUrl[4], id)
+        this.orderManageService.getLab(this.apiUrl[4], id)
             .then((result: any) => {
                 const lab = JSON.parse(result['_body'])['lab'];
             });
     }
     // 删除预约
     private delOrder(id: any) {
-        this.yyglService.delOrder(this.apiUrl[5], id)
+        this.orderManageService.delOrder(this.apiUrl[5], id)
             .then((result: any) => {
                 const res = JSON.parse(result['_body']);
                 if (res['result'] === 1) {
