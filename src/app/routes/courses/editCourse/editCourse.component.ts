@@ -2,24 +2,24 @@
 ///<reference path="../../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {EditcourseService} from './editcourse.service';
+import {EditCourseService} from './editCourse.service';
 import {Router} from '@angular/router';
 import {NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.service';
 
 @Component({
-  selector: 'editcourse',
-  templateUrl: 'editcourse.component.html',
-  styleUrls: ['./editcourse.component.less'],
-  providers: [EditcourseService]
+  selector: 'editCourse',
+  templateUrl: 'editCourse.component.html',
+  styleUrls: ['./editCourse.component.less'],
+  providers: [EditCourseService]
 })
-export class EditcourseComponent implements OnInit {
+export class EditCourseComponent implements OnInit {
     validateForm: FormGroup;
     loadStatus: boolean;
     submitBtn = '提交';
     curl = 'http://aliyun.charlesxu.cn:8080/LabManager/class/updateclass';
     constructor(private _storage: SessionStorageService, private fb: FormBuilder, private router: Router,
-                private editcourseService: EditcourseService, private confirmServ: NzModalService) {
+                private editcourseService: EditCourseService, private confirmServ: NzModalService) {
     }
     week = [{ value: 1, label: '1' },
         { value: 2, label: '2' },

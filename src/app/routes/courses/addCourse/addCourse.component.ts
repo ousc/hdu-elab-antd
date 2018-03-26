@@ -2,24 +2,24 @@
 ///<reference path="../../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {AddcourseService} from './addcourse.service';
-import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {AddCourseService} from './addCourse.service';
+import {NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.service';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'addcourse',
-    templateUrl: 'addcourse.component.html',
-    styleUrls: ['./addcourse.component.less'],
-    providers: [AddcourseService]
+    selector: 'AddCourse',
+    templateUrl: 'addCourse.component.html',
+    styleUrls: ['./addCourse.component.less'],
+    providers: [AddCourseService]
 })
-export class AddcourseComponent implements OnInit {
+export class AddCourseComponent implements OnInit {
     validateForm: FormGroup;
     loadStatus: boolean;
     submitBtn = '提交';
     curl = 'http://aliyun.charlesxu.cn:8080/LabManager/class/addclass';
     constructor(private _storage: SessionStorageService, private fb: FormBuilder, private router: Router,
-                private addcourseService: AddcourseService, private confirmServ: NzModalService) {
+                private addcourseService: AddCourseService, private confirmServ: NzModalService) {
     }
     week = [{ value: 1, label: '1' },
         { value: 2, label: '2' },

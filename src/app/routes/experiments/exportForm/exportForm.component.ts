@@ -3,16 +3,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {NzMessageService} from 'ng-zorro-antd';
-import {DcbgService} from './dcbg.service';
+import {ExportFormService} from './exportForm.service';
 
 @Component({
-  selector: 'dcbg',
-  templateUrl: 'dcbg.component.html',
-  styleUrls: ['./dcbg.component.less'],
-  providers: [DcbgService]
+  selector: 'exportForm',
+  templateUrl: 'exportForm.component.html',
+  styleUrls: ['./exportForm.component.less'],
+  providers: [ExportFormService]
 })
 
-export class DcbgComponent implements OnInit{
+export class ExportFormComponent implements OnInit {
     validateForm: FormGroup;
     course = [
         { value: '101123123', label: '数据结构课程设计{周一345节 1-17周}', },

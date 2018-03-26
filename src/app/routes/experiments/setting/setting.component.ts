@@ -1,19 +1,16 @@
 ///<reference path="../../../../../node_modules/@angular/forms/src/model.d.ts"/>
 ///<reference path="../../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {SyszService} from './sysz.service';
-import {Router} from '@angular/router';
-import {NzMessageService} from 'ng-zorro-antd';
+import {SettingService} from './setting.service';
 
 @Component({
-  selector: 'Sysz',
-  templateUrl: 'sysz.component.html',
-  styleUrls: ['./sysz.component.less'],
-  providers: [SyszService]
+  selector: 'Setting',
+  templateUrl: 'setting.component.html',
+  styleUrls: ['./setting.component.less'],
+  providers: [SettingService]
 })
 
-export class SyszComponent {
+export class SettingComponent {
     /*实验情况：本周实验数，已安排实验学时，总实验数*/
     experiments = { weeknum : 3 , hour: 96, sum: 48};
     /*实验列表*/

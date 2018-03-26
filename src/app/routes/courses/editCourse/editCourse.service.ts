@@ -4,7 +4,7 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 
 
 @Injectable()
-export class EditcourseService {
+export class EditCourseService {
   constructor(private _storage: SessionStorageService, private http: Http) {
   }
     executeHttp( curl: any, data: any) {

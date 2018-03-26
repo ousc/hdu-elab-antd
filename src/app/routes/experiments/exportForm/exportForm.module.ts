@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared.module';
-import {DcbgComponent} from './dcbg.component';
 import {CommonModule} from '@angular/common';
 import {DividerModule} from '@components/Divider/Divider.module';
+import {ExportFormComponent} from './exportForm.component';
 
 
 
 
 @NgModule({
-  declarations: [DcbgComponent],
+  declarations: [ExportFormComponent],
   imports: [SharedModule.forRoot(), CommonModule, DividerModule],
-  exports: [DcbgComponent]
+  exports: [ExportFormComponent]
 })
 
-export class DcbgModule {
+export class ExportFormModule {
 
 }

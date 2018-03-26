@@ -17,7 +17,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class OrderManageComponent implements OnInit {
     validateForm: FormGroup;
     constructor(private orderManageService: OrderManageService, private confirmServ: NzModalService, private  router: Router,
-                private _storage: SessionStorageService, private fb: FormBuilder, private _message: NzMessageService) {
+                private _storage: SessionStorageService, private fb: FormBuilder) {
     }
     _loading = true;
     _value = ''; /*搜索内容*/
@@ -97,7 +97,7 @@ export class OrderManageComponent implements OnInit {
         this.getSemester();
         // 获取预约
         this._loading = true;
-        this.orderManageService.getOrders(this.apiUrl[1], this._storage.get('username'))
+        this.orderManageService.executeHttp(this.apiUrl[1], {userName: this._storage.get('username')})
             .then((result: any) => {
                 const data = JSON.parse(result['_body'])['Order'];
                 for (const i of data) {
@@ -107,7 +107,7 @@ export class OrderManageComponent implements OnInit {
                 this._loading = false;
             });
         // 获取未通过预约
-        this.orderManageService.getOrders(this.apiUrl[3], this._storage.get('username'))
+        this.orderManageService.executeHttp(this.apiUrl[3], {userName: this._storage.get('username')})
             .then((result: any) => {
                 this.UnfinishOrder = JSON.parse(result['_body'])['SimpleOrder'];
             });
@@ -118,7 +118,7 @@ export class OrderManageComponent implements OnInit {
             for (const d of data) {
                 for (let i = 0; i < d.lab.length; i++) {
                     if (this.lab[d.lab[i]] == null) {
-                    this.orderManageService.getLab(this.apiUrl[4], d.lab[i])
+                    this.orderManageService.executeHttp(this.apiUrl[4], {labId: d.lab[i]})
                         .then((result: any) => {
                             const lab = JSON.parse(result['_body'])['lab'];
                             this.lab[d.lab[i]] = lab;
@@ -137,16 +137,9 @@ export class OrderManageComponent implements OnInit {
         }
         return expand;
     }
-    // 获取实验室信息
-    private getLabById (id: any) {
-        this.orderManageService.getLab(this.apiUrl[4], id)
-            .then((result: any) => {
-                const lab = JSON.parse(result['_body'])['lab'];
-            });
-    }
     // 删除预约
     private delOrder(id: any) {
-        this.orderManageService.delOrder(this.apiUrl[5], id)
+        this.orderManageService.executeHttp(this.apiUrl[5], {id: id})
             .then((result: any) => {
                 const res = JSON.parse(result['_body']);
                 if (res['result'] === 1) {

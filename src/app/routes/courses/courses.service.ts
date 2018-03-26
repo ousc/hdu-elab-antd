@@ -7,18 +7,17 @@ import {Headers, Http, RequestOptions} from '@angular/http';
 export class CoursesService {
   constructor(private _storage: SessionStorageService, private http: Http) {
   }
-    getCourses( curl: any, username: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
+    executeGET(curl: any) {
+        let headers = new Headers({'Content-Type': 'application/json', 'charset': 'utf-8'});
         let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({userName: username});
         return new Promise((resolve, reject) => {
-            this.http.post(curl, content, options)
+            this.http.get(curl)
                 .subscribe(result => {
                     resolve(result);
                 });
         });
     }
-    delClass( curl: any, data: any) {
+    executeHttp( curl: any, data: any) {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
         let content = JSON.stringify(data);

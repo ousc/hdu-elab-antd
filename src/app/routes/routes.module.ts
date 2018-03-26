@@ -8,11 +8,10 @@ import {CalendarModule} from './calendar/calendar.module';
 import {OrderModule} from './order/order.module';
 import {OrderManageModule} from './orderManage/orderManage.module';
 import {CoursesModule} from './courses/courses.module';
-import {SyglModule} from './experiments/sygl.module';
 import {ProfileModule} from './profile/profile.module';
 import {RegisterModule} from './register/register.module';
 import {passwordEditModule} from './passwordEdit/passwordEdit.module';
-
+import {ExperimentsModule} from './experiments/experiments.module';
 
 @NgModule({
     imports: [
@@ -26,7 +25,7 @@ import {passwordEditModule} from './passwordEdit/passwordEdit.module';
         OrderModule,
         OrderManageModule,
         CoursesModule,
-        SyglModule,
+        ExperimentsModule,
         ProfileModule,
         RegisterModule,
         passwordEditModule,

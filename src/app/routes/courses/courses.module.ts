@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CoursesComponent} from './courses.component';
 import {SharedModule} from '../../shared.module';
-import {AddcourseComponent} from './addCourse/addcourse.component';
-import {AddcourseModule} from './addCourse/addcourse.module';
-import {EditcourseComponent} from './editCourse/editcourse.component';
+import {AddCourseComponent} from './addCourse/addCourse.component';
+import {EditCourseComponent} from './editCourse/editCourse.component';
 
 @NgModule({
-  declarations: [CoursesComponent, AddcourseComponent, EditcourseComponent],
+  declarations: [CoursesComponent, AddCourseComponent, EditCourseComponent],
   imports: [SharedModule],
   exports: [CoursesComponent]
 })

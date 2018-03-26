@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {SessionStorageService} from '@core/storage/storage.module';
 
 @Injectable()
-export class DcbgService {
+export class ExportFormService {
   constructor(private _storage: SessionStorageService) {
   }
 

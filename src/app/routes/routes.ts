@@ -9,14 +9,14 @@ import {CalendarComponent} from './calendar/calendar.component';
 import {OrderComponent} from './order/order.component';
 import {OrderManageComponent} from './orderManage/orderManage.component';
 import {CoursesComponent} from './courses/courses.component';
-import {AddcourseComponent} from './courses/addCourse/addcourse.component';
-import {EditcourseComponent} from './courses/editCourse/editcourse.component';
-import {SyglComponent} from './experiments/sygl.component';
-import {SyszComponent} from './experiments/sysz/sysz.component';
-import {DcbgComponent} from './experiments/dcbg/dcbg.component';
+import {AddCourseComponent} from './courses/addCourse/addCourse.component';
+import {EditCourseComponent} from './courses/editCourse/editCourse.component';
+import {ExperimentsComponent} from './experiments/experiments.component';
+import {SettingComponent} from './experiments/setting/setting.component';
+import {ExportFormComponent} from './experiments/exportForm/exportForm.component';
 import {ProfileComponent} from './profile/profile.component';
 import {RegisterComponent} from './register/register.component';
-import {passwordEditComponent} from "./passwordEdit/passwordEdit.component";
+import {passwordEditComponent} from './passwordEdit/passwordEdit.component';
 import {HistoricalOrdersComponent} from './orderManage/historicalOrders/historicalOrders.component';
 
 export const routes: Routes = [
@@ -62,31 +62,31 @@ export const routes: Routes = [
                 }
             },
             {
-                path: 'courses/add', component: AddcourseComponent, canActivate: [CanAuthProvide],
+                path: 'courses/add', component: AddCourseComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '添加课程'
                 }
             },
             {
-                path: 'courses/edit', component: EditcourseComponent, canActivate: [CanAuthProvide],
+                path: 'courses/edit', component: EditCourseComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '编辑课程'
                 }
             },
             {
-                path: 'sygl', component: SyglComponent, canActivate: [CanAuthProvide],
+                path: 'experiments', component: ExperimentsComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '实验管理'
                 }
             },
             {
-                path: 'sygl/sysz', component: SyszComponent, canActivate: [CanAuthProvide],
+                path: 'experiments/setting', component: SettingComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '实验设置'
                 }
             },
             {
-                path: 'sygl/dcbg', component: DcbgComponent, canActivate: [CanAuthProvide],
+                path: 'experiments/exportForm', component: ExportFormComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '导出表格'
                 }

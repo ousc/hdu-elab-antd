@@ -1,19 +1,17 @@
 ///<reference path="../../../../node_modules/@angular/forms/src/model.d.ts"/>
 ///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {SyglService} from './sygl.service';
-import {Router} from '@angular/router';
-import {NzMessageService} from 'ng-zorro-antd';
+import {ExperimentsService} from './experiments.service';
+
 
 @Component({
-  selector: 'Sygl',
-  templateUrl: 'sygl.component.html',
-  styleUrls: ['./sygl.component.less'],
-  providers: [SyglService]
+  selector: 'Setting',
+  templateUrl: 'experiments.component.html',
+  styleUrls: ['./experiments.component.less'],
+  providers: [ExperimentsService]
 })
 
-export class SyglComponent {
+export class ExperimentsComponent {
     bodyStyle = { padding: 0 };
     /*实验情况：本周实验数，已安排实验学时，总实验数*/
     experiments = { weeknum : 3 , hour: 96, sum: 48};

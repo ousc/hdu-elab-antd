@@ -43,7 +43,7 @@ export class SiderComponent {
     {
       'icon': 'bulb',
       'name': '实验管理',
-      'route': '/sygl',
+      'route': '/experiments',
     }
   ]; //菜单定义
 

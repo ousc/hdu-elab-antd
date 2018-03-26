@@ -27,48 +27,4 @@ export class OrderManageService {
                 });
         });
     }
-  getOrders( curl: any, username: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({userName: username});
-        return new Promise((resolve, reject) => {
-            this.http.post(curl, content, options)
-                .subscribe(result => {
-                    resolve(result);
-                });
-        });
-    }
-    getOrderDetails( curl: any, id: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({orderId: id});
-        return new Promise((resolve, reject) => {
-            this.http.post(curl, content, options)
-                .subscribe(result => {
-                    resolve(result);
-                });
-        });
-    }
-    getLab( curl: any, id: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({labId: id});
-        return new Promise((resolve, reject) => {
-            this.http.post(curl, content, options)
-                .subscribe(result => {
-                    resolve(result);
-                });
-        });
-    }
-    delOrder( curl: any, id: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let content = JSON.stringify({id: id});
-        return new Promise((resolve, reject) => {
-            this.http.post(curl, content, options)
-                .subscribe(result => {
-                    resolve(result);
-                });
-        });
-    }
 }
