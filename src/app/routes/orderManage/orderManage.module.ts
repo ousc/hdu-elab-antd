@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {OrderManageComponent} from './orderManage.component';
 import {SharedModule} from '../../shared.module';
-import {DetailComponent} from './orderDetail/detail.component';
 import {RouterModule} from '@angular/router';
+import {OrderManageComponent} from './orderManage.component';
+import {HistoricalOrdersComponent} from './historicalOrders/historicalOrders.component';
 
 @NgModule({
-  declarations: [OrderManageComponent, DetailComponent],
+  declarations: [OrderManageComponent, HistoricalOrdersComponent],
   imports: [SharedModule, RouterModule],
   exports: [OrderManageComponent]
 })

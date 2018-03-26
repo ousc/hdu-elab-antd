@@ -3,8 +3,9 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderManageService} from './orderManage.service';
 import {Router} from '@angular/router';
-import { NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {SessionStorageService} from '@core/storage/storage.module';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'OrderManage',
@@ -14,6 +15,10 @@ import {SessionStorageService} from '@core/storage/storage.module';
 })
 
 export class OrderManageComponent implements OnInit {
+    validateForm: FormGroup;
+    constructor(private orderManageService: OrderManageService, private confirmServ: NzModalService, private  router: Router,
+                private _storage: SessionStorageService, private fb: FormBuilder, private _message: NzMessageService) {
+    }
     _loading = true;
     _value = ''; /*搜索内容*/
     choice = 100; /*筛选条件:全部：100 进行中：0 未开始：0*/
@@ -21,18 +26,41 @@ export class OrderManageComponent implements OnInit {
     UnfinishOrder = [];
     orders = [];
     lab = [];
+    user;
     /*接口地址*/
     apiUrl = [
         'http://aliyun.charlesxu.cn:8080/LabManager/order/getSimpleOrderByUsername', /*0获取预约*/
         'http://aliyun.charlesxu.cn:8080/LabManager/order/getOrderByUsername', /*1获取预约*/
         'http://aliyun.charlesxu.cn:8080/LabManager/order/getFinishedSimpleOrderListByUsername', /*2获取通过预约*/
         'http://aliyun.charlesxu.cn:8080/LabManager/order/getUnfinishedSimpleOrderListByUsername', /*3获取未通过预约*/
-        'http://aliyun.charlesxu.cn:8080/LabManager/lab/getLabById',
-        'http://aliyun.charlesxu.cn:8080/LabManager/order/deleteOrder',
+        'http://aliyun.charlesxu.cn:8080/LabManager/lab/getLabById', // 4
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/deleteOrder', // 5
+        'http://aliyun.charlesxu.cn:8080/LabManager/user/getUserByUserName', // 6
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/semester/getOrderByUsername', // 7
+        'http://aliyun.charlesxu.cn:8080/LabManager/order/semester/getSimpleOrderByUserName', // 8
+        'http://aliyun.charlesxu.cn:8080/LabManager/semester/getNowSemester', // 9
     ];
-    constructor(private orderManageService: OrderManageService, private confirmServ: NzModalService, private  router: Router,
-                private _storage: SessionStorageService) {
+    options = [
+        { value: '2016', label: '2016' },
+        { value: '2017', label: '2017' },
+        { value: '2018', label: '2018' },
+        { value: '2019', label: '2019' },
+    ];
+    // 获取学期
+    nowSemester = {
+        nowSemester: '',
+        maxWeek: 17
+    };
+    private getSemester() {
+            this.orderManageService.executeGET(this.apiUrl[9])
+                .then((result: any) => {
+                    const res = JSON.parse(result['_body']);
+                    if (res['result'] === 'success') {
+                        this.nowSemester = res['NowSemester'];
+                    }
+                });
     }
+
     // 换星期几
     private getDayByNum(num: number) {
         const array = ['日', '一', '二', '三', '四', '五', '六', '日'];
@@ -66,6 +94,7 @@ export class OrderManageComponent implements OnInit {
         }
     }
     private _getData = () => {
+        this.getSemester();
         // 获取预约
         this._loading = true;
         this.orderManageService.getOrders(this.apiUrl[1], this._storage.get('username'))
@@ -83,6 +112,7 @@ export class OrderManageComponent implements OnInit {
                 this.UnfinishOrder = JSON.parse(result['_body'])['SimpleOrder'];
             });
     }
+    // 展开预约详情
     private boolOpen(expand: boolean, data: any) {
         if (expand) {
             for (const d of data) {
@@ -92,6 +122,14 @@ export class OrderManageComponent implements OnInit {
                         .then((result: any) => {
                             const lab = JSON.parse(result['_body'])['lab'];
                             this.lab[d.lab[i]] = lab;
+                            console.log(lab);
+                            console.log(this.lab[d.lab[i]].adminName);
+                            console.log(this.lab);
+                            this.orderManageService.executeHttp(this.apiUrl[6], {userName: '40392'})
+                                .then((res: any) => {
+                                    const admin = JSON.parse(res['_body'])['User1'];
+                                    this.user = admin;
+                                });
                         });
                     }
                 }
@@ -127,14 +165,45 @@ export class OrderManageComponent implements OnInit {
             window.location.reload();
         }, 1000);
     }
-    eidtOrder(id: number) {
-        this._storage.set('orderId', id);
-
+    // 获取历史预约
+    currentModal;
+    showModalForTemplate(titleTpl, contentTpl, footerTpl) {
+        const form = this.validateForm;
+        let _storage = this._storage;
+        const Route = this.router;
+        this.currentModal = this.confirmServ.open({
+            title       : titleTpl,
+            content     : contentTpl,
+            footer      : footerTpl,
+            onOk() {
+                const str = form.controls['fy'].value.value + '-' +
+                form.controls['sy'].value.value + '-' + form.controls['type'].value;
+                _storage.set('history', str);
+                Route.navigate(['/orders/history']);
+            },
+            onCancel() {
+            },
+        });
     }
-    onSearch(event: string): void {
-        console.log(event);
+    handleCancel(e) {
+            this.currentModal.destroy('onCancel');
+            this.currentModal = null;
+    }
+    isConfirmLoading = false;
+    handleOk(e) {
+        this.isConfirmLoading = true;
+        setTimeout(() => {
+            this.currentModal.destroy('onOk');
+            this.isConfirmLoading = false;
+            this.currentModal = null;
+        }, 1000);
     }
     ngOnInit(): void {
+        this.validateForm = this.fb.group({
+            fy: [null, this.validateForm],
+            sy: [null, this.validateForm],
+            type: [null, this.validateForm]
+        });
         this._getData();
     }
 }

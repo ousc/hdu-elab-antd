@@ -8,7 +8,6 @@ import {CanAuthProvide} from '@core/services/auth.service';
 import {CalendarComponent} from './calendar/calendar.component';
 import {OrderComponent} from './order/order.component';
 import {OrderManageComponent} from './orderManage/orderManage.component';
-import {DetailComponent} from './orderManage/orderDetail/detail.component';
 import {CoursesComponent} from './courses/courses.component';
 import {AddcourseComponent} from './courses/addCourse/addcourse.component';
 import {EditcourseComponent} from './courses/editCourse/editcourse.component';
@@ -18,6 +17,7 @@ import {DcbgComponent} from './experiments/dcbg/dcbg.component';
 import {ProfileComponent} from './profile/profile.component';
 import {RegisterComponent} from './register/register.component';
 import {passwordEditComponent} from "./passwordEdit/passwordEdit.component";
+import {HistoricalOrdersComponent} from './orderManage/historicalOrders/historicalOrders.component';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
@@ -49,9 +49,10 @@ export const routes: Routes = [
                     breadcrumb: '预约管理'
                 }
             },
-            { path : 'orders/detail', component: DetailComponent, canActivate: [CanAuthProvide],
-                data : {
-                    breadcrumb: '预约详情'
+            {
+                path: 'orders/history', component: HistoricalOrdersComponent, canActivate: [CanAuthProvide],
+                data: {
+                    breadcrumb: '历史预约'
                 }
             },
             {
