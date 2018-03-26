@@ -100,7 +100,7 @@ export class CoursesComponent implements OnInit {
             window.location.reload();
         }, 1000);
     }
-    // 获取历史预约
+    // 获取历史课程
     currentModal;
     showModalForTemplate(titleTpl, contentTpl, footerTpl) {
         const form = this.validateForm;
@@ -113,8 +113,8 @@ export class CoursesComponent implements OnInit {
             onOk() {
                 const str = form.controls['fy'].value.value + '-' +
                     form.controls['sy'].value.value + '-' + form.controls['type'].value;
-                _storage.set('history', str);
-                Route.navigate(['/orders/history']);
+                _storage.set('historyCourses', str);
+                Route.navigate(['/courses/history']);
             },
             onCancel() {
             },

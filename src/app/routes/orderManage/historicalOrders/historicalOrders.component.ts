@@ -118,17 +118,6 @@ export class HistoricalOrdersComponent implements OnInit {
         }
         return expand;
     }
-    success = () => {
-        const modal = this.confirmServ.success({
-            title: '删除成功',
-            content: '1秒后刷新'
-        });
-        const Route = this.router;
-        setTimeout(function () {
-            modal.destroy();
-            window.location.reload();
-        }, 1000);
-    }
     ngOnInit(): void {
         this._getData();
     }

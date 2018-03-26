@@ -1,0 +1,86 @@
+<div nz-row>
+    <h1>历史课程查询</h1>
+</div>
+<div nz-row>
+    <div nz-col [nzSpan]="22">
+        <p>查询学期：<span>{{searchSemester}}</span></p>
+    </div>
+    <div nz-col [nzSpan]="1" style="margin-left: -2em">
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" onclick="window.history.back()">
+            <span>返回</span>
+        </button>
+    </div>
+</div>
+<div nz-row class="mycard" [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'">
+    <div nz-col [nzSpan]="8">
+        <p>我的课程</p>
+        <p>{{courses.length}}个课程</p>
+    </div>
+    <div nz-col [nzSpan]="8" class="se">
+        <p>学期课时总数</p>
+        <p>{{this.getAllHours(courses)}}个学时</p>
+    </div>
+    <div nz-col [nzSpan]="8">
+        <p>周课时总数</p>
+        <p>{{this.getWeekHours(courses)}}个学时</p>
+    </div>
+</div>
+<div nz-row>
+    <div nz-col [nzSpan]="14">
+        <h2>历史课程列表</h2>
+    </div>
+    <div nz-col [nzSpan]="6" class="mbg">
+        <nz-radio-group  [(ngModel)]="choice" style="margin-right: 1em">
+            <label nz-radio-button [nzValue]="'all'" ><span>全部</span></label>
+            <label nz-radio-button [nzValue]="'ing'"><span>进行中</span></label>
+            <label nz-radio-button [nzValue]="'no'"><span>未开始</span></label>
+        </nz-radio-group>
+    </div>
+    <div nz-col [nzSpan]="3" class="sousuo">
+        <nz-input [nzType]="'search'" [nzPlaceHolder]="'请输入'"
+                  [(ngModel)]="_value" style="width: 200px;margin-left: -2em" (nzOnSearch)="null" >
+        </nz-input>
+    </div>
+</div>
+<br>
+<div nz-row [nzType]="'flex'" [nzJustify]="'start'">
+<div nz-row>
+    <div nz-col>
+        <nz-table #nzTable [nzDataSource]="courses" [nzPageSize]="5" [nzShowSizeChanger]="true" [nzShowTotal]="true" [nzTotal]="courses.length">
+            <thead nz-thead>
+            <tr>
+                <th nz-th><span>编号</span></th>
+                <th nz-th [nzWidth]="'20%'"><span>课程名称</span></th>
+                <th nz-th  [nzWidth]="'22%'"><span>课程号</span></th>
+                <th nz-th><span>课程学时</span></th>
+                <th nz-th><span>课程人数</span></th>
+                <th nz-th><span>操作</span></th>
+            </tr>
+            </thead>
+            <tbody nz-tbody>
+            <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                <td nz-td>{{data.id}}</td>
+                <td nz-td>
+                    <span>{{data.className}}</span>
+                    <br>
+                    <span>周{{this.WEEK[data.weekDays]}} 第{{data.classNum}}节</span>
+                    <br>
+                    <span>第{{data.classWeek}}周</span>
+                </td>
+                <td nz-td>{{data.classId}}</td>
+                <td nz-td>{{this.getHours(data)}}</td>
+                <td nz-td>{{data.classPeoCount}}</td>
+                <td nz-td>
+            <span>
+              <a >编辑</a>
+              <span nz-table-divider></span>
+              <nz-popconfirm [nzTitle]="'确定删除吗？'" (nzOnConfirm)="null" (nzOnCancel)="null">
+                <a nz-popconfirm>删除</a>
+              </nz-popconfirm>
+            </span>
+                </td>
+            </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

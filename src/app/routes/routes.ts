@@ -18,6 +18,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {RegisterComponent} from './register/register.component';
 import {passwordEditComponent} from './passwordEdit/passwordEdit.component';
 import {HistoricalOrdersComponent} from './orderManage/historicalOrders/historicalOrders.component';
+import {HistoricalCoursesComponent} from './courses/historicalcourses/historicalCourses.component';
 
 export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
@@ -59,6 +60,12 @@ export const routes: Routes = [
                 path: 'courses', component: CoursesComponent, canActivate: [CanAuthProvide],
                 data: {
                     breadcrumb: '课程管理'
+                }
+            },
+            {
+                path: 'courses/history', component: HistoricalCoursesComponent, canActivate: [CanAuthProvide],
+                data: {
+                    breadcrumb: '编辑课程'
                 }
             },
             {
