@@ -121,6 +121,7 @@ export class OrderManageComponent implements OnInit {
                     this.orderManageService.executeHttp(this.apiUrl[4], {labId: d.lab[i]})
                         .then((result: any) => {
                             const lab = JSON.parse(result['_body'])['lab'];
+                            this.lab[d.lab[i]] = lab;
                             this.orderManageService.executeHttp(this.apiUrl[6], {userName: this.lab[d.lab[i]].userName})
                                 .then((res: any) => {
                                     const admin = JSON.parse(res['_body'])['User1'];
