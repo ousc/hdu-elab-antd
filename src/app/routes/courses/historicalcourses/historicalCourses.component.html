@@ -71,9 +71,9 @@
                 <td nz-td>{{data.classPeoCount}}</td>
                 <td nz-td>
             <span>
-              <a (>编辑</a>
+              <a>编辑</a>
               <span nz-table-divider></span>
-              <nz-popconfirm [nzTitle]="'确定删除吗？'" (nzOnConfirm)="delClass(data)" (nzOnCancel)="null">
+              <nz-popconfirm [nzTitle]="'确定删除吗？'" (nzOnConfirm)="null" (nzOnCancel)="null">
                 <a nz-popconfirm>删除</a>
               </nz-popconfirm>
             </span>
