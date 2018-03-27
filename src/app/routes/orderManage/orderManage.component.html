@@ -157,11 +157,11 @@
                 <td nz-td>{{lab[order.lab[i]].labPeoCount}}</td>
                 <td nz-td>{{lab[order.lab[i]].labType}}</td>
                 <td nz-td>
-                    {{lab[order.lab[i]].adminName}}
-                    <nz-popover [nzTitle]="'课表'">
-                        <i class="anticon anticon-question-circle" nz-popover style="margin-left: 10px;"></i>
+                    <nz-popover [nzTitle]="'联系方式'">
+                        <span nz-popover>{{lab[order.lab[i]].adminName}}</span>
                         <ng-template #nzTemplate>
-                            lll
+                            <div><p>电话：{{lab[order.lab[i]].phone}}</p>
+                                <p>邮箱：{{lab[order.lab[i]].email}}</p></div>
                         </ng-template>
                     </nz-popover>
                 </td>

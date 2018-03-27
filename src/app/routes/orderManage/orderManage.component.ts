@@ -121,14 +121,11 @@ export class OrderManageComponent implements OnInit {
                     this.orderManageService.executeHttp(this.apiUrl[4], {labId: d.lab[i]})
                         .then((result: any) => {
                             const lab = JSON.parse(result['_body'])['lab'];
-                            this.lab[d.lab[i]] = lab;
-                            console.log(lab);
-                            console.log(this.lab[d.lab[i]].adminName);
-                            console.log(this.lab);
-                            this.orderManageService.executeHttp(this.apiUrl[6], {userName: '40392'})
+                            this.orderManageService.executeHttp(this.apiUrl[6], {userName: this.lab[d.lab[i]].userName})
                                 .then((res: any) => {
                                     const admin = JSON.parse(res['_body'])['User1'];
-                                    this.user = admin;
+                                    this.lab[d.lab[i]].email = admin.email;
+                                    this.lab[d.lab[i]].phone = admin.phone;
                                 });
                         });
                     }
