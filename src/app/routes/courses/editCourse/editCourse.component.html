@@ -6,7 +6,7 @@
 <br>
 <div nz-row>
     <div nz-col>
-        <p>当前学期：2017学年第一学期（本周为第11周）</p>
+        <p>当前学期：{{nowSemester.nowSemester}}</p>
     </div>
 </div>
 <br><br><br>
@@ -17,9 +17,13 @@
     <form [nzLayout]="'horizontal'" nz-form [formGroup]="validateForm" (ngSubmit)="'_submitForm()'" nz-col [nzOffset]="'5'" nzSpan="10">
         <div class="formItem" nz-form-item>
             <div nz-form-control>
-                <label  nz-col nzSpan="10"></label>
-                <div nz-col nzSpan="14">
-                    <span nz-form-text style="color: red">请按教务系统中的该课程的信息修改，谢谢</span>
+                <label  nz-col nzSpan="8"></label>
+                <div nz-col nzSpan="16">
+                    <nz-alert [nzType]="'warning'" nzShowIcon>
+                          <span alert-body>
+                            <pre style="font-size: 1.4em;color: red">请输入教务系统中的该课程的信息,谢谢.</pre>
+                          </span>
+                    </nz-alert>
                 </div>
             </div>
         </div>
@@ -46,20 +50,20 @@
             </div>
         </div>
         <div class="formItem" nz-form-item>
-            <div nz-form-control [nzValidateStatus]="validateForm.controls.week"  [nzValidateStatus]="getFormControl('week')"  nzHasFeedback >
+            <div nz-form-control  [nzValidateStatus]="getFormControl('week')"  nzHasFeedback >
                 <label for="week" nz-col nzSpan="10">课程周次（可多选）：</label>
                 <div nz-col nzSpan="12">
                     <nz-select
                             nzMode="multiple"
                             id="week"
                             formControlName="week"
-                            [nzPlaceHolder]="'请选择周数'"
                             [(ngModel)]="_course.classWeek"
+                            [nzPlaceHolder]="'请选择周数'"
                     >
                         <nz-option
                                 *ngFor="let option of week"
                                 [nzLabel]="option.label"
-                                [nzValue]="option">
+                                [nzValue]="option.value">
                         </nz-option>
                     </nz-select>
                 </div>
@@ -86,13 +90,13 @@
                                 id="weekday"
                                 formControlName="weekday"
                                 [nzPlaceHolder]="'星期 '"
+                                [(ngModel)]="_course.weekDays[0]"
                                 nzShowSearch="true"
-                                [(ngModel)]="_course.weekDays"
                         >
                             <nz-option
                                     *ngFor="let option of weekday"
                                     [nzLabel]="option.label"
-                                    [nzValue]="option">
+                                    [nzValue]="option.value">
                             </nz-option>
                         </nz-select>
                         <nz-select
@@ -106,7 +110,7 @@
                             <nz-option
                                     *ngFor="let option of classNum"
                                     [nzLabel]="option.label"
-                                    [nzValue]="option">
+                                    [nzValue]="option.value">
                             </nz-option>
                         </nz-select>
                     </nz-input-group>

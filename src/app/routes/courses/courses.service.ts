@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SessionStorageService} from 'app/core/storage/storage.module';
 import {Headers, Http, RequestOptions} from '@angular/http';
+const host = 'http://aliyun.charlesxu.cn:8080/LabManager/';
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class CoursesService {
         let headers = new Headers({'Content-Type': 'application/json', 'charset': 'utf-8'});
         let options = new RequestOptions({headers: headers});
         return new Promise((resolve, reject) => {
-            this.http.get(curl)
+            this.http.get(host + curl)
                 .subscribe(result => {
                     resolve(result);
                 });
@@ -22,7 +23,7 @@ export class CoursesService {
         let options = new RequestOptions({headers: headers});
         let content = JSON.stringify(data);
         return new Promise((resolve, reject) => {
-            this.http.post(curl, content, options)
+            this.http.post(host + curl, content, options)
                 .subscribe(result => {
                     resolve(result);
                 });

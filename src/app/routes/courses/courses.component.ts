@@ -18,9 +18,9 @@ export class CoursesComponent implements OnInit {
     }
     validateForm: FormGroup;
     apiUrl = [
-        'http://aliyun.charlesxu.cn:8080/LabManager/class/getclassbyusername', /*0获取课程*/
-        'http://aliyun.charlesxu.cn:8080/LabManager/class/deleteclass', /*1删除课程*/
-        'http://aliyun.charlesxu.cn:8080/LabManager/semester/getNowSemester', // 2
+        'class/getclassbyusername', /*0获取课程*/
+        'class/deleteclass', /*1删除课程*/
+        'semester/getNowSemester', // 2
     ];
     options = [
         { value: '2016', label: '2016' },

@@ -27,7 +27,25 @@ export class CalendarComponent implements OnInit {
           this.timetable = JSON.parse(result['_body'])['courseTable']['courseTable'];
       })
   }
+    apiUrl = [
+        'semester/getNowSemester', // 0
+    ];
+    // 获取学期
+    nowSemester = {
+        nowSemester: '',
+        maxWeek: 17
+    };
+    private getSemester() {
+        this.CalendarService.executeGET(this.apiUrl[0])
+            .then((result: any) => {
+                const res = JSON.parse(result['_body']);
+                if (res['result'] === 'success') {
+                    this.nowSemester = res['NowSemester'];
+                }
+            });
+    }
   ngOnInit(): void {
+      this.getSemester();
   }
   setStyles(s){
     let tb = {

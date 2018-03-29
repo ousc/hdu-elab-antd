@@ -17,31 +17,14 @@ export class AddCourseComponent implements OnInit {
     validateForm: FormGroup;
     loadStatus: boolean;
     submitBtn = '提交';
-    curl = 'http://aliyun.charlesxu.cn:8080/LabManager/class/addclass';
+    curl = [
+        'class/addclass', // 0 添加课程
+        'semester/getNowSemester' // 1获取当前学期
+    ];
     constructor(private _storage: SessionStorageService, private fb: FormBuilder, private router: Router,
                 private addcourseService: AddCourseService, private confirmServ: NzModalService) {
     }
-    week = [{ value: 1, label: '1' },
-        { value: 2, label: '2' },
-        { value: 3, label: '3' },
-        { value: 4, label: '4' },
-        { value: 5, label: '5' },
-        { value: 6, label: '6' },
-        { value: 7, label: '7' },
-        { value: 8, label: '8' },
-        { value: 9, label: '9' },
-        { value: 10, label: '10' },
-        { value: 11, label: '11' },
-        { value: 12, label: '12' },
-        { value: 13, label: '13' },
-        { value: 14, label: '14' },
-        { value: 15, label: '15' },
-        { value: 16, label: '16' },
-        { value: 17, label: '17' },
-        { value: 18, label: '18' },
-        { value: 19, label: '19' },
-        { value: 20, label: '20' },
-    ];
+    week = [];
     weekday = [{ value: 1, label: '星期一' },
         { value: 2, label: '星期二' },
         { value: 3, label: '星期三' },
@@ -63,6 +46,16 @@ export class AddCourseComponent implements OnInit {
         { value: 11, label: '第11节' },
         { value: 12, label: '第12节' },
     ];
+    nowSemester = {
+        nowSemester: '',
+        maxWeek: 17
+    };
+    private setInitWeek() {
+        for (let i = 0; i < 30; i++) {
+            this.week[i] = {value : i + 1, label: (i + 1).toString()};
+        }
+        console.log(this.week);
+    }
     /*//控制全选单双重置*/
     setWeek = (target, operation) => {
         this.validateForm.controls[target].reset();
@@ -147,7 +140,19 @@ export class AddCourseComponent implements OnInit {
                 }
             });
     }
+    private getData() {
+        this.setInitWeek();
+        // 获取学期
+        this.addcourseService.executeGET(this.curl[1])
+            .then((result: any) => {
+                const res = JSON.parse(result['_body']);
+                if (res['result'] === 'success') {
+                    this.nowSemester = res['NowSemester'];
+                }
+            });
+    }
     ngOnInit() {
+        this.getData();
         this.validateForm = this.fb.group({
             classId: [null, [Validators.required]],
             className: [null, [Validators.required]],

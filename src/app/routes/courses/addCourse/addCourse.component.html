@@ -6,7 +6,7 @@
 <br>
 <div nz-row>
   <div nz-col>
-    <p>当前学期：2017学年第一学期（本周为第11周）</p>
+    <p>当前学期：{{nowSemester.nowSemester}}</p>
   </div>
 </div>
 <br><br><br>
@@ -17,10 +17,13 @@
   <form [nzLayout]="'horizontal'" nz-form [formGroup]="validateForm" (ngSubmit)="'_submitForm()'" nz-col [nzOffset]="'5'" nzSpan="10">
     <div class="formItem" nz-form-item>
       <div nz-form-control>
-        <label  nz-col nzSpan="6"></label>
+        <label  nz-col nzSpan="8"></label>
         <div nz-col nzSpan="16">
-          <nz-alert [nzType]="'warning'" [nzMessage]="'请输入教务系统中的该课程的信息,谢谢.'"
-                    [nzDescription]="''" nzShowIcon></nz-alert>
+          <nz-alert [nzType]="'warning'" nzShowIcon>
+                          <span alert-body>
+                            <pre style="font-size: 1.4em;color: red">请输入教务系统中的该课程的信息,谢谢.</pre>
+                          </span>
+          </nz-alert>
         </div>
       </div>
     </div>
