@@ -65,7 +65,7 @@ export const routes: Routes = [
             {
                 path: 'courses/history', component: HistoricalCoursesComponent, canActivate: [CanAuthProvide],
                 data: {
-                    breadcrumb: '编辑课程'
+                    breadcrumb: '历史课程'
                 }
             },
             {

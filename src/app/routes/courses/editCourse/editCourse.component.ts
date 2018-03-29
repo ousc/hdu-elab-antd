@@ -137,7 +137,7 @@ export class EditCourseComponent implements OnInit {
             classNum: this._course.classNum, // 第几节
             classPeoCount: this._course.classPeoCount
         };
-        this.editcourseService.executeHttp(this.curl, data)
+        this.editcourseService.executeHttp(this.curl[0], data)
             .then((result: any) => {
                 let res = JSON.parse(result['_body']);
                 if (res['result'] === 1) {
