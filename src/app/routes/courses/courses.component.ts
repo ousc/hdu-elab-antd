@@ -86,6 +86,7 @@ export class CoursesComponent implements OnInit {
                 const res = JSON.parse(result['_body']);
                 if (res['result'] === 1) {
                     this.success();
+                    this._getData();
                 }
             });
     }
@@ -97,7 +98,6 @@ export class CoursesComponent implements OnInit {
         const Route = this.router;
         setTimeout(function () {
             modal.destroy();
-            window.location.reload();
         }, 1000);
     }
     // 获取历史课程

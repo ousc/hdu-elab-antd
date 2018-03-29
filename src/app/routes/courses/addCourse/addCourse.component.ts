@@ -129,7 +129,7 @@ export class AddCourseComponent implements OnInit {
             classNum: classNumtemp, // 第几节
             classPeoCount: classPeoCount
         };
-        this.addcourseService.executeHttp(this.curl, data)
+        this.addcourseService.executeHttp(this.curl[0], data)
             .then((result: any) => {
                 const res = JSON.parse(result['_body']);
                 if (res['result'] === 1) {
